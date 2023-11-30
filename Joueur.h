@@ -16,11 +16,12 @@ class Joueur
 
   public:
     Joueur();
+    Joueur(std::string, Grille*, BatailleNavale*, Flotte*);
     ~Joueur();
     Joueur(const Joueur& j);
 
     std::string getPseudo() const;
-    void        setPseudo(std::string nouveauPseudo);
+    void        setPseudo(const std::string nouveauPseudo);
     void        associerJoueurGrille(Grille*);
     void        associerJoueurBatailleNavale(BatailleNavale*);
     void        associerJoueurFlotte(Flotte*);

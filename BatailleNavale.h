@@ -13,7 +13,7 @@ class BatailleNavale
 
   public:
     BatailleNavale();
-    BatailleNavale(Joueur*, Joueur*);
+    BatailleNavale(Joueur*, Joueur*, IHM*);
     BatailleNavale(const BatailleNavale&);
     ~BatailleNavale();
     void associerBatailleJoueurs(Joueur*, Joueur*);

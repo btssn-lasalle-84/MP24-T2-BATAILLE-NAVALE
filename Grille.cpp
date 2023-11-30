@@ -10,7 +10,8 @@ Grille::~Grille()
 {
 }
 
-Grille::Grille(const Grille& g) : nbLigne(g.nbLigne), nbColonne(g.nbColonne)
+Grille::Grille(const Grille& g, Joueur* grilleJoueur) :
+    nbLigne(g.nbLigne), nbColonne(g.nbColonne), joueur(grilleJoueur)
 {
 }
 

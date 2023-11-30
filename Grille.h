@@ -13,7 +13,7 @@ class Grille
   public:
     Grille();
     ~Grille();
-    Grille(const Grille& g);
+    Grille(const Grille&, Joueur*);
 
     int  getNbLigne() const;
     int  getNbColonne() const;

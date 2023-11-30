@@ -13,7 +13,7 @@ class Flotte
 
   public:
     Flotte();
-    Flotte(const std::vector<Navire>);
+    Flotte(const std::vector<Navire>, Joueur*);
     Flotte(const Flotte&);
     ~Flotte();
 
