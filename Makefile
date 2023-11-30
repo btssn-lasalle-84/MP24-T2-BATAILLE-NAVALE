@@ -4,7 +4,7 @@ CXX = g++ # Compilateur
 LD = g++ -o
 CXXFLAGS = -Wall # Options de compilation
 CLANG_TIDY = clang-tidy
-CLANg_FLAGS = --quiet -header-filter='.*' -checks=-*,boost-*,bugprone-*,performance-*,readability-*,portability-*,modernize-use-nullptr,clang-analyzer-*,cppcoreguidelines-* --format-style=none -- -std=c++11
+CLANG_FLAGS = --quiet -header-filter='.*' -checks=-*,boost-*,bugprone-*,performance-*,readability-*,portability-*,modernize-use-nullptr,clang-analyzer-*,cppcoreguidelines-* --format-style=none -- -std=c++11
 RM = rm -f
 
 all: $(TARGET) # Règle par défaut : construire l'exécutable
