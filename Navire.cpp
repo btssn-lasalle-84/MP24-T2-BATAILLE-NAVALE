@@ -12,7 +12,7 @@ Navire::Navire(string nomNavire, int orientationNavire, vector<Coordonnees> coor
     nom(nomNavire), orientation(orientationNavire), coordonnees(coordonneesNavire), degats(0),
     etat(1){};
 
-Navire::Navire(Navire& n) :
+Navire::Navire(const Navire& n) :
     nom(n.nom), orientation(n.orientation), coordonnees(n.coordonnees), degats(n.degats),
     etat(n.etat){};
 

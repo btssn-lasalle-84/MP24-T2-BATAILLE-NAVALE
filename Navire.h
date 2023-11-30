@@ -26,7 +26,7 @@ class Navire
   public:
     Navire(std::string, int, std::vector<Coordonnees>);
     Navire();
-    Navire(Navire& n);
+    Navire(const Navire& n);
     ~Navire();
     std::string getNom() const;
     bool        ajouterDegat(Coordonnees);
