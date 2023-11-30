@@ -8,12 +8,12 @@ class Navire;
 class Flotte
 {
   private:
-    std::vector<Navire> flotte;
-    Joueur*             joueur;
+    std::vector<Navire*> flotte;
+    Joueur*              joueur;
 
   public:
     Flotte();
-    Flotte(const std::vector<Navire>, Joueur*);
+    Flotte(const std::vector<Navire*>, Joueur*);
     Flotte(const Flotte&);
     ~Flotte();
 
