@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Flotte::Flotte() : flotte()
+Flotte::Flotte() : flotte(), joueur()
 {
 }
 
@@ -11,7 +11,7 @@ Flotte::Flotte(const vector<Navire> flotteNavires, Joueur* flotteJoueur) :
 {
 }
 
-Flotte::Flotte(const Flotte& f) : flotte(f.flotte)
+Flotte::Flotte(const Flotte& f) : flotte(f.flotte), joueur(f.joueur)
 {
 }
 
