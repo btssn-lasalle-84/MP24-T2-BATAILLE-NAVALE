@@ -9,7 +9,7 @@ class Joueur
   public:
     Joueur();
     ~Joueur();
-    Joueur(const Joueur&);
+    Joueur(const Joueur& j);
 
     std::string getPseudo() const;
     void        setPseudo(std::string nouveauPseudo);

@@ -1,6 +1,6 @@
 #include "Joueur.h"
 
-Joueur::Joueur() : pseudo("toto")
+Joueur::Joueur() : pseudo(" ")
 {
 }
 
