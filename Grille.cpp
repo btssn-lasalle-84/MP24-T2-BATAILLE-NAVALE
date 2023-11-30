@@ -1,6 +1,8 @@
 #include "Grille.h"
+#define NB_LIGNE   10
+#define NB_COLONNE 10
 
-Grille::Grille() : nbLigne(10), nbColonne(10)
+Grille::Grille() : nbLigne(NB_LIGNE), nbColonne(NB_COLONNE)
 {
 }
 
