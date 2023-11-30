@@ -2,7 +2,7 @@
 #define NB_LIGNE   10
 #define NB_COLONNE 10
 
-Grille::Grille() : nbLigne(NB_LIGNE), nbColonne(NB_COLONNE)
+Grille::Grille() : nbLigne(NB_LIGNE), nbColonne(NB_COLONNE), joueur()
 {
 }
 
@@ -22,4 +22,9 @@ int Grille::getNbColonne() const
 int Grille::getNbLigne() const
 {
     return this->nbLigne;
+}
+
+void Grille::associerGrilleJoueur(Joueur* joueurGrille)
+{
+    joueur = joueurGrille;
 }
