@@ -4,3 +4,7 @@
 #include "IHM.h"
 #include "Joueur.h"
 #include "Navire.h"
+
+int main()
+{
+}
