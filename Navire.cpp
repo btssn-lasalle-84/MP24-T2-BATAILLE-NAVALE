@@ -1,5 +1,4 @@
 #include "Navire.h"
-#include <algorithm>
 
 using namespace std;
 
@@ -25,12 +24,15 @@ std::string Navire::getNom() const
 
 bool Navire::ajouterDegat(Coordonnees coordonnee)
 {
-    vector<Coordonnees>::iterator it = find(coordonnees.begin(), coordonnees.end(), coordonnee);
-    if(it != coordonnees.end())
+    for(unsigned int i = 0; i < coordonnees.size(); ++i)
     {
-        coordonnees.erase(it);
-        degats += 1;
-        return true;
+        if(coordonnee.colonne == coordonnees[i].colonne && coordonnee.ligne == coordonnees[i].ligne)
+        {
+            degats += 1;
+            coordonnees[i].colonne = CASE_MORTE_COL;
+            coordonnees[i].ligne   = CASE_MORTE_LIG;
+            return true;
+        }
     }
 
     return false;
