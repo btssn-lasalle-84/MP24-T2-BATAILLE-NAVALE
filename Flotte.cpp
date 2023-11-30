@@ -6,7 +6,7 @@ Flotte::Flotte() : flotte(), joueur()
 {
 }
 
-Flotte::Flotte(const vector<Navire> flotteNavires, Joueur* flotteJoueur) :
+Flotte::Flotte(const vector<Navire*> flotteNavires, Joueur* flotteJoueur) :
     flotte(flotteNavires), joueur(flotteJoueur)
 {
 }
