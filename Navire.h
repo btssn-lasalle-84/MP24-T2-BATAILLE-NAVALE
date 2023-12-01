@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <iostream>
 #include <vector>
+#include <Coordonnees.h>
 
 #define CASE_MORTE_COL 0
 #define CASE_MORTE_LIG 'X'
@@ -11,12 +12,6 @@ enum orientation
 {
     HORIZONTAL = 0,
     VERTICAL   = 1
-};
-
-struct Coordonnees
-{
-    int  colonne;
-    char ligne;
 };
 
 class Navire
