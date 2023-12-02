@@ -17,6 +17,7 @@ class Flotte
     Flotte(const Flotte&);
     ~Flotte();
 
+    void ajouterNavire(Navire*);
     void associerFlotteJoueur(Joueur*);
 };
 

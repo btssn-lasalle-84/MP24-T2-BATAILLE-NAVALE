@@ -19,6 +19,11 @@ Flotte::~Flotte()
 {
 }
 
+void Flotte::ajouterNavire(Navire* navire)
+{
+    this->flotte.push_back(navire);
+}
+
 void Flotte::associerFlotteJoueur(Joueur* joueurFlotte)
 {
     joueur = joueurFlotte;
