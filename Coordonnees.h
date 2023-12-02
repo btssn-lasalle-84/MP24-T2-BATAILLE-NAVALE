@@ -3,8 +3,8 @@
 
 struct Coordonnees
 {
-    int  colonne;
-    char ligne;
+    char         ligne;
+    unsigned int colonne;
 };
 
 #endif
