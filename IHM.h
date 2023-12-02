@@ -5,10 +5,13 @@
 #include "Flotte.h"
 #include "Grille.h"
 #include "BatailleNavale.h"
+#include "Coordonnees.h"
+#include "Navire.h"
 
 class BatailleNavale;
 class Flotte;
 class Grille;
+class Navire;
 struct Coordonnees;
 
 class IHM
@@ -23,10 +26,11 @@ class IHM
     ~IHM();
 
     std::string saisirJoueur();
-    Flotte saisirDisposition();
-    Coordonnees saisirCoup();
-    void afficherGrille(Grille*);
-    void associerInterfaceBataille(BatailleNavale*);
+    Flotte      saisirDisposition(Grille*, Joueur*);
+    Coordonnees saisirCoup(Grille*);
+    bool        estCoupValide(Coordonnees, Grille*);
+    void        afficherGrille(Grille*);
+    void        associerInterfaceBataille(BatailleNavale*);
 };
 
 #endif
