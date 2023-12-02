@@ -37,3 +37,15 @@ bool Navire::ajouterDegat(Coordonnees coordonnee)
 
     return false;
 }
+
+bool Navire::estNavireValide(Navire navire, Grille* grille)
+{
+    if(navire.orientation == HORIZONTAL)
+    {
+        return (navire.coordonnees.back().colonne <= grille->getNbColonne());
+    }
+    else
+    {
+        return (navire.coordonnees.back().ligne <= ('A' + grille->getNbLigne()));
+    }
+}

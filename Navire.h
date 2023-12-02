@@ -3,10 +3,13 @@
 #include <algorithm>
 #include <iostream>
 #include <vector>
+#include "Grille.h"
 #include "Coordonnees.h"
 
 #define CASE_MORTE_COL 0
 #define CASE_MORTE_LIG 'X'
+
+class Grille;
 
 enum orientation
 {
@@ -31,5 +34,6 @@ class Navire
     std::string getNom() const;
     bool        ajouterDegat(Coordonnees);
     bool        estMort() const;
+    bool        estNavireValide(Navire, Grille*);
 };
 #endif
