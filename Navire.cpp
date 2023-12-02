@@ -38,14 +38,18 @@ bool Navire::ajouterDegat(Coordonnees coordonnee)
     return false;
 }
 
-bool Navire::estNavireValide(Navire navire, Grille* grille)
+bool Navire::estNavireValide(Grille* grille)
 {
-    if(navire.orientation == HORIZONTAL)
+    if(this->coordonnees.empty())
     {
-        return (navire.coordonnees.back().colonne <= grille->getNbColonne());
+        return false;
+    }
+    if(this->orientation == HORIZONTAL)
+    {
+        return (this->coordonnees.back().colonne <= grille->getNbColonne());
     }
     else
     {
-        return (navire.coordonnees.back().ligne <= ('A' + grille->getNbLigne()));
+        return (this->coordonnees.back().ligne <= ('A' + grille->getNbLigne()));
     }
 }

@@ -23,7 +23,7 @@ class Navire
     std::string              nom;
     int                      orientation;
     std::vector<Coordonnees> coordonnees;
-    int                      degats;
+    unsigned int             degats;
     bool                     etat;
 
   public:
@@ -34,6 +34,6 @@ class Navire
     std::string getNom() const;
     bool        ajouterDegat(Coordonnees);
     bool        estMort() const;
-    bool        estNavireValide(Navire, Grille*);
+    bool        estNavireValide(Grille*);
 };
 #endif
