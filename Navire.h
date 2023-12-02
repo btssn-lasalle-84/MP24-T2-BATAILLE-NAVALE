@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <iostream>
 #include <vector>
-#include <Coordonnees.h>
+#include "Coordonnees.h"
 
 #define CASE_MORTE_COL 0
 #define CASE_MORTE_LIG 'X'
