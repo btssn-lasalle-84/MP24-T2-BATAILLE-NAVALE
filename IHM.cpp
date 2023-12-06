@@ -71,7 +71,7 @@ Flotte IHM::saisirDisposition(Grille* grille, Joueur* joueur)
             {
                 Coordonnees coordonnee;
                 coordonnee.colonne = proue.colonne + i;
-                coordonnee.ligne   = coordonnee.ligne + i;
+                coordonnee.ligne   = proue.ligne + i;
                 coordonnees.push_back(coordonnee);
             }
 
@@ -86,4 +86,22 @@ Flotte IHM::saisirDisposition(Grille* grille, Joueur* joueur)
 void IHM::associerInterfaceBataille(BatailleNavale* batailleInterface)
 {
     bataille = batailleInterface;
+}
+
+void IHM::afficherGrille(Grille* grille)
+{
+    for(int i = 0; i < grille->getNbColonne(); i++)
+    {
+        for(int j = 0; i < grille->getNbLigne(); j++)
+        {
+            if((i + j) % 2 == 0)
+            {
+                cout << "\033[0;34m ■";
+            }
+            else
+            {
+                cout << " \033[1;36m ■";
+            }
+        }
+    }
 }
