@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "*.tcc": "cpp",
+        "*.v2": "makefile",
+        "*.v3": "makefile",
+        "*.v4": "makefile",
+        "iostream": "cpp"
+    }
+}

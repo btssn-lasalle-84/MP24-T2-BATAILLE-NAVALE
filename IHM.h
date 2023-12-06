@@ -30,6 +30,7 @@ class IHM
     Coordonnees saisirCoup(Grille*);
     bool        estCoupValide(Coordonnees, Grille*);
     void        afficherGrille(Grille*);
+    void        afficherNavire(Grille*, Flotte*);
     void        associerInterfaceBataille(BatailleNavale*);
 };
 
