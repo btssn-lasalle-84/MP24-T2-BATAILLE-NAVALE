@@ -7,4 +7,9 @@
 
 int main()
 {
+    BatailleNavale batailleNavale;
+
+    batailleNavale.demarrerPartie();
+
+    return 0;
 }
