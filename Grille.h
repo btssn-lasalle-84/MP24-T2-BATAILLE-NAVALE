@@ -1,5 +1,6 @@
 #ifndef GRILLE_H
 #define GRILLE_H
+#include <vector>
 
 class Joueur;
 
