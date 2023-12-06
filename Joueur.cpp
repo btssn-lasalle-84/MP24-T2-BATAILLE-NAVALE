@@ -34,6 +34,11 @@ void Joueur::setPseudo(const std::string nouveauPseudo)
     this->pseudo = nouveauPseudo;
 }
 
+Grille* Joueur::getGrille() const
+{
+    return grille;
+}
+
 void Joueur::associerJoueurGrille(Grille* grilleJoueur)
 {
     grille = grilleJoueur;

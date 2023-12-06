@@ -41,7 +41,7 @@ Coordonnees IHM::saisirCoup(Grille* grille)
     return coordonnee;
 }
 
-Flotte IHM::saisirDisposition(Grille* grille, Joueur* joueur)
+Flotte IHM::saisirDisposition(Grille* grille)
 {
     Flotte                    flotte;
     map<string, unsigned int> bateaux{ { "Porte-avion", 5 },

@@ -21,6 +21,7 @@ class Joueur
     Joueur(const Joueur& j);
 
     std::string getPseudo() const;
+    Grille*     getGrille() const;
     void        setPseudo(const std::string nouveauPseudo);
     void        associerJoueurGrille(Grille*);
     void        associerJoueurBatailleNavale(BatailleNavale*);
