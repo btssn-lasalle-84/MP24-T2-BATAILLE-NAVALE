@@ -32,6 +32,7 @@ class IHM
     void        afficherGrille(Grille*);
     void        afficherNavire(Grille*, Flotte*);
     void        associerInterfaceBataille(BatailleNavale*);
+    void        afficherGrilleBateau(Grille*, std::vector<Navire*>);
 };
 
 #endif

@@ -35,8 +35,9 @@ class Navire
 
     std::vector<Coordonnees> getCoordonnes() const;
     std::string              getNom() const;
+    int                      getOrientation() const;
     bool                     ajouterDegat(Coordonnees);
     bool                     estMort() const;
-    bool                     estNavireValide(Grille*, std::vector<Navire*>, Navire);
+    bool                     estNavireValide(Grille*, const std::vector<Navire*>, const Navire);
 };
 #endif
