@@ -16,6 +16,11 @@ class BatailleNavale
     BatailleNavale(Joueur*, Joueur*, IHM*);
     BatailleNavale(const BatailleNavale&);
     ~BatailleNavale();
+    void demarrerPartie();
+    void initialiserIHM();
+    void initialiserJoueurs();
+    void initialiserGrilles();
+    void initialiserFlottes();
     void associerBatailleJoueurs(Joueur*, Joueur*);
     void associerBatailleInterface(IHM*);
 };
