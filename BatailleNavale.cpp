@@ -6,7 +6,7 @@
 
 using namespace std;
 
-BatailleNavale::BatailleNavale() : joueur1(), joueur2()
+BatailleNavale::BatailleNavale() : joueur1(), joueur2(), interface()
 {
 }
 

@@ -8,9 +8,11 @@ Navire::Navire() : nom(" "), orientation(), coordonnees(), degats(), etat()
     cout << "Interdit !!!\n";
 }
 
-Navire::Navire(string nomNavire, int orientationNavire, vector<Coordonnees> coordonneesNavire) :
-    nom(nomNavire), orientation(orientationNavire), coordonnees(coordonneesNavire), degats(0),
-    etat(1){};
+Navire::Navire(string                    nomNavire,
+               int                       orientationNavire,
+               const vector<Coordonnees> coordonneesNavire) :
+    nom(nomNavire),
+    orientation(orientationNavire), coordonnees(coordonneesNavire), degats(0), etat(1){};
 
 Navire::Navire(const Navire& n) :
     nom(n.nom), orientation(n.orientation), coordonnees(n.coordonnees), degats(n.degats),
@@ -44,7 +46,9 @@ vector<Coordonnees> Navire::getCoordonnes() const
     return this->coordonnees;
 }
 
-bool Navire::estNavireValide(Grille* grille, vector<Navire*> navires, Navire nouveauNavire)
+bool Navire::estNavireValide(Grille*               grille,
+                             vector<Navire*> const navires,
+                             Navire const          nouveauNavire)
 {
     if(this->coordonnees.empty())
     {
@@ -79,4 +83,9 @@ bool Navire::estNavireValide(Grille* grille, vector<Navire*> navires, Navire nou
     }
 
     return true;
+}
+
+int Navire::getOrientation() const
+{
+    return this->orientation;
 }
