@@ -8,8 +8,8 @@ Navire::Navire() : nom(" "), orientation(), coordonnees(), degats(), etat()
     cout << "Interdit !!!\n";
 }
 
-Navire::Navire(string                           nomNavire,
-               int                              orientationNavire,
+Navire::Navire(string                                 nomNavire,
+               int                                    orientationNavire,
                const vector<pair<Coordonnees, bool> > coordonneesNavire) :
 
     nom(nomNavire),
@@ -34,6 +34,15 @@ vector<pair<Coordonnees, bool> > Navire::getCoordonnes() const
 void Navire::ajouterDegat(Coordonnees coordonnee)
 {
     degats += 1;
+    for(pair<Coordonnees, bool> coordonneeNavire: coordonnees)
+    {
+        if(coordonnee.ligne == coordonneeNavire.first.ligne &&
+           coordonnee.colonne == coordonneeNavire.first.colonne)
+        {
+            coordonneeNavire.second = false;
+            break;
+        }
+    }
 }
 
 bool Navire::estNavireValide(Grille*               grille,
@@ -78,5 +87,5 @@ bool Navire::estNavireValide(Grille*               grille,
 
 int Navire::getOrientation() const
 {
-    return this->orientation;
+    return orientation;
 }

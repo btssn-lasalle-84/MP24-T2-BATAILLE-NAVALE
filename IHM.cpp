@@ -109,23 +109,11 @@ void IHM::afficherGrille(Joueur* joueur)
             }
         }
     }
+  
+    for(int i = 0; i < joueur->getGrille()->getNbLigne(); ++i)
 
-}
-
-void IHM::afficherAsciiArt()
-{
-    cout << " ____        _        _ _ _        _   _                  _      " << endl;
-    cout << "|  _ \\      | |      (_) | |      | \\ | |                | |     " << endl;
-    cout << "| |_) | __ _| |_ __ _ _| | | ___  |  \\| | __ ___   ____ _| | ___ " << endl;
-    cout << "|  _ < / _` | __/ _` | | | |/ _ \\ | . ` |/ _` \\ \\ / / _` | |/ _ \\" << endl;
-    cout << "| |_) | (_| | || (_| | | | |  __/ | |\\  | (_| |`\\ V / (_| | |  __/" << endl;
-    cout << "|____/ \\__,_|\\__\\__,_|_|_|_|\\___| |_| \\_|\\__,_| \\_/ \\__,_|_|\\___|" << endl;
-}
-
-
-    for(unsigned int i = 0; i < joueur->getGrille()->getNbLigne(); ++i)
     {
-        for(unsigned int j = 0; j < joueur->getGrille()->getNbColonne(); ++j)
+        for(int j = 0; j < joueur->getGrille()->getNbColonne(); ++j)
         {
             if((j + i) % 2 == 0 && matrice[i][j] == "")
             {
@@ -147,3 +135,18 @@ void IHM::afficherAsciiArt()
         cout << endl;
     }
 }
+
+}
+
+void IHM::afficherAsciiArt()
+{
+    cout << " ____        _        _ _ _        _   _                  _      " << endl;
+    cout << "|  _ \\      | |      (_) | |      | \\ | |                | |     " << endl;
+    cout << "| |_) | __ _| |_ __ _ _| | | ___  |  \\| | __ ___   ____ _| | ___ " << endl;
+    cout << "|  _ < / _` | __/ _` | | | |/ _ \\ | . ` |/ _` \\ \\ / / _` | |/ _ \\" << endl;
+    cout << "| |_) | (_| | || (_| | | | |  __/ | |\\  | (_| |`\\ V / (_| | |  __/" << endl;
+    cout << "|____/ \\__,_|\\__\\__,_|_|_|_|\\___| |_| \\_|\\__,_| \\_/ \\__,_|_|\\___|" << endl;
+}
+
+
+    for(unsigned int i = 0; i < joueur->getGrille()->getNbLigne(); ++i)

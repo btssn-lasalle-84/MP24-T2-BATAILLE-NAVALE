@@ -23,7 +23,7 @@ class Flotte
     Flotte(const Flotte&);
     ~Flotte();
 
-    std::vector<Navire*> getFlotte();
+    std::vector<Navire*> getFlotte() const;
     void                 setFlotte(const std::vector<Navire*>);
     bool                 tirer(Coordonnees coordonnee);
     void                 genererAleatoirement(Grille*);
