@@ -7,11 +7,18 @@
 #include "BatailleNavale.h"
 #include "Coordonnees.h"
 #include "Navire.h"
+#include "Joueur.h"
+
+#define BLEU  "\033[0;34m ■"
+#define CYAN  "\033[1;36m ■"
+#define ROUGE "\033[1;31m ■"
+#define GRIS  "\033[1;30m ■"
 
 class BatailleNavale;
 class Flotte;
 class Grille;
 class Navire;
+class Joueur;
 struct Coordonnees;
 
 class IHM
@@ -29,7 +36,7 @@ class IHM
     Flotte      saisirDisposition(Grille*);
     Coordonnees saisirCoup(Grille*);
     bool        estCoupValide(Coordonnees, Grille*);
-    void        afficherGrille(Grille*);
+    void        afficherGrille(Joueur*);
     void        afficherNavire(Grille*, Flotte*);
     void        associerInterfaceBataille(BatailleNavale*);
     void        afficherGrilleBateau(Grille*, std::vector<Navire*>);

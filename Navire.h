@@ -21,23 +21,22 @@ enum orientation
 class Navire
 {
   private:
-    std::string              nom;
-    int                      orientation;
-    std::vector<Coordonnees> coordonnees;
-    unsigned int             degats;
-    bool                     etat;
+    std::string                                nom;
+    int                                        orientation;
+    std::vector<std::pair<Coordonnees, bool> > coordonnees;
+    unsigned int                               degats;
+    bool                                       etat;
 
   public:
-    Navire(std::string, int, std::vector<Coordonnees>);
+    Navire(std::string, int, std::vector<std::pair<Coordonnees, bool> >);
     Navire();
     Navire(const Navire& n);
     ~Navire();
 
-    std::vector<Coordonnees> getCoordonnes() const;
-    std::string              getNom() const;
-    int                      getOrientation() const;
-    bool                     ajouterDegat(Coordonnees);
-    bool                     estMort() const;
-    bool                     estNavireValide(Grille*, const std::vector<Navire*>, const Navire);
-};
+    std::vector<std::pair<Coordonnees, bool> > getCoordonnes() const;
+    std::string                                getNom() const;
+    void                                       ajouterDegat(Coordonnees);
+    bool                                       estMort() const;
+    bool estNavireValide(Grille*, const std::vector<Navire*>, const Navire);
+
 #endif
