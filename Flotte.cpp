@@ -71,15 +71,15 @@ void Flotte::genererAleatoirement(Grille* grille)
 
 bool Flotte::tirer(Coordonnees coordonnee)
 {
-    for(Navire* navire: this->getFlotte())
+    for(Navire* navire: flotte)
     {
         for(unsigned int i = 0; i < navire->getCoordonnes().size(); ++i)
         {
             if(coordonnee.colonne == navire->getCoordonnes()[i].first.colonne &&
-               coordonnee.ligne == navire->getCoordonnes()[i].first.ligne)
+               coordonnee.ligne == navire->getCoordonnes()[i].first.ligne &&
+               navire->getCoordonnes()[i].second == true)
             {
-                navire->ajouterDegat(navire->getCoordonnes()[i].first);
-                navire->getCoordonnes()[i].second = false;
+                navire->ajouterDegat(coordonnee);
                 return true;
             }
         }
@@ -91,6 +91,11 @@ bool Flotte::tirer(Coordonnees coordonnee)
 void Flotte::associerFlotteJoueur(Joueur* joueurFlotte)
 {
     joueur = joueurFlotte;
+}
+
+vector<Navire*> Flotte::getFlotte() const
+{
+    return flotte;
 }
 
 void Flotte::setFlotte(vector<Navire*> const navires)

@@ -110,9 +110,9 @@ void IHM::afficherGrille(Joueur* joueur)
         }
     }
 
-    for(unsigned int i = 0; i < joueur->getGrille()->getNbLigne(); ++i)
+    for(int i = 0; i < joueur->getGrille()->getNbLigne(); ++i)
     {
-        for(unsigned int j = 0; j < joueur->getGrille()->getNbColonne(); ++j)
+        for(int j = 0; j < joueur->getGrille()->getNbColonne(); ++j)
         {
             if((j + i) % 2 == 0 && matrice[i][j] == "")
             {
@@ -134,5 +134,3 @@ void IHM::afficherGrille(Joueur* joueur)
         cout << endl;
     }
 }
-
-
