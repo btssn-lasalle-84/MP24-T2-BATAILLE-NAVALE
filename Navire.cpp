@@ -1,4 +1,5 @@
 #include "Navire.h"
+#include "Flotte.h"
 
 using namespace std;
 
@@ -38,18 +39,36 @@ bool Navire::ajouterDegat(Coordonnees coordonnee)
     return false;
 }
 
-bool Navire::estNavireValide(Grille* grille)
+vector<Coordonnees> Navire::getCoordonnes() const
+{
+    return this->coordonnees;
+}
+
+bool Navire::estNavireValide(Grille* grille, Flotte* flotte, Navire* nouveauNavire)
 {
     if(this->coordonnees.empty())
     {
         return false;
     }
-    if(this->orientation == HORIZONTAL)
+
+    for(Navire* navireExistant: flotte->getFlotte())
     {
-        return (this->coordonnees.back().colonne <= grille->getNbColonne());
-    }
-    else
-    {
-        return (this->coordonnees.back().ligne <= ('A' + grille->getNbLigne()));
+        for(Coordonnees coordEx: navireExistant->getCoordonnes())
+        {
+            for(Coordonnees coordNouveau: nouveauNavire->getCoordonnes())
+            {
+                if(coordNouveau.colonne == coordEx.colonne && coordNouveau.ligne == coordEx.ligne)
+                    return false;
+            }
+        }
+
+        if(this->orientation == HORIZONTAL)
+        {
+            return (this->coordonnees.back().colonne <= grille->getNbColonne());
+        }
+        else
+        {
+            return (this->coordonnees.back().ligne <= ('A' + grille->getNbLigne()));
+        }
     }
 }

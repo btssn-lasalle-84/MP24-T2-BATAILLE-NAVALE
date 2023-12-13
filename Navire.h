@@ -5,6 +5,7 @@
 #include <vector>
 #include "Grille.h"
 #include "Coordonnees.h"
+#include "Flotte.h"
 
 #define CASE_MORTE_COL 0
 #define CASE_MORTE_LIG 'X'
@@ -31,9 +32,11 @@ class Navire
     Navire();
     Navire(const Navire& n);
     ~Navire();
-    std::string getNom() const;
-    bool        ajouterDegat(Coordonnees);
-    bool        estMort() const;
-    bool        estNavireValide(Grille*);
+
+    std::vector<Coordonnees> getCoordonnes() const;
+    std::string              getNom() const;
+    bool                     ajouterDegat(Coordonnees);
+    bool                     estMort() const;
+    bool                     estNavireValide(Grille*, Flotte*, Navire*);
 };
 #endif
