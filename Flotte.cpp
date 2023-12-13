@@ -22,7 +22,7 @@ Flotte::~Flotte()
 void Flotte::genererAleatoirement(Grille* grille)
 {
     srand(time(NULL));
-    vector<Navire>            navires;
+    vector<Navire*>           navires;
     map<string, unsigned int> bateaux{ { "Porte-avion", 5 },
                                        { "Croiseur", 4 },
                                        { "Contre-torpilleur", 3 },
@@ -60,18 +60,20 @@ void Flotte::genererAleatoirement(Grille* grille)
                 coordonnees.push_back(coordonnee);
             }
 
-        } while(!navire.estNavireValide(grille, this, navire));
+        } while(!navire.estNavireValide(grille, navires, navire));
 
-        this->ajouterNavire(&navire);
+        navires.push_back(&navire);
     }
-}
 
-void Flotte::ajouterNavire(Navire* navire)
-{
-    this->flotte = navire;
+    this->setFlotte(navires);
 }
 
 void Flotte::associerFlotteJoueur(Joueur* joueurFlotte)
 {
     joueur = joueurFlotte;
+}
+
+void Flotte::setFlotte(const vector<Navire*> navires)
+{
+    flotte = navires;
 }

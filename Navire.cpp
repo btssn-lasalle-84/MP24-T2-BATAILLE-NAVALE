@@ -44,14 +44,29 @@ vector<Coordonnees> Navire::getCoordonnes() const
     return this->coordonnees;
 }
 
-bool Navire::estNavireValide(Grille* grille, Flotte flotte, Navire nouveauNavire)
+bool Navire::estNavireValide(Grille* grille, vector<Navire*> navires, Navire nouveauNavire)
 {
     if(this->coordonnees.empty())
     {
         return false;
     }
 
-    for(Navire* navireExistant: flotte.getFlotte())
+    if(this->orientation == HORIZONTAL)
+    {
+        if(!(this->coordonnees.back().colonne <= grille->getNbColonne()))
+        {
+            return false;
+        }
+    }
+    else
+    {
+        if(!(this->coordonnees.back().ligne <= ('A' + grille->getNbLigne())))
+        {
+            return false;
+        }
+    }
+
+    for(Navire* navireExistant: navires)
     {
         for(Coordonnees coordEx: navireExistant->getCoordonnes())
         {
@@ -61,14 +76,7 @@ bool Navire::estNavireValide(Grille* grille, Flotte flotte, Navire nouveauNavire
                     return false;
             }
         }
-
-        if(this->orientation == HORIZONTAL)
-        {
-            return (this->coordonnees.back().colonne <= grille->getNbColonne());
-        }
-        else
-        {
-            return (this->coordonnees.back().ligne <= ('A' + grille->getNbLigne()));
-        }
     }
+
+    return true;
 }

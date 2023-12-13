@@ -44,6 +44,7 @@ Coordonnees IHM::saisirCoup(Grille* grille)
 Flotte IHM::saisirDisposition(Grille* grille)
 {
     Flotte                    flotte;
+    vector<Navire*>           navires;
     map<string, unsigned int> bateaux{ { "Porte-avion", 5 },
                                        { "Croiseur", 4 },
                                        { "Contre-torpilleur", 3 },
@@ -75,11 +76,12 @@ Flotte IHM::saisirDisposition(Grille* grille)
                 coordonnees.push_back(coordonnee);
             }
 
-        } while(navire.estNavireValide(grille, flotte, navire));
+        } while(navire.estNavireValide(grille, navires, navire));
 
-        flotte.ajouterNavire(&navire);
+        navires.push_back(&navire);
     }
 
+    flotte.setFlotte(navires);
     return flotte;
 }
 
