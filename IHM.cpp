@@ -75,7 +75,7 @@ Flotte IHM::saisirDisposition(Grille* grille)
                 coordonnees.push_back(coordonnee);
             }
 
-        } while(navire.estNavireValide(grille));
+        } while(navire.estNavireValide(grille, flotte, navire));
 
         flotte.ajouterNavire(&navire);
     }

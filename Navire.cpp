@@ -44,18 +44,18 @@ vector<Coordonnees> Navire::getCoordonnes() const
     return this->coordonnees;
 }
 
-bool Navire::estNavireValide(Grille* grille, Flotte* flotte, Navire* nouveauNavire)
+bool Navire::estNavireValide(Grille* grille, Flotte flotte, Navire nouveauNavire)
 {
     if(this->coordonnees.empty())
     {
         return false;
     }
 
-    for(Navire* navireExistant: flotte->getFlotte())
+    for(Navire* navireExistant: flotte.getFlotte())
     {
         for(Coordonnees coordEx: navireExistant->getCoordonnes())
         {
-            for(Coordonnees coordNouveau: nouveauNavire->getCoordonnes())
+            for(Coordonnees coordNouveau: nouveauNavire.getCoordonnes())
             {
                 if(coordNouveau.colonne == coordEx.colonne && coordNouveau.ligne == coordEx.ligne)
                     return false;

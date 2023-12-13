@@ -60,7 +60,7 @@ void Flotte::genererAleatoirement(Grille* grille)
                 coordonnees.push_back(coordonnee);
             }
 
-        } while(!navire.estNavireValide(grille));
+        } while(!navire.estNavireValide(grille, this, navire));
 
         this->ajouterNavire(&navire);
     }
@@ -68,7 +68,7 @@ void Flotte::genererAleatoirement(Grille* grille)
 
 void Flotte::ajouterNavire(Navire* navire)
 {
-    this->flotte.push_back(navire);
+    this->flotte = navire;
 }
 
 void Flotte::associerFlotteJoueur(Joueur* joueurFlotte)
