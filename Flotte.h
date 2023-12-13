@@ -17,8 +17,10 @@ class Flotte
     Flotte(const Flotte&);
     ~Flotte();
 
-    void ajouterNavire(Navire*);
-    void associerFlotteJoueur(Joueur*);
+    std::vector<Navire*> getFlotte();
+    void                 setFlotte(const std::vector<Navire*>);
+    void                 ajouterNavire(Navire*);
+    void                 associerFlotteJoueur(Joueur*);
 };
 
 #endif
