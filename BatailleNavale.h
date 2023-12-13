@@ -17,6 +17,7 @@ class BatailleNavale
     BatailleNavale(const BatailleNavale&);
     ~BatailleNavale();
     void demarrerPartie();
+    void afficherGrilles();
     void initialiserIHM();
     void initialiserJoueurs();
     void initialiserGrilles();

@@ -70,6 +70,12 @@ void BatailleNavale::initialiserFlottes()
     joueur2->associerJoueurFlotte(&flotteMachine);
 }
 
+void BatailleNavale::afficherGrilles()
+{
+    interface->afficherGrille(joueur1);
+    interface->afficherGrille(joueur2);
+}
+
 void BatailleNavale::associerBatailleJoueurs(Joueur* j1, Joueur* j2)
 {
     joueur1 = j1;

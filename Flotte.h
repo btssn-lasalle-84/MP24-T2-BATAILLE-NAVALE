@@ -25,6 +25,7 @@ class Flotte
 
     std::vector<Navire*> getFlotte();
     void                 setFlotte(const std::vector<Navire*>);
+    bool                 tirer(Coordonnees coordonnee);
     void                 genererAleatoirement(Grille*);
     void                 associerFlotteJoueur(Joueur*);
 };

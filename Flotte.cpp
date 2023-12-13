@@ -35,9 +35,9 @@ void Flotte::genererAleatoirement(Grille* grille)
         string       nom         = it->first;
         unsigned int nbCases     = it->second;
 
-        Coordonnees         proue;
-        vector<Coordonnees> coordonnees;
-        Navire              navire(nom, orientation, coordonnees);
+        Coordonnees                      proue;
+        vector<pair<Coordonnees, bool> > coordonnees;
+        Navire                           navire(nom, orientation, coordonnees);
 
         do
         {
@@ -54,9 +54,10 @@ void Flotte::genererAleatoirement(Grille* grille)
 
             for(unsigned int i = 0; i < nbCases; ++i)
             {
-                Coordonnees coordonnee;
-                coordonnee.colonne = proue.colonne + i;
-                coordonnee.ligne   = proue.ligne + i;
+                pair<Coordonnees, bool> coordonnee;
+                coordonnee.first.colonne = proue.colonne + i;
+                coordonnee.first.ligne   = proue.ligne + i;
+                coordonnee.second        = true;
                 coordonnees.push_back(coordonnee);
             }
 
@@ -66,6 +67,25 @@ void Flotte::genererAleatoirement(Grille* grille)
     }
 
     this->setFlotte(navires);
+}
+
+bool Flotte::tirer(Coordonnees coordonnee)
+{
+    for(Navire* navire: this->getFlotte())
+    {
+        for(unsigned int i = 0; i < navire->getCoordonnes().size(); ++i)
+        {
+            if(coordonnee.colonne == navire->getCoordonnes()[i].first.colonne &&
+               coordonnee.ligne == navire->getCoordonnes()[i].first.ligne)
+            {
+                navire->ajouterDegat(navire->getCoordonnes()[i].first);
+                navire->getCoordonnes()[i].second = false;
+                return true;
+            }
+        }
+    }
+
+    return false;
 }
 
 void Flotte::associerFlotteJoueur(Joueur* joueurFlotte)

@@ -8,9 +8,10 @@ Navire::Navire() : nom(" "), orientation(), coordonnees(), degats(), etat()
     cout << "Interdit !!!\n";
 }
 
-Navire::Navire(string                    nomNavire,
-               int                       orientationNavire,
-               const vector<Coordonnees> coordonneesNavire) :
+Navire::Navire(string                           nomNavire,
+               int                              orientationNavire,
+               const vector<pair<Coordonnees, bool> > coordonneesNavire) :
+
     nom(nomNavire),
     orientation(orientationNavire), coordonnees(coordonneesNavire), degats(0), etat(1){};
 
@@ -20,30 +21,19 @@ Navire::Navire(const Navire& n) :
 
 Navire::~Navire(){};
 
-std::string Navire::getNom() const
+string Navire::getNom() const
 {
     return nom;
 }
 
-bool Navire::ajouterDegat(Coordonnees coordonnee)
+vector<pair<Coordonnees, bool> > Navire::getCoordonnes() const
 {
-    for(unsigned int i = 0; i < coordonnees.size(); ++i)
-    {
-        if(coordonnee.colonne == coordonnees[i].colonne && coordonnee.ligne == coordonnees[i].ligne)
-        {
-            degats += 1;
-            coordonnees[i].colonne = CASE_MORTE_COL;
-            coordonnees[i].ligne   = CASE_MORTE_LIG;
-            return true;
-        }
-    }
-
-    return false;
+    return coordonnees;
 }
 
-vector<Coordonnees> Navire::getCoordonnes() const
+void Navire::ajouterDegat(Coordonnees coordonnee)
 {
-    return this->coordonnees;
+    degats += 1;
 }
 
 bool Navire::estNavireValide(Grille*               grille,
@@ -57,14 +47,14 @@ bool Navire::estNavireValide(Grille*               grille,
 
     if(this->orientation == HORIZONTAL)
     {
-        if(!(this->coordonnees.back().colonne <= grille->getNbColonne()))
+        if(!(this->coordonnees.back().first.colonne <= grille->getNbColonne()))
         {
             return false;
         }
     }
     else
     {
-        if(!(this->coordonnees.back().ligne <= ('A' + grille->getNbLigne())))
+        if(!(this->coordonnees.back().first.ligne <= ('A' + grille->getNbLigne())))
         {
             return false;
         }
@@ -72,11 +62,12 @@ bool Navire::estNavireValide(Grille*               grille,
 
     for(Navire* navireExistant: navires)
     {
-        for(Coordonnees coordEx: navireExistant->getCoordonnes())
+        for(pair<Coordonnees, bool> coordEx: navireExistant->getCoordonnes())
         {
-            for(Coordonnees coordNouveau: nouveauNavire.getCoordonnes())
+            for(pair<Coordonnees, bool> coordNouveau: nouveauNavire.getCoordonnes())
             {
-                if(coordNouveau.colonne == coordEx.colonne && coordNouveau.ligne == coordEx.ligne)
+                if(coordNouveau.first.colonne == coordEx.first.colonne &&
+                   coordNouveau.first.ligne == coordEx.first.ligne)
                     return false;
             }
         }

@@ -39,6 +39,11 @@ Grille* Joueur::getGrille() const
     return grille;
 }
 
+Flotte* Joueur::getFlotte() const
+{
+    return flotte;
+}
+
 void Joueur::associerJoueurGrille(Grille* grilleJoueur)
 {
     grille = grilleJoueur;

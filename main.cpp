@@ -10,6 +10,7 @@ int main()
     BatailleNavale batailleNavale;
 
     batailleNavale.demarrerPartie();
+    batailleNavale.afficherGrilles();
 
     return 0;
 }
