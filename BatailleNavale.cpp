@@ -26,6 +26,7 @@ BatailleNavale::~BatailleNavale()
 
 void BatailleNavale::demarrerPartie()
 {
+    IHM::afficherAsciiArt();
     this->initialiserIHM();
     this->initialiserJoueurs();
     this->initialiserGrilles();

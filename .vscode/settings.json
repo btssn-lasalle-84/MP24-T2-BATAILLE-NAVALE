@@ -4,6 +4,7 @@
         "*.v2": "makefile",
         "*.v3": "makefile",
         "*.v4": "makefile",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "ostream": "cpp"
     }
 }

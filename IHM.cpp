@@ -109,8 +109,9 @@ void IHM::afficherGrille(Joueur* joueur)
             }
         }
     }
-
+  
     for(int i = 0; i < joueur->getGrille()->getNbLigne(); ++i)
+
     {
         for(int j = 0; j < joueur->getGrille()->getNbColonne(); ++j)
         {
@@ -134,3 +135,18 @@ void IHM::afficherGrille(Joueur* joueur)
         cout << endl;
     }
 }
+
+}
+
+void IHM::afficherAsciiArt()
+{
+    cout << " ____        _        _ _ _        _   _                  _      " << endl;
+    cout << "|  _ \\      | |      (_) | |      | \\ | |                | |     " << endl;
+    cout << "| |_) | __ _| |_ __ _ _| | | ___  |  \\| | __ ___   ____ _| | ___ " << endl;
+    cout << "|  _ < / _` | __/ _` | | | |/ _ \\ | . ` |/ _` \\ \\ / / _` | |/ _ \\" << endl;
+    cout << "| |_) | (_| | || (_| | | | |  __/ | |\\  | (_| |`\\ V / (_| | |  __/" << endl;
+    cout << "|____/ \\__,_|\\__\\__,_|_|_|_|\\___| |_| \\_|\\__,_| \\_/ \\__,_|_|\\___|" << endl;
+}
+
+
+    for(unsigned int i = 0; i < joueur->getGrille()->getNbLigne(); ++i)
