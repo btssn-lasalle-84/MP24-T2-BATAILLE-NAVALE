@@ -134,3 +134,5 @@ void IHM::afficherGrille(Joueur* joueur)
         cout << endl;
     }
 }
+
+

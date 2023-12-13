@@ -10,7 +10,8 @@ Navire::Navire() : nom(" "), orientation(), coordonnees(), degats(), etat()
 
 Navire::Navire(string                           nomNavire,
                int                              orientationNavire,
-               vector<pair<Coordonnees, bool> > coordonneesNavire) :
+               const vector<pair<Coordonnees, bool> > coordonneesNavire) :
+
     nom(nomNavire),
     orientation(orientationNavire), coordonnees(coordonneesNavire), degats(0), etat(1){};
 
@@ -35,7 +36,9 @@ void Navire::ajouterDegat(Coordonnees coordonnee)
     degats += 1;
 }
 
-bool Navire::estNavireValide(Grille* grille, vector<Navire*> navires, Navire nouveauNavire)
+bool Navire::estNavireValide(Grille*               grille,
+                             vector<Navire*> const navires,
+                             Navire const          nouveauNavire)
 {
     if(this->coordonnees.empty())
     {
@@ -71,4 +74,9 @@ bool Navire::estNavireValide(Grille* grille, vector<Navire*> navires, Navire nou
     }
 
     return true;
+}
+
+int Navire::getOrientation() const
+{
+    return this->orientation;
 }

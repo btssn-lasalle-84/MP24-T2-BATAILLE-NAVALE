@@ -6,7 +6,7 @@ Flotte::Flotte() : flotte(), joueur()
 {
 }
 
-Flotte::Flotte(const vector<Navire*> flotteNavires, Joueur* flotteJoueur) :
+Flotte::Flotte(vector<Navire*> const flotteNavires, Joueur* flotteJoueur) :
     flotte(flotteNavires), joueur(flotteJoueur)
 {
 }
@@ -93,7 +93,7 @@ void Flotte::associerFlotteJoueur(Joueur* joueurFlotte)
     joueur = joueurFlotte;
 }
 
-void Flotte::setFlotte(const vector<Navire*> navires)
+void Flotte::setFlotte(vector<Navire*> const navires)
 {
     flotte = navires;
 }
