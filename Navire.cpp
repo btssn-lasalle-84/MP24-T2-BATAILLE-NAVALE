@@ -31,6 +31,11 @@ vector<pair<Coordonnees, bool> > Navire::getCoordonnes() const
     return coordonnees;
 }
 
+void Navire::setCoordonnees(vector<pair<Coordonnees, bool> > coordonneesNavire)
+{
+    coordonnees = coordonneesNavire;
+}
+
 void Navire::ajouterDegat(Coordonnees coordonnee)
 {
     degats += 1;
