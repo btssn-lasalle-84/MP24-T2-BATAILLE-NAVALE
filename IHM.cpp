@@ -74,30 +74,14 @@ Flotte IHM::saisirDisposition(Grille* grille)
         {
             if(orientation == HORIZONTAL)
             {
-                for(unsigned int i = 0; i < nbCases; ++i)
-                {
-                    pair<Coordonnees, bool> coordonnee;
-                    cout << "Ajout de " << i << endl;
-                    coordonnee.first.ligne   = proue.ligne;
-                    coordonnee.first.colonne = proue.colonne + i;
-                    coordonnee.second        = true;
-                    coordonnees.push_back(coordonnee);
-                    cout << coordonnee.first.colonne << coordonnee.first.ligne << endl;
-                }
+
+                pair<Coordonnees, bool> coordonnee;
+                coordonnee.first.colonne = proue.colonne + (i * (1 - orientation));
+                coordonnee.first.ligne   = proue.ligne + (i * orientation);
+                coordonnee.second        = true;
+                coordonnees.push_back(coordonnee);
             }
-            else
-            {
-                for(unsigned int i = 0; i < nbCases; ++i)
-                {
-                    pair<Coordonnees, bool> coordonnee;
-                    cout << "Ajout de " << i << endl;
-                    coordonnee.first.colonne = proue.colonne;
-                    coordonnee.first.ligne   = proue.ligne + i;
-                    coordonnee.second        = true;
-                    coordonnees.push_back(coordonnee);
-                    cout << coordonnee.first.colonne << coordonnee.first.ligne << endl;
-                }
-            }
+            navire.setCoordonnees(coordonnees);
 
         } while(navire.estNavireValide(grille, navires, navire));
 
