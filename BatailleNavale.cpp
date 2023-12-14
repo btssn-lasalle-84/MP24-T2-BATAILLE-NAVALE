@@ -42,12 +42,13 @@ void BatailleNavale::initialiserIHM()
 
 void BatailleNavale::initialiserJoueurs()
 {
-    Joueur machine, joueur;
-    machine.setPseudo("Machine");
-    joueur.setPseudo(interface->saisirJoueur());
-    this->associerBatailleJoueurs(&joueur, &machine);
-    machine.associerJoueurBatailleNavale(this);
-    joueur.associerJoueurBatailleNavale(this);
+    Joueur* machine = new Joueur();
+    Joueur* joueur  = new Joueur();
+    machine->setPseudo("Machine");
+    joueur->setPseudo(interface->saisirJoueur());
+    this->associerBatailleJoueurs(joueur, machine);
+    machine->associerJoueurBatailleNavale(this);
+    joueur->associerJoueurBatailleNavale(this);
 }
 
 void BatailleNavale::initialiserGrilles()
