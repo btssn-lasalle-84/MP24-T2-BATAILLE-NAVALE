@@ -9,10 +9,12 @@
 #include "Navire.h"
 #include "Joueur.h"
 
-#define BLEU  "\033[0;34m ■"
-#define CYAN  "\033[1;36m ■"
-#define ROUGE "\033[1;31m ■"
-#define GRIS  "\033[1;30m ■"
+#define BLEU       "\033[0;34m ■"
+#define CYAN       "\033[1;36m ■"
+#define ROUGE      "\033[1;31m ■"
+#define GRIS       "\033[1;30m ■"
+#define NB_LIGNE   10
+#define NB_COLONNE 10
 
 class BatailleNavale;
 class Flotte;

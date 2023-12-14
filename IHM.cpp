@@ -21,21 +21,23 @@ string IHM::saisirJoueur()
 
 bool IHM::estCoupValide(Coordonnees coordonnee, Grille* grille)
 {
-    return !(coordonnee.ligne < 'A' || coordonnee.ligne > (grille->getNbLigne() - 1) + 'A' ||
-             coordonnee.colonne < 1 || coordonnee.colonne > grille->getNbColonne());
+    cout << coordonnee.ligne << endl;
+    return !(coordonnee.ligne < 'A' || coordonnee.ligne > 'J' || coordonnee.colonne < 1 ||
+             coordonnee.colonne > NB_COLONNE);
 }
 
 Coordonnees IHM::saisirCoup(Grille* grille)
 {
+    char        delimiteur = '\0';
     Coordonnees coordonnee;
-    cin >> coordonnee.ligne >> coordonnee.colonne;
+    cin >> coordonnee.ligne >> delimiteur >> coordonnee.colonne;
+    cout << coordonnee.ligne << coordonnee.colonne;
     while(!estCoupValide(coordonnee, grille))
     {
         cout << "Cette case n'est pas dans la grille !\n";
-        cout << "(Les cases vont de A1 à " << (('A') + grille->getNbLigne() - 1)
-             << grille->getNbColonne() << ")\n";
+        cout << "(Les cases vont de A1 à J10)" << endl;
         cout << "Saisissez une case valide : ";
-        cin >> coordonnee.ligne >> coordonnee.colonne;
+        cin >> coordonnee.ligne >> delimiteur >> coordonnee.colonne;
     }
 
     return coordonnee;
@@ -61,26 +63,47 @@ Flotte IHM::saisirDisposition(Grille* grille)
         cout << "Saisiez l'orientation de votre " << nom << " (" << nbCases << " cases)\n"
              << "Horizontal 0 / Vertical 1 : ";
         cin >> orientation;
-        cout << "Saisissez la case de proue de votre " << nom << " : ";
+        cout << "Saisissez la case de proue de votre " << nom
+             << " sous cette forme : A:1 :" << endl;
         proue = saisirCoup(grille);
 
         vector<pair<Coordonnees, bool> > coordonnees;
         Navire                           navire(nom, orientation, coordonnees);
+        cout << "Apres saisir coup" << endl;
         do
         {
-            for(unsigned int i = 0; i < nbCases; ++i)
+            if(orientation == HORIZONTAL)
             {
-                pair<Coordonnees, bool> coordonnee;
-                coordonnee.first.colonne = proue.colonne + i;
-                coordonnee.first.ligne   = proue.ligne + i;
-                coordonnee.second        = true;
-                coordonnees.push_back(coordonnee);
+                for(unsigned int i = 0; i < nbCases; ++i)
+                {
+                    pair<Coordonnees, bool> coordonnee;
+                    cout << "Ajout de " << i << endl;
+                    coordonnee.first.ligne   = proue.ligne;
+                    coordonnee.first.colonne = proue.colonne + i;
+                    coordonnee.second        = true;
+                    coordonnees.push_back(coordonnee);
+                    cout << coordonnee.first.colonne << coordonnee.first.ligne << endl;
+                }
+            }
+            else
+            {
+                for(unsigned int i = 0; i < nbCases; ++i)
+                {
+                    pair<Coordonnees, bool> coordonnee;
+                    cout << "Ajout de " << i << endl;
+                    coordonnee.first.colonne = proue.colonne;
+                    coordonnee.first.ligne   = proue.ligne + i;
+                    coordonnee.second        = true;
+                    coordonnees.push_back(coordonnee);
+                    cout << coordonnee.first.colonne << coordonnee.first.ligne << endl;
+                }
             }
 
         } while(navire.estNavireValide(grille, navires, navire));
 
         navires.push_back(&navire);
     }
+    cout << "Tous les bateau set";
 
     flotte.setFlotte(navires);
     return flotte;
@@ -142,6 +165,6 @@ void IHM::afficherAsciiArt()
     cout << "|  _ \\      | |      (_) | |      | \\ | |                | |     " << endl;
     cout << "| |_) | __ _| |_ __ _ _| | | ___  |  \\| | __ ___   ____ _| | ___ " << endl;
     cout << "|  _ < / _` | __/ _` | | | |/ _ \\ | . ` |/ _` \\ \\ / / _` | |/ _ \\" << endl;
-    cout << "| |_) | (_| | || (_| | | | |  __/ | |\\  | (_| |`\\ V / (_| | |  __/" << endl;
+    cout << "| |_) | (_| | || (_| | | | |  __/ | |\\  | (_| |\\ V / (_| | |  __/" << endl;
     cout << "|____/ \\__,_|\\__\\__,_|_|_|_|\\___| |_| \\_|\\__,_| \\_/ \\__,_|_|\\___|" << endl;
 }
