@@ -45,22 +45,23 @@ Coordonnees IHM::saisirCoup(Grille* grille)
 
 Flotte IHM::saisirDisposition(Grille* grille)
 {
-    Flotte                    flotte;
-    vector<Navire*>           navires;
-    map<string, unsigned int> bateaux{ { "Porte-avion", 5 },
-                                       { "Croiseur", 4 },
-                                       { "Contre-torpilleur", 3 },
-                                       { "Sous-marin", 3 },
-                                       { "Torpilleur", 2 } };
-    int                       orientation;
-    Coordonnees               proue;
+    Flotte          flotte;
+    vector<Navire*> navires;
+    vector<string>  nomBateaux     = { "Porte-Avion",
+                                  "Croiseur",
+                                  "Contre-torpilleur",
+                                  "Sous-marin",
+                                  "Torpilleur" };
+    vector<int>     valeursBateaux = { 5, 4, 3, 3, 2 };
+    int             orientation;
+    Coordonnees     proue;
 
-    for(map<string, unsigned int>::iterator it = bateaux.begin(); it != bateaux.end(); ++it)
+    for(int i = 0; i < (int)nomBateaux.size(); i++)
     {
-        string       nom     = it->first;
-        unsigned int nbCases = it->second;
+        string nom    = nomBateaux.at(i);
+        int    valeur = valeursBateaux.at(i);
 
-        cout << "Saisiez l'orientation de votre " << nom << " (" << nbCases << " cases)\n"
+        cout << "Saisiez l'orientation de votre " << nom << " (" << valeur << " cases)\n"
              << "Horizontal 0 / Vertical 1 : ";
         cin >> orientation;
         cout << "Saisissez la case de proue de votre " << nom
@@ -74,18 +75,22 @@ Flotte IHM::saisirDisposition(Grille* grille)
         {
             if(orientation == HORIZONTAL)
             {
-
-                pair<Coordonnees, bool> coordonnee;
-                coordonnee.first.colonne = proue.colonne + (i * (1 - orientation));
-                coordonnee.first.ligne   = proue.ligne + (i * orientation);
-                coordonnee.second        = true;
-                coordonnees.push_back(coordonnee);
+                for(int i = 0; i < valeur; ++i)
+                {
+                    pair<Coordonnees, bool> coordonnee;
+                    coordonnee.first.colonne = proue.colonne + (i * (1 - orientation));
+                    coordonnee.first.ligne   = proue.ligne + (i * orientation);
+                    coordonnee.second        = true;
+                    coordonnees.push_back(coordonnee);
+                }
             }
             navire.setCoordonnees(coordonnees);
+            cout << "Coordonné set !" << endl;
 
         } while(navire.estNavireValide(grille, navires, navire));
-
+        cout << "navire valdide" << endl;
         navires.push_back(&navire);
+        cout << "Navire ajouté" << endl;
     }
     cout << "Tous les bateau set";
 
