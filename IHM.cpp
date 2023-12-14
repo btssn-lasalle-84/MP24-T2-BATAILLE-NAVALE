@@ -71,11 +71,12 @@ Flotte IHM::saisirDisposition(Grille* grille)
             for(unsigned int i = 0; i < nbCases; ++i)
             {
                 pair<Coordonnees, bool> coordonnee;
-                coordonnee.first.colonne = proue.colonne + i;
-                coordonnee.first.ligne   = proue.ligne + i;
+                coordonnee.first.colonne = proue.colonne + (i * (1 - orientation));
+                coordonnee.first.ligne   = proue.ligne + (i * orientation);
                 coordonnee.second        = true;
                 coordonnees.push_back(coordonnee);
             }
+            navire.setCoordonnees(coordonnees);
 
         } while(navire.estNavireValide(grille, navires, navire));
 
