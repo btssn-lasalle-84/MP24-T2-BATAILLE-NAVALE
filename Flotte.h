@@ -1,11 +1,10 @@
 #ifndef FLOTTE_H
 #define FLOTTE_H
+
 #include <vector>
-#include <map>
-#include <stdlib.h>
-#include <time.h>
 #include "Coordonnees.h"
-#include "Navire.h"
+
+#define DEBUG_FLOTTE
 
 class Joueur;
 class Navire;
@@ -14,11 +13,11 @@ class Grille;
 class Flotte
 {
   private:
-    std::vector<Navire*> flotte;
+    std::vector<Navire*> navires;
     Joueur*              joueur;
 
   public:
-    Flotte();
+    Flotte(Joueur* joueur);
     Flotte(const std::vector<Navire*>, Joueur*);
     Flotte(const Flotte&);
     ~Flotte();
@@ -27,7 +26,6 @@ class Flotte
     void                 setFlotte(const std::vector<Navire*>);
     bool                 tirer(Coordonnees coordonnee);
     void                 genererAleatoirement(Grille*);
-    void                 associerFlotteJoueur(Joueur*);
 };
 
 #endif

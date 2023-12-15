@@ -1,4 +1,6 @@
 #include "IHM.h"
+#include "Flotte.h"
+#include <iostream>
 #include <map>
 
 using namespace std;
@@ -21,7 +23,6 @@ string IHM::saisirJoueur()
 
 bool IHM::estCoupValide(Coordonnees coordonnee, Grille* grille)
 {
-    cout << coordonnee.ligne << endl;
     return !(coordonnee.ligne < 'A' || coordonnee.ligne > 'J' || coordonnee.colonne < 1 ||
              coordonnee.colonne > NB_COLONNE);
 }
@@ -31,7 +32,6 @@ Coordonnees IHM::saisirCoup(Grille* grille)
     char        delimiteur = '\0';
     Coordonnees coordonnee;
     cin >> coordonnee.ligne >> delimiteur >> coordonnee.colonne;
-    cout << coordonnee.ligne << coordonnee.colonne;
     while(!estCoupValide(coordonnee, grille))
     {
         cout << "Cette case n'est pas dans la grille !\n";
@@ -43,9 +43,8 @@ Coordonnees IHM::saisirCoup(Grille* grille)
     return coordonnee;
 }
 
-Flotte IHM::saisirDisposition(Grille* grille)
+void IHM::saisirDisposition(Grille* grille, Flotte* flotte)
 {
-    Flotte          flotte;
     vector<Navire*> navires;
     vector<string>  nomBateaux     = { "Porte-Avion",
                                   "Croiseur",
@@ -53,49 +52,74 @@ Flotte IHM::saisirDisposition(Grille* grille)
                                   "Sous-marin",
                                   "Torpilleur" };
     vector<int>     valeursBateaux = { 5, 4, 3, 3, 2 };
-    int             orientation;
-    Coordonnees     proue;
 
     for(int i = 0; i < (int)nomBateaux.size(); i++)
     {
-        string nom    = nomBateaux.at(i);
-        int    valeur = valeursBateaux.at(i);
+        cout << i << endl;
+        string nom    = nomBateaux[i];
+        int    valeur = valeursBateaux[i];
 
-        cout << "Saisiez l'orientation de votre " << nom << " (" << valeur << " cases)\n"
+        cout << "Saisissez l'orientation de votre " << nom << " (" << valeur << " cases)\n"
              << "Horizontal 0 / Vertical 1 : ";
+        int orientation;
         cin >> orientation;
+
         cout << "Saisissez la case de proue de votre " << nom
              << " sous cette forme : A:1 :" << endl;
-        proue = saisirCoup(grille);
+        Coordonnees proue = saisirCoup(grille);
 
         vector<pair<Coordonnees, bool> > coordonnees;
         Navire                           navire(nom, orientation, coordonnees);
-        cout << "Apres saisir coup" << endl;
-        do
+
+        coordonnees.clear();
+
+        bool navireInvalide = true;
+        while(navireInvalide)
         {
+            coordonnees.clear();
+
             if(orientation == HORIZONTAL)
             {
-                for(int i = 0; i < valeur; ++i)
+                for(int j = 0; j < valeur; ++j)
                 {
                     pair<Coordonnees, bool> coordonnee;
-                    coordonnee.first.colonne = proue.colonne + (i * (1 - orientation));
-                    coordonnee.first.ligne   = proue.ligne + (i * orientation);
+                    coordonnee.first.colonne = proue.colonne + j;
+                    coordonnee.first.ligne   = proue.ligne;
                     coordonnee.second        = true;
                     coordonnees.push_back(coordonnee);
                 }
             }
+            else
+            {
+                for(int j = 0; j < valeur; ++j)
+                {
+                    pair<Coordonnees, bool> coordonnee;
+                    coordonnee.first.colonne = proue.colonne;
+                    coordonnee.first.ligne   = proue.ligne + j;
+                    coordonnee.second        = true;
+                    coordonnees.push_back(coordonnee);
+                }
+            }
+
             navire.setCoordonnees(coordonnees);
-            cout << "Coordonné set !" << endl;
 
-        } while(navire.estNavireValide(grille, navires, navire));
-        cout << "navire valdide" << endl;
-        navires.push_back(&navire);
-        cout << "Navire ajouté" << endl;
+            if(navire.estNavireValide(grille, navires, navire))
+            {
+                navireInvalide = false;
+                navires.push_back(new Navire(navire)); // Copie le navire dans le vecteur
+                cout << "Navire ajouté" << endl;
+            }
+            else
+            {
+                cout << "Navire invalide, veuillez le replacer." << endl;
+                Coordonnees proue = saisirCoup(grille);
+            }
+        }
     }
-    cout << "Tous les bateau set";
 
-    flotte.setFlotte(navires);
-    return flotte;
+    cout << "Tous les bateaux sont définis" << endl;
+
+    flotte->setFlotte(navires);
 }
 
 void IHM::associerInterfaceBataille(BatailleNavale* batailleInterface)
@@ -105,8 +129,8 @@ void IHM::associerInterfaceBataille(BatailleNavale* batailleInterface)
 
 void IHM::afficherGrille(Joueur* joueur)
 {
-    vector<vector<string> > matrice(joueur->getGrille()->getNbLigne(),
-                                    vector<string>(joueur->getGrille()->getNbColonne(), ""));
+    vector<vector<string> > matrice(joueur->getGrille()->getNbLignes(),
+                                    vector<string>(joueur->getGrille()->getNbColonnes(), ""));
     for(Navire* navire: joueur->getFlotte()->getFlotte())
     {
         for(pair<Coordonnees, bool> coordonnee: navire->getCoordonnes())
@@ -122,10 +146,10 @@ void IHM::afficherGrille(Joueur* joueur)
         }
     }
 
-    for(int i = 0; i < joueur->getGrille()->getNbLigne(); ++i)
+    for(int i = 0; i < joueur->getGrille()->getNbLignes(); ++i)
 
     {
-        for(int j = 0; j < joueur->getGrille()->getNbColonne(); ++j)
+        for(int j = 0; j < joueur->getGrille()->getNbColonnes(); ++j)
         {
             if((j + i) % 2 == 0 && matrice[i][j] == "")
             {

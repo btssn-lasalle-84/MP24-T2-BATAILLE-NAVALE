@@ -35,7 +35,7 @@ class IHM
     ~IHM();
 
     std::string saisirJoueur();
-    Flotte      saisirDisposition(Grille*);
+    void        saisirDisposition(Grille*, Flotte* flotte);
     Coordonnees saisirCoup(Grille*);
     bool        estCoupValide(Coordonnees, Grille*);
     void        afficherGrille(Joueur*);

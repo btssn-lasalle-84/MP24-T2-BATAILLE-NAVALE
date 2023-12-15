@@ -1,6 +1,9 @@
 #ifndef JOUEUR_H
 #define JOUEUR_H
-#include <iostream>
+
+#include <string>
+
+#define DEBUG_JOUEUR
 
 class Grille;
 class BatailleNavale;
@@ -24,8 +27,6 @@ class Joueur
     Grille*     getGrille() const;
     Flotte*     getFlotte() const;
     void        setPseudo(const std::string nouveauPseudo);
-    void        associerJoueurGrille(Grille*);
     void        associerJoueurBatailleNavale(BatailleNavale*);
-    void        associerJoueurFlotte(Flotte*);
 };
 #endif

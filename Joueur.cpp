@@ -1,13 +1,32 @@
 #include "Joueur.h"
+#include "Grille.h"
+#include "BatailleNavale.h"
+#include "Flotte.h"
+
+#ifdef DEBUG_JOUEUR
+#include <iostream>
+#endif
 
 using namespace std;
 
-Joueur::Joueur() : pseudo(" ")
+Joueur::Joueur() :
+    pseudo(" "), grille(new Grille(this)), bataille(nullptr), flotte(new Flotte(this))
 {
+#ifdef DEBUG_JOUEUR
+    std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "] this = " << this << " "
+              << "pseudo = " << pseudo << " - grille = " << grille << " - bataille = " << bataille
+              << " - flotte = " << flotte;
+    std::cout << std::endl;
+#endif
 }
 
 Joueur::~Joueur()
 {
+    delete grille;
+    delete flotte;
+#ifdef DEBUG_JOUEUR
+    std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "]" << std::endl;
+#endif
 }
 
 Joueur::Joueur(string          pseudoJoueur,
@@ -44,17 +63,13 @@ Flotte* Joueur::getFlotte() const
     return flotte;
 }
 
-void Joueur::associerJoueurGrille(Grille* grilleJoueur)
-{
-    grille = grilleJoueur;
-}
-
 void Joueur::associerJoueurBatailleNavale(BatailleNavale* batailleNavaleJoueur)
 {
     bataille = batailleNavaleJoueur;
-}
-
-void Joueur::associerJoueurFlotte(Flotte* flotteJoueur)
-{
-    flotte = flotteJoueur;
+#ifdef DEBUG_JOUEUR
+    std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "] this = " << this << " "
+              << "pseudo = " << pseudo << " - grille = " << grille << " - bataille = " << bataille
+              << " - flotte = " << flotte;
+    std::cout << std::endl;
+#endif
 }
