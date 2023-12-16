@@ -40,7 +40,7 @@ void Navire::setCoordonnees(vector<pair<Coordonnees, bool> > coordonneesNavire)
     coordonnees = coordonneesNavire;
 }
 
-void Navire::ajouterDegat(Coordonnees coordonnee)
+bool Navire::ajouterDegat(Coordonnees coordonnee)
 {
     degats += 1;
     for(pair<Coordonnees, bool> coordonneeNavire: coordonnees)
@@ -49,14 +49,14 @@ void Navire::ajouterDegat(Coordonnees coordonnee)
            coordonnee.colonne == coordonneeNavire.first.colonne)
         {
             coordonneeNavire.second = false;
-            break;
+            return true;
+            ;
         }
     }
+    return false;
 }
 
-bool Navire::estNavireValide(Grille*                grille,
-                             const vector<Navire*>& navires,
-                             const Navire&          nouveauNavire)
+bool Navire::estNavireValide(Grille* grille, const vector<Navire*>& navires)
 {
     if(this->coordonnees.empty())
     {
@@ -82,7 +82,7 @@ bool Navire::estNavireValide(Grille*                grille,
     {
         for(const pair<Coordonnees, bool>& coordEx: navireExistant->getCoordonnes())
         {
-            for(const pair<Coordonnees, bool>& coordNouveau: nouveauNavire.getCoordonnes())
+            for(const pair<Coordonnees, bool>& coordNouveau: this->coordonnees)
             {
                 if(coordNouveau.first.colonne == coordEx.first.colonne &&
                    coordNouveau.first.ligne == coordEx.first.ligne)
@@ -92,6 +92,11 @@ bool Navire::estNavireValide(Grille*                grille,
     }
 
     return true;
+}
+
+void Navire::setOrientation(const int& nouvOrientation)
+{
+    orientation = nouvOrientation;
 }
 
 int Navire::getOrientation() const

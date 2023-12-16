@@ -35,11 +35,12 @@ class Navire
 
     std::vector<std::pair<Coordonnees, bool> > getCoordonnes() const;
     void        setCoordonnees(const std::vector<std::pair<Coordonnees, bool> >);
+    void        setOrientation(const int&);
     std::string getNom() const;
     int         getOrientation() const;
-    void        ajouterDegat(Coordonnees);
+    bool        ajouterDegat(Coordonnees);
     bool        estMort() const;
-    bool        estNavireValide(Grille*, const std::vector<Navire*>&, const Navire&);
+    bool        estNavireValide(Grille*, const std::vector<Navire*>&);
 };
 
 #endif
