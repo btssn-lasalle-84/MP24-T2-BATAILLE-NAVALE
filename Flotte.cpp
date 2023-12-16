@@ -43,15 +43,15 @@ void Flotte::genererAleatoirement(Grille* grille)
     srand(time(NULL));
     vector<Navire*> navires;
     vector<string>  nomBateaux     = { "Porte-Avion",
-                                  "Croiseur",
-                                  "Contre-torpilleur",
-                                  "Sous-marin",
-                                  "Torpilleur" };
+                                       "Croiseur",
+                                       "Contre-torpilleur",
+                                       "Sous-marin",
+                                       "Torpilleur" };
     vector<int>     valeursBateaux = { 5, 4, 3, 3, 2 };
 
     for(size_t i = 0; i < nomBateaux.size(); ++i)
     {
-        int          orientation = rand() % 2;
+        int          orientation = HORIZONTAL;
         string       nom         = nomBateaux[i];
         unsigned int nbCases     = valeursBateaux[i];
 
@@ -60,35 +60,30 @@ void Flotte::genererAleatoirement(Grille* grille)
         Navire                           navire(nom, orientation, coordonnees);
 
         bool navireInvalide = true;
-        do
+        while(navireInvalide)
         {
+            int orientation = rand() % 2;
+            navire.setOrientation(orientation);
             coordonnees.clear();
 
             if(orientation == HORIZONTAL)
             {
-                proue.colonne = rand() % (grille->getNbColonnes() - nbCases) + 1;
-                proue.ligne   = 'A' + rand() % (grille->getNbLignes()) + 1;
-                for(int j = 0; j < nbCases; ++j)
-                {
-                    pair<Coordonnees, bool> coordonnee;
-                    coordonnee.first.colonne = proue.colonne + j;
-                    coordonnee.first.ligne   = proue.ligne;
-                    coordonnee.second        = true;
-                    coordonnees.push_back(coordonnee);
-                }
+                proue.colonne = rand() % (grille->getNbColonnes() - nbCases + 1) + 1;
+                proue.ligne   = rand() % (grille->getNbLignes()) + 'A';
             }
             else
             {
                 proue.colonne = rand() % (grille->getNbColonnes()) + 1;
-                proue.ligne   = 'A' + rand() % (grille->getNbLignes() - nbCases) + 1;
-                for(int j = 0; j < nbCases; ++j)
-                {
-                    pair<Coordonnees, bool> coordonnee;
-                    coordonnee.first.colonne = proue.colonne;
-                    coordonnee.first.ligne   = proue.ligne + j;
-                    coordonnee.second        = true;
-                    coordonnees.push_back(coordonnee);
-                }
+                proue.ligne   = rand() % (grille->getNbLignes() - nbCases + 1) + 'A';
+            }
+
+            for(unsigned int j = 0; j < nbCases; ++j)
+            {
+                pair<Coordonnees, bool> coordonnee;
+                coordonnee.first.colonne = proue.colonne + (j * (1 - orientation));
+                coordonnee.first.ligne   = proue.ligne + (j * orientation);
+                coordonnee.second        = true;
+                coordonnees.push_back(coordonnee);
             }
 
             navire.setCoordonnees(coordonnees);
@@ -98,7 +93,7 @@ void Flotte::genererAleatoirement(Grille* grille)
                       << "orientation = " << orientation << " - proue = " << proue.ligne << ":"
                       << proue.colonne;
             std::cout << std::endl;
-            for(int j = 0; j < coordonnees.size(); ++j)
+            for(int j = 0; j < (int)coordonnees.size(); ++j)
             {
                 std::cout << coordonnees[j].first.ligne << ":" << coordonnees[j].first.colonne
                           << " ";
@@ -106,14 +101,13 @@ void Flotte::genererAleatoirement(Grille* grille)
             std::cout << std::endl;
 #endif
 
-            if(navire.estNavireValide(grille, navires, navire))
+            if(navire.estNavireValide(grille, navires))
             {
                 navireInvalide = false;
                 navires.push_back(new Navire(navire)); // Copie le navire dans le vecteur
                 cout << "Navire ajouté" << endl;
             }
-
-        } while(navireInvalide);
+        }
     }
 
 #ifdef DEBUG_FLOTTE
