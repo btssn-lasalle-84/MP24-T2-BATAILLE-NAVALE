@@ -9,10 +9,11 @@
 #include "Navire.h"
 #include "Joueur.h"
 
-#define BLEU       "\033[0;34m ■"
-#define CYAN       "\033[1;36m ■"
-#define ROUGE      "\033[1;31m ■"
-#define GRIS       "\033[1;30m ■"
+#define BLEU       "\033[1;34;46m ■"
+#define CYAN       "\033[1;36;44m ■"
+#define ROUGE      "\033[1;41;33m ■"
+#define GRIS       "\033[1;40;39m ■"
+#define DEFAUT     "\033[0;39;49m"
 #define NB_LIGNE   10
 #define NB_COLONNE 10
 
@@ -35,8 +36,10 @@ class IHM
     ~IHM();
 
     std::string saisirJoueur();
-    Flotte      saisirDisposition(Grille*);
+    void        saisirDisposition(Grille*, Flotte* flotte);
     Coordonnees saisirCoup(Grille*);
+    Coordonnees saisirProue(Grille*, std::string);
+    int         saisirOrientation(Grille*, std::string, int);
     bool        estCoupValide(Coordonnees, Grille*);
     void        afficherGrille(Joueur*);
     void        afficherNavire(Grille*, Flotte*);

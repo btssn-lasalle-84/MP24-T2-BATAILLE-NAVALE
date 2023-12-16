@@ -1,6 +1,10 @@
 #include "Navire.h"
 #include "Flotte.h"
 
+#ifdef DEBUG_JOUEUR
+#include <iostream>
+#endif
+
 using namespace std;
 
 Navire::Navire() : nom(" "), orientation(), coordonnees(), degats(), etat()
@@ -28,7 +32,7 @@ string Navire::getNom() const
 
 vector<pair<Coordonnees, bool> > Navire::getCoordonnes() const
 {
-    return coordonnees;
+    return this->coordonnees;
 }
 
 void Navire::setCoordonnees(vector<pair<Coordonnees, bool> > coordonneesNavire)
@@ -36,7 +40,7 @@ void Navire::setCoordonnees(vector<pair<Coordonnees, bool> > coordonneesNavire)
     coordonnees = coordonneesNavire;
 }
 
-void Navire::ajouterDegat(Coordonnees coordonnee)
+bool Navire::ajouterDegat(Coordonnees coordonnee)
 {
     degats += 1;
     for(pair<Coordonnees, bool> coordonneeNavire: coordonnees)
@@ -45,14 +49,14 @@ void Navire::ajouterDegat(Coordonnees coordonnee)
            coordonnee.colonne == coordonneeNavire.first.colonne)
         {
             coordonneeNavire.second = false;
-            break;
+            return true;
+            ;
         }
     }
+    return false;
 }
 
-bool Navire::estNavireValide(Grille*               grille,
-                             vector<Navire*> const navires,
-                             Navire const          nouveauNavire)
+bool Navire::estNavireValide(Grille* grille, const vector<Navire*>& navires)
 {
     if(this->coordonnees.empty())
     {
@@ -61,24 +65,24 @@ bool Navire::estNavireValide(Grille*               grille,
 
     if(this->orientation == HORIZONTAL)
     {
-        if(!(this->coordonnees.back().first.colonne <= grille->getNbColonne()))
+        if(!(this->coordonnees.back().first.colonne <= grille->getNbColonnes()))
         {
             return false;
         }
     }
     else
     {
-        if(!(this->coordonnees.back().first.ligne <= ('A' + grille->getNbLigne())))
+        if(!(this->coordonnees.back().first.ligne <= ('A' + grille->getNbLignes())))
         {
             return false;
         }
     }
 
-    for(Navire* navireExistant: navires)
+    for(const Navire* navireExistant: navires)
     {
-        for(pair<Coordonnees, bool> coordEx: navireExistant->getCoordonnes())
+        for(const pair<Coordonnees, bool>& coordEx: navireExistant->getCoordonnes())
         {
-            for(pair<Coordonnees, bool> coordNouveau: nouveauNavire.getCoordonnes())
+            for(const pair<Coordonnees, bool>& coordNouveau: this->coordonnees)
             {
                 if(coordNouveau.first.colonne == coordEx.first.colonne &&
                    coordNouveau.first.ligne == coordEx.first.ligne)
@@ -88,6 +92,11 @@ bool Navire::estNavireValide(Grille*               grille,
     }
 
     return true;
+}
+
+void Navire::setOrientation(const int& nouvOrientation)
+{
+    orientation = nouvOrientation;
 }
 
 int Navire::getOrientation() const

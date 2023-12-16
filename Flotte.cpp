@@ -1,78 +1,127 @@
 #include "Flotte.h"
+#include "Joueur.h"
+#include "Navire.h"
+#include "Grille.h"
+
+#include <string>
+#include <cstdlib>
+#include <ctime>
+
+#ifdef DEBUG_FLOTTE
+#include <iostream>
+#endif
 
 using namespace std;
 
-Flotte::Flotte() : flotte(), joueur()
+Flotte::Flotte(Joueur* joueur) : navires(), joueur(joueur)
 {
+#ifdef DEBUG_FLOTTE
+    std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "] this = " << this << " "
+              << "nb navires = " << navires.size() << " - joueur = " << joueur;
+    std::cout << std::endl;
+#endif
 }
 
 Flotte::Flotte(vector<Navire*> const flotteNavires, Joueur* flotteJoueur) :
-    flotte(flotteNavires), joueur(flotteJoueur)
+    navires(flotteNavires), joueur(flotteJoueur)
 {
 }
 
-Flotte::Flotte(const Flotte& f) : flotte(f.flotte), joueur(f.joueur)
+Flotte::Flotte(const Flotte& f) : navires(f.navires), joueur(f.joueur)
 {
 }
 
 Flotte::~Flotte()
 {
+#ifdef DEBUG_FLOTTE
+    std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "]" << std::endl;
+#endif
 }
 
 void Flotte::genererAleatoirement(Grille* grille)
 {
     srand(time(NULL));
-    vector<Navire*>           navires;
-    map<string, unsigned int> bateaux{ { "Porte-avion", 5 },
-                                       { "Croiseur", 4 },
-                                       { "Contre-torpilleur", 3 },
-                                       { "Sous-marin", 3 },
-                                       { "Torpilleur", 2 } };
+    vector<Navire*> navires;
+    vector<string>  nomBateaux     = { "Porte-Avion",
+                                       "Croiseur",
+                                       "Contre-torpilleur",
+                                       "Sous-marin",
+                                       "Torpilleur" };
+    vector<int>     valeursBateaux = { 5, 4, 3, 3, 2 };
 
-    for(map<string, unsigned int>::iterator it = bateaux.begin(); it != bateaux.end(); ++it)
+    for(size_t i = 0; i < nomBateaux.size(); ++i)
     {
-        int          orientation = rand() % 2;
-        string       nom         = it->first;
-        unsigned int nbCases     = it->second;
+        int          orientation = HORIZONTAL;
+        string       nom         = nomBateaux[i];
+        unsigned int nbCases     = valeursBateaux[i];
 
         Coordonnees                      proue;
         vector<pair<Coordonnees, bool> > coordonnees;
         Navire                           navire(nom, orientation, coordonnees);
 
-        do
+        bool navireInvalide = true;
+        while(navireInvalide)
         {
-            if(orientation == 0)
+            int orientation = rand() % 2;
+            navire.setOrientation(orientation);
+            coordonnees.clear();
+
+            if(orientation == HORIZONTAL)
             {
-                proue.colonne = rand() % (grille->getNbColonne() - nbCases) + 1;
-                proue.ligne   = rand() % (grille->getNbLigne()) + 1;
+                proue.colonne = rand() % (grille->getNbColonnes() - nbCases + 1) + 1;
+                proue.ligne   = rand() % (grille->getNbLignes()) + 'A';
             }
             else
             {
-                proue.colonne = rand() % (grille->getNbColonne()) + 1;
-                proue.ligne   = rand() % (grille->getNbLigne() - nbCases) + 1;
+                proue.colonne = rand() % (grille->getNbColonnes()) + 1;
+                proue.ligne   = rand() % (grille->getNbLignes() - nbCases + 1) + 'A';
             }
 
-            for(unsigned int i = 0; i < nbCases; ++i)
+            for(unsigned int j = 0; j < nbCases; ++j)
             {
                 pair<Coordonnees, bool> coordonnee;
-                coordonnee.first.colonne = proue.colonne + (i * (1 - orientation));
-                coordonnee.first.ligne   = proue.ligne + (i * orientation);
+                coordonnee.first.colonne = proue.colonne + (j * (1 - orientation));
+                coordonnee.first.ligne   = proue.ligne + (j * orientation);
                 coordonnee.second        = true;
                 coordonnees.push_back(coordonnee);
             }
+
             navire.setCoordonnees(coordonnees);
 
-        } while(!navire.estNavireValide(grille, navires, navire));
+#ifdef DEBUG_FLOTTE
+            std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "] "
+                      << "orientation = " << orientation << " - proue = " << proue.ligne << ":"
+                      << proue.colonne;
+            std::cout << std::endl;
+            for(int j = 0; j < (int)coordonnees.size(); ++j)
+            {
+                std::cout << coordonnees[j].first.ligne << ":" << coordonnees[j].first.colonne
+                          << " ";
+            }
+            std::cout << std::endl;
+#endif
 
-        navires.push_back(&navire);
+            if(navire.estNavireValide(grille, navires))
+            {
+                navireInvalide = false;
+                navires.push_back(new Navire(navire)); // Copie le navire dans le vecteur
+                cout << "Navire ajouté" << endl;
+            }
+        }
     }
+
+#ifdef DEBUG_FLOTTE
+    std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "] "
+              << "nb navires = " << navires.size() << std::endl;
+
+#endif
 
     this->setFlotte(navires);
 }
 
 bool Flotte::tirer(Coordonnees coordonnee)
 {
-    for(Navire* navire: flotte)
+    for(Navire* navire: navires)
     {
         for(unsigned int i = 0; i < navire->getCoordonnes().size(); ++i)
         {
@@ -89,17 +138,12 @@ bool Flotte::tirer(Coordonnees coordonnee)
     return false;
 }
 
-void Flotte::associerFlotteJoueur(Joueur* joueurFlotte)
-{
-    joueur = joueurFlotte;
-}
-
 vector<Navire*> Flotte::getFlotte() const
 {
-    return flotte;
+    return navires;
 }
 
 void Flotte::setFlotte(vector<Navire*> const navires)
 {
-    flotte = navires;
+    this->navires = navires;
 }

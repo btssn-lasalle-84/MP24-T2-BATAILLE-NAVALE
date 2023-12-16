@@ -1,31 +1,38 @@
 #include "Grille.h"
-#define NB_LIGNE   10
-#define NB_COLONNE 10
+#include "Joueur.h"
 
-Grille::Grille() : nbLigne(NB_LIGNE), nbColonne(NB_COLONNE), joueur()
+#ifdef DEBUG_GRILLE
+#include <iostream>
+#endif
+
+Grille::Grille(Joueur* joueur) : nbLignes(NB_LIGNE), nbColonnes(NB_COLONNE), joueur(joueur)
 {
+#ifdef DEBUG_GRILLE
+    std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "] this = " << this << " "
+              << "nbLignes = " << nbLignes << " - nbColonnes = " << nbColonnes
+              << " - joueur = " << joueur;
+    std::cout << std::endl;
+#endif
 }
 
 Grille::~Grille()
 {
+#ifdef DEBUG_GRILLE
+    std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "]" << std::endl;
+#endif
 }
 
 Grille::Grille(const Grille& g, Joueur* grilleJoueur) :
-    nbLigne(g.nbLigne), nbColonne(g.nbColonne), joueur(grilleJoueur)
+    nbLignes(g.nbLignes), nbColonnes(g.nbColonnes), joueur(grilleJoueur)
 {
 }
 
-int Grille::getNbColonne() const
+int Grille::getNbColonnes() const
 {
-    return this->nbColonne;
+    return this->nbColonnes;
 }
 
-int Grille::getNbLigne() const
+int Grille::getNbLignes() const
 {
-    return this->nbLigne;
-}
-
-void Grille::associerGrilleJoueur(Joueur* joueurGrille)
-{
-    joueur = joueurGrille;
+    return this->nbLignes;
 }

@@ -1,6 +1,8 @@
 #ifndef BATAILLENAVALE_H
 #define BATAILLENAVALE_H
 
+#define DEBUG_BATAILLENAVALE // ou l'option -DDEBUG_BATAILLENAVALE dans g++
+
 class Joueur;
 class IHM;
 
@@ -18,12 +20,8 @@ class BatailleNavale
     ~BatailleNavale();
     void demarrerPartie();
     void afficherGrilles();
-    void initialiserIHM();
     void initialiserJoueurs();
-    void initialiserGrilles();
     void initialiserFlottes();
-    void associerBatailleJoueurs(Joueur*, Joueur*);
-    void associerBatailleInterface(IHM*);
 };
 
 #endif
