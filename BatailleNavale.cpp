@@ -54,8 +54,8 @@ void BatailleNavale::initialiserJoueurs()
 {
     joueur1 = new Joueur();
     joueur2 = new Joueur();
-    joueur1->setPseudo("Machine");
-    joueur2->setPseudo(interface->saisirJoueur());
+    joueur2->setPseudo("Machine");
+    joueur1->setPseudo(interface->saisirJoueur());
     joueur1->associerJoueurBatailleNavale(this);
     joueur2->associerJoueurBatailleNavale(this);
 #ifdef DEBUG_BATAILLENAVALE
@@ -71,7 +71,7 @@ void BatailleNavale::initialiserFlottes()
     interface->afficherGrille(joueur1);
 
     joueur2->getFlotte()->genererAleatoirement(joueur2->getGrille());
-    // interface->afficherGrille(joueur2);
+    interface->afficherGrille(joueur2);
 }
 
 void BatailleNavale::afficherGrilles()
