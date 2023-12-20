@@ -37,7 +37,7 @@ Dans cette version, le programme est capable de :
 
 [X]  Saisir un coup sur la grille
 
-![Texte alternatif](image/Gif_Presentation.gif)
+![Texte alternatif](images/batailleNavale.gif)
 
 ## TODO
 
@@ -56,13 +56,13 @@ Dans cette version, le programme est capable de :
 
 ## Itérations
 
-![Texte alternatif](image/Jira1.png)
-![Texte alternatif](image/Jira2.png)
-![Texte alternatif](image/Jira3.png)
+![Texte alternatif](images/Jira1.png)
+![Texte alternatif](images/Jira2.png)
+![Texte alternatif](images/Jira3.png)
 
 ## Diagramme de classes
 
-> Fourni par l'enseignant
+![](images/diagramme-classes-1.0.png)
 
 ## Équipe de développement
 
