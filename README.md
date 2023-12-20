@@ -27,15 +27,15 @@ $ ./batailleNavale.out
 
 Dans cette version, le programme est capable de : 
 
-[ ]  Saisir le nom d'un joueur
+[X]  Saisir le nom d'un joueur
 
-[ ]  Créer une flotte pour le joueur
+[X]  Créer une flotte pour le joueur
 
-[ ]  Placer les bateaux de la machine aléatoirement
+[X]  Placer les bateaux de la machine aléatoirement
 
-[ ]  Afficher les deux grilles en jeu avec les bateaux positionnés
+[X]  Afficher les deux grilles en jeu avec les bateaux positionnés
 
-[ ]  Saisir un coup sur la grille
+[X]  Saisir un coup sur la grille
 
 ![Texte alternatif](image/Gif_Presentation.gif)
 
