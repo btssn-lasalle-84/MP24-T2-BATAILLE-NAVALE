@@ -1,13 +1,13 @@
 #include "Grille.h"
 #include "Joueur.h"
 
-#ifdef DEBUG_GRILLE
+#ifndef DEBUG_GRILLE
 #include <iostream>
 #endif
 
 Grille::Grille(Joueur* joueur) : nbLignes(NB_LIGNE), nbColonnes(NB_COLONNE), joueur(joueur)
 {
-#ifdef DEBUG_GRILLE
+#ifndef DEBUG_GRILLE
     std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "] this = " << this << " "
               << "nbLignes = " << nbLignes << " - nbColonnes = " << nbColonnes
               << " - joueur = " << joueur;
@@ -17,7 +17,7 @@ Grille::Grille(Joueur* joueur) : nbLignes(NB_LIGNE), nbColonnes(NB_COLONNE), jou
 
 Grille::~Grille()
 {
-#ifdef DEBUG_GRILLE
+#ifndef DEBUG_GRILLE
     std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "]" << std::endl;
 #endif
 }

@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <ctime>
 
-#ifdef DEBUG_FLOTTE
+#ifndef DEBUG_FLOTTE
 #include <iostream>
 #endif
 
@@ -15,7 +15,7 @@ using namespace std;
 
 Flotte::Flotte(Joueur* joueur) : navires(), joueur(joueur)
 {
-#ifdef DEBUG_FLOTTE
+#ifndef DEBUG_FLOTTE
     std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "] this = " << this << " "
               << "nb navires = " << navires.size() << " - joueur = " << joueur;
     std::cout << std::endl;
@@ -33,7 +33,7 @@ Flotte::Flotte(const Flotte& f) : navires(f.navires), joueur(f.joueur)
 
 Flotte::~Flotte()
 {
-#ifdef DEBUG_FLOTTE
+#ifndef DEBUG_FLOTTE
     std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "]" << std::endl;
 #endif
 }
@@ -43,10 +43,10 @@ void Flotte::genererAleatoirement(Grille* grille)
     srand(time(NULL));
     vector<Navire*> navires;
     vector<string>  nomBateaux     = { "Porte-Avion",
-                                       "Croiseur",
-                                       "Contre-torpilleur",
-                                       "Sous-marin",
-                                       "Torpilleur" };
+                                  "Croiseur",
+                                  "Contre-torpilleur",
+                                  "Sous-marin",
+                                  "Torpilleur" };
     vector<int>     valeursBateaux = { 5, 4, 3, 3, 2 };
 
     for(size_t i = 0; i < nomBateaux.size(); ++i)
@@ -88,7 +88,7 @@ void Flotte::genererAleatoirement(Grille* grille)
 
             navire.setCoordonnees(coordonnees);
 
-#ifdef DEBUG_FLOTTE
+#ifndef DEBUG_FLOTTE
             std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "] "
                       << "orientation = " << orientation << " - proue = " << proue.ligne << ":"
                       << proue.colonne;
@@ -105,12 +105,11 @@ void Flotte::genererAleatoirement(Grille* grille)
             {
                 navireInvalide = false;
                 navires.push_back(new Navire(navire)); // Copie le navire dans le vecteur
-                cout << "Navire ajouté" << endl;
             }
         }
     }
 
-#ifdef DEBUG_FLOTTE
+#ifndef DEBUG_FLOTTE
     std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "] "
               << "nb navires = " << navires.size() << std::endl;
 
