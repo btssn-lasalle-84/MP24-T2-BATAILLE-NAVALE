@@ -9,10 +9,10 @@
 #include "Navire.h"
 #include "Joueur.h"
 
-#define BLEU       "\033[1;34;46m  "
-#define CYAN       "\033[1;36;44m  "
-#define ROUGE      "\033[1;41;33m  "
-#define GRIS       "\033[1;40;39m  "
+#define BLEU       "\033[48;5;33m  "
+#define CYAN       "\033[48;5;75m  "
+#define ROUGE      "\033[48;5;196m  "
+#define GRIS       "\033[48;5;236m  "
 #define DEFAUT     "\033[0;39;49m"
 #define NB_LIGNE   10
 #define NB_COLONNE 10
