@@ -93,10 +93,10 @@ void IHM::saisirDisposition(Grille* grille, Flotte* flotte)
 {
     vector<Navire*> navires;
     vector<string>  nomBateaux     = { "Porte-Avion",
-                                       "Croiseur",
-                                       "Contre-torpilleur",
-                                       "Sous-marin",
-                                       "Torpilleur" };
+                                  "Croiseur",
+                                  "Contre-torpilleur",
+                                  "Sous-marin",
+                                  "Torpilleur" };
     vector<int>     valeursBateaux = { 5, 4, 3, 3, 2 };
 
     for(int i = 0; i < (int)nomBateaux.size(); i++)
@@ -151,6 +151,32 @@ void IHM::saisirDisposition(Grille* grille, Flotte* flotte)
 void IHM::associerInterfaceBataille(BatailleNavale* batailleInterface)
 {
     bataille = batailleInterface;
+}
+
+std::string IHM::afficherGrilleVierge()
+{
+    string grille = "X 1 2 3 4 5 6 7 8 9 10\n";
+    for(int i = 0; i < NB_LIGNE; ++i)
+    {
+        grille += char(i + 'A');
+        grille += " ";
+        for(int j = 0; j < NB_COLONNE; ++j)
+        {
+            if((j + i) % 2 == 0)
+            {
+                grille += BLEU;
+            }
+            else if((j + i) % 2 == 1)
+            {
+                grille += CYAN;
+            }
+            grille += DEFAUT;
+        }
+        grille += '\n';
+    }
+
+    grille += '\n';
+    return grille;
 }
 
 void IHM::afficherGrille(Joueur* joueur)
@@ -208,10 +234,41 @@ void IHM::afficherGrille(Joueur* joueur)
 
 void IHM::afficherAsciiArt()
 {
+    cout << setfill(' ') << setw(53) << " ";
     cout << " ____        _        _ _ _        _   _                  _      " << endl;
+    cout << setfill(' ') << setw(53) << " ";
     cout << "|  _ \\      | |      (_) | |      | \\ | |                | |     " << endl;
+    cout << setfill(' ') << setw(53) << " ";
     cout << "| |_) | __ _| |_ __ _ _| | | ___  |  \\| | __ ___   ____ _| | ___ " << endl;
+    cout << setfill(' ') << setw(53) << " ";
     cout << "|  _ < / _` | __/ _` | | | |/ _ \\ | . ` |/ _` \\ \\ / / _` | |/ _ \\" << endl;
+    cout << setfill(' ') << setw(53) << " ";
     cout << "| |_) | (_| | || (_| | | | |  __/ | |\\  | (_| |\\ V / (_| | |  __/" << endl;
+    cout << setfill(' ') << setw(53) << " ";
     cout << "|____/ \\__,_|\\__\\__,_|_|_|_|\\___| |_| \\_|\\__,_| \\_/ \\__,_|_|\\___|" << endl;
+    cout << endl;
+}
+
+void IHM::afficherRegles()
+{
+    cout << setfill(' ') << setw(75);
+    cout << BLEU_REGLE << "Bienvenue dans le jeu Bataille Navale !" << DEFAUT << endl;
+    cout << setfill(' ') << setw(45) << " ";
+    cout << "Le but est de détruire les bateaux adverses avant que les vôtre soient repérés."
+         << endl;
+    cout << setfill(' ') << setw(20) << " ";
+    cout << "Pour cela vous devez dans un premier temps placer vos bateaux en selectionnant "
+            "l'orientation, puis les coordonnées de la proue du bateau."
+         << endl;
+    cout << setfill(' ') << setw(66) << " ";
+    cout << "Voici un représentation de la grille :" << endl;
+    cout << endl;
+    cout << setfill(' ') << setw(75) << " " << afficherGrilleVierge() << endl;
+    cout << setfill(' ') << setw(45) << " ";
+    cout << "Après avoir placé vos bateaux, la machine placera automatiquement les siens." << endl;
+    cout << setfill(' ') << setw(35) << " ";
+    cout << "Vous pourrez donc commencer à jouer en tapant la coordonnée à laquelle vous voulez "
+            "envoyer vôtre boulet de canon.";
+    cout << endl;
+    cout << VERT << "Début de la partie ! " << DEFAUT << endl;
 }

@@ -46,6 +46,7 @@ void BatailleNavale::demarrerPartie()
     std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "]" << std::endl;
 #endif
     interface->afficherAsciiArt();
+    interface->afficherRegles();
     this->initialiserJoueurs();
     this->initialiserFlottes();
 }

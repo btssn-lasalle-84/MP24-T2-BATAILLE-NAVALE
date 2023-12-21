@@ -13,7 +13,9 @@
 #define CYAN       "\033[48;5;75m  "
 #define ROUGE      "\033[48;5;196m  "
 #define GRIS       "\033[48;5;236m  "
-#define DEFAUT     "\033[0;39;49m"
+#define BLEU_REGLE "\033[38;5;153m"
+#define VERT       "\033[1;38;5;46m  "
+#define DEFAUT     "\033[0;5;0m"
 #define NB_LIGNE   10
 #define NB_COLONNE 10
 
@@ -46,6 +48,8 @@ class IHM
     void        associerInterfaceBataille(BatailleNavale*);
     void        afficherGrilleBateau(Grille*, std::vector<Navire*>);
     static void afficherAsciiArt();
+    void        afficherRegles();
+    std::string afficherGrilleVierge();
 };
 
 #endif
