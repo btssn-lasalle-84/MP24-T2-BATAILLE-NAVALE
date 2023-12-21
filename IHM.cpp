@@ -1,5 +1,10 @@
 #include "IHM.h"
 #include "Flotte.h"
+#include "Grille.h"
+#include "BatailleNavale.h"
+#include "Coordonnees.h"
+#include "Navire.h"
+#include "Joueur.h"
 #include <iostream>
 #include <map>
 #include <iomanip>
@@ -93,10 +98,10 @@ void IHM::saisirDisposition(Grille* grille, Flotte* flotte)
 {
     vector<Navire*> navires;
     vector<string>  nomBateaux     = { "Porte-Avion",
-                                       "Croiseur",
-                                       "Contre-torpilleur",
-                                       "Sous-marin",
-                                       "Torpilleur" };
+                                  "Croiseur",
+                                  "Contre-torpilleur",
+                                  "Sous-marin",
+                                  "Torpilleur" };
     vector<int>     valeursBateaux = { 5, 4, 3, 3, 2 };
 
     for(int i = 0; i < (int)nomBateaux.size(); i++)

@@ -1,7 +1,7 @@
 #ifndef BATAILLENAVALE_H
 #define BATAILLENAVALE_H
 
-#define DEBUG_BATAILLENAVALE // ou l'option -DDEBUG_BATAILLENAVALE dans g++
+//#define DEBUG_BATAILLENAVALE // ou l'option -DDEBUG_BATAILLENAVALE dans g++
 
 class Joueur;
 class IHM;

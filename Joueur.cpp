@@ -3,7 +3,7 @@
 #include "BatailleNavale.h"
 #include "Flotte.h"
 
-#ifndef DEBUG_JOUEUR
+#ifdef DEBUG_JOUEUR
 #include <iostream>
 #endif
 
@@ -12,7 +12,7 @@ using namespace std;
 Joueur::Joueur() :
     pseudo(" "), grille(new Grille(this)), bataille(nullptr), flotte(new Flotte(this))
 {
-#ifndef DEBUG_JOUEUR
+#ifdef DEBUG_JOUEUR
     std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "] this = " << this << " "
               << "pseudo = " << pseudo << " - grille = " << grille << " - bataille = " << bataille
               << " - flotte = " << flotte;
@@ -24,7 +24,7 @@ Joueur::~Joueur()
 {
     delete grille;
     delete flotte;
-#ifndef DEBUG_JOUEUR
+#ifdef DEBUG_JOUEUR
     std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "]" << std::endl;
 #endif
 }
@@ -66,7 +66,7 @@ Flotte* Joueur::getFlotte() const
 void Joueur::associerJoueurBatailleNavale(BatailleNavale* batailleNavaleJoueur)
 {
     bataille = batailleNavaleJoueur;
-#ifndef DEBUG_JOUEUR
+#ifdef DEBUG_JOUEUR
     std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "] this = " << this << " "
               << "pseudo = " << pseudo << " - grille = " << grille << " - bataille = " << bataille
               << " - flotte = " << flotte;

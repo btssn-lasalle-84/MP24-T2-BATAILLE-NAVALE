@@ -4,7 +4,7 @@
 #include <vector>
 #include "Coordonnees.h"
 
-#define DEBUG_FLOTTE
+//#define DEBUG_FLOTTE
 
 class Joueur;
 class Navire;

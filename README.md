@@ -12,6 +12,7 @@
 ## Présentation + Objectifs
 
 Ce mini-projet a pour but de re-créer le jeu de société : Bataille Navale en POO/C++. Le but est de jouer une partie contre une machine qui pourrait s'apparenter à un humain.  Le joueur pourra placer ses bateaux via l'interface, en entrant l'orientation et les coordonnées de la proue des bateaux. Après le placement terminé, le joueur pourra entrer les coordonnées de la case à attaquer adverse. Une fois tous les bateaux adverses détruit, le joueur sera désigné comme gagnant, à moins que la machine y arrive avant lui.
+
 ## Utilisation
 
 Exemple :
@@ -23,46 +24,39 @@ $ ./batailleNavale.out
 ```
 
 ## Ce que le logiciel fait dans cette version
+
 ### Version 1.0
 
-Dans cette version, le programme est capable de : 
+Dans cette version, le programme est capable de :
 
-[X]  Saisir le nom d'un joueur
+- [X]  Saisir le nom d'un joueur
+- [X]  Créer une flotte pour le joueur
+- [X]  Placer les bateaux de la machine aléatoirement
+- [X]  Afficher les deux grilles en jeu avec les bateaux positionnés
 
-[X]  Créer une flotte pour le joueur
-
-[X]  Placer les bateaux de la machine aléatoirement
-
-[X]  Afficher les deux grilles en jeu avec les bateaux positionnés
-
-[X]  Saisir un coup sur la grille
-
-![Texte alternatif](images/batailleNavale.gif)
+![batailleNavale.gif](images/batailleNavale.gif)
 
 ## TODO
 
-### Pour la version 2.0 
+### Pour la version 2.0
 
-[ ]  Gérer les dégâts causés aux bateaux
-
-[ ]  Gérer les essais réalisés par le joueur (loupés, touchés et coulés)
-
-[ ]  Afficher le déroulement d’une partie (grille, essais du joueur, ...)
-
-[ ]  Jouer une partie
-
+- [ ]  Gérer les dégâts causés aux bateaux
+- [ ]  Gérer les essais réalisés par le joueur (loupés, touchés et coulés)
+- [ ]  Afficher le déroulement d’une partie (grille, essais du joueur, ...)
+- [ ]  Jouer une partie
+- [ ]  Saisir un coup sur la grille
 
 ## Défauts constatés non corrigés
 
 ## Itérations
 
-![Texte alternatif](images/Jira1.png)
-![Texte alternatif](images/Jira2.png)
-![Texte alternatif](images/Jira3.png)
+![Jira1.png](images/Jira1.png)
+![Jira2.png](images/Jira2.png)
+![Jira3.png](images/Jira3.png)
 
 ## Diagramme de classes
 
-![](images/diagramme-classes-1.0.png)
+![diagramme-classes-1.0.png](images/diagramme-classes-1.0.png)
 
 ## Équipe de développement
 
