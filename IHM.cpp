@@ -249,6 +249,12 @@ void IHM::afficherAsciiArt()
     cout << endl;
 }
 
+void IHM::afficherVersionLogiciel()
+{
+    cout << setfill(' ') << setw(95);
+    cout << ROSE << "v" << VERSION << endl << endl;
+}
+
 void IHM::afficherRegles()
 {
     cout << setfill(' ') << setw(75);
