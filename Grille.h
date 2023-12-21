@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#define DEBUG_GRILLE
+//#define DEBUG_GRILLE
 
 #define NB_LIGNE   10
 #define NB_COLONNE 10

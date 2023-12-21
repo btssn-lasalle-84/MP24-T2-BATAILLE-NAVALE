@@ -1,13 +1,8 @@
 #ifndef IHM_H
 #define IHM_H
+
 #include <vector>
-#include <iostream>
-#include "Flotte.h"
-#include "Grille.h"
-#include "BatailleNavale.h"
-#include "Coordonnees.h"
-#include "Navire.h"
-#include "Joueur.h"
+#include <string>
 
 #define BLEU       "\033[1;34;46m  "
 #define CYAN       "\033[1;36;44m  "
