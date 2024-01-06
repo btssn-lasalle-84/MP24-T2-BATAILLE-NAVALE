@@ -45,16 +45,20 @@ class IHM
     void        saisirDisposition(Grille*, Flotte* flotte);
     Coordonnees saisirCoup();
     Coordonnees saisirProue(std::string);
+    Coordonnees formaterSaisie(std::string);
     int         saisirOrientation(std::string, int);
     bool        estCoupValide(Coordonnees);
     void        afficherGrille(Joueur*);
-    void        afficherNavire(Grille*, Flotte*);
+    void        genererFondGrille(std::vector<std::vector<std::string> >&);
+    void        ajouterNaviresGrille(Joueur*, std::vector<std::vector<std::string> >&);
+    void        afficherLigneGrille(std::vector<std::string>&);
     void        associerInterfaceBataille(BatailleNavale*);
-    void        afficherGrilleBateau(Grille*, std::vector<Navire*>);
+    void        afficherContenuGrille(Joueur*, std::vector<std::vector<std::string> >&);
     static void afficherAsciiArt();
     void        afficherRegles();
-    std::string afficherGrilleVierge();
+    void        afficherGrilleVierge();
     void        afficherVersionLogiciel();
+    static void clearTerminal();
 };
 
 #endif

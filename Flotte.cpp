@@ -40,82 +40,27 @@ Flotte::~Flotte()
 
 void Flotte::genererAleatoirement(Grille* grille)
 {
-    srand(time(NULL));
-    vector<Navire*> navires;
-    vector<string>  nomBateaux     = { "Porte-Avion",
-                                       "Croiseur",
-                                       "Contre-torpilleur",
-                                       "Sous-marin",
-                                       "Torpilleur" };
-    vector<int>     valeursBateaux = { 5, 4, 3, 3, 2 };
+    vector<string> nomsBateaux    = { "Porte-Avion",
+                                      "Croiseur",
+                                      "Contre-torpilleur",
+                                      "Sous-marin",
+                                      "Torpilleur" };
+    vector<int>    valeursBateaux = { 5, 4, 3, 3, 2 };
 
-    for(size_t i = 0; i < nomBateaux.size(); ++i)
+    this->genererNaviresAleatoirement(nomsBateaux, valeursBateaux);
+}
+
+void Flotte::genererNaviresAleatoirement(vector<string> nomsBateaux, vector<int> valeursBateaux)
+{
+    for(int i = 0; i < (int)nomsBateaux.size(); ++i)
     {
-        int          orientation = HORIZONTAL;
-        string       nom         = nomBateaux[i];
-        unsigned int nbCases     = valeursBateaux[i];
-
-        Coordonnees                      proue;
+        int                              orientation = HORIZONTAL;
+        string                           nom         = nomsBateaux[i];
         vector<pair<Coordonnees, bool> > coordonnees;
         Navire                           navire(nom, orientation, coordonnees);
 
-        bool navireInvalide = true;
-        while(navireInvalide)
-        {
-            int orientation = rand() % 2;
-            navire.setOrientation(orientation);
-            coordonnees.clear();
-
-            if(orientation == HORIZONTAL)
-            {
-                proue.colonne = rand() % (grille->getNbColonnes() - nbCases + 1) + 1;
-                proue.ligne   = rand() % (grille->getNbLignes()) + 'A';
-            }
-            else
-            {
-                proue.colonne = rand() % (grille->getNbColonnes()) + 1;
-                proue.ligne   = rand() % (grille->getNbLignes() - nbCases + 1) + 'A';
-            }
-
-            for(unsigned int j = 0; j < nbCases; ++j)
-            {
-                pair<Coordonnees, bool> coordonnee;
-                coordonnee.first.colonne = proue.colonne + (j * (1 - orientation));
-                coordonnee.first.ligne   = proue.ligne + (j * orientation);
-                coordonnee.second        = true;
-                coordonnees.push_back(coordonnee);
-            }
-
-            navire.setCoordonnees(coordonnees);
-
-#ifndef DEBUG_FLOTTE
-            std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "] "
-                      << "orientation = " << orientation << " - proue = " << proue.ligne << ":"
-                      << proue.colonne;
-            std::cout << std::endl;
-            for(int j = 0; j < (int)coordonnees.size(); ++j)
-            {
-                std::cout << coordonnees[j].first.ligne << ":" << coordonnees[j].first.colonne
-                          << " ";
-            }
-            std::cout << std::endl;
-#endif
-
-            if(navire.estNavireValide(navires))
-            {
-                navireInvalide = false;
-                navires.push_back(new Navire(navire)); // Copie le navire dans le vecteur
-            }
-        }
+        navire.gererCreationAleatoire(valeursBateaux[i], this);
     }
-
-#ifndef DEBUG_FLOTTE
-    std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "] "
-              << "nb navires = " << navires.size() << std::endl;
-
-#endif
-
-    this->setFlotte(navires);
 }
 
 bool Flotte::tirer(Coordonnees coordonnee)
@@ -135,6 +80,33 @@ bool Flotte::tirer(Coordonnees coordonnee)
     }
 
     return false;
+}
+
+Joueur* Flotte::getJoueur() const
+{
+    return joueur;
+}
+
+void Flotte::ajouterNavire(Navire* navire)
+{
+    navires.push_back(navire);
+}
+
+void Flotte::genererNavires(std::vector<std::string> nomsBateaux,
+                            std::vector<int>         valeursBateaux,
+                            IHM*                     interface)
+{
+    for(int i = 0; i < (int)nomsBateaux.size(); i++)
+    {
+        int         orientation = interface->saisirOrientation(nomsBateaux[i], valeursBateaux[i]);
+        Coordonnees proue       = interface->saisirProue(nomsBateaux[i]);
+        vector<pair<Coordonnees, bool> > coordonnees;
+        Navire                           navire(nomsBateaux[i], orientation, coordonnees);
+
+        navire.gererCreation(valeursBateaux[i], proue, interface, this);
+    }
+
+    cout << "Tous les bateaux sont définis" << endl;
 }
 
 vector<Navire*> Flotte::getFlotte() const

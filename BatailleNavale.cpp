@@ -40,6 +40,11 @@ BatailleNavale::~BatailleNavale()
 #endif
 }
 
+IHM* BatailleNavale::getInterface() const
+{
+    return interface;
+}
+
 void BatailleNavale::demarrerPartie()
 {
 #ifndef DEBUG_BATAILLENAVALE
