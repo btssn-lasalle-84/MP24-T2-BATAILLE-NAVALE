@@ -6,11 +6,14 @@
 #include "Grille.h"
 #include "Coordonnees.h"
 #include "Flotte.h"
+#include "IHM.h"
 
 #define CASE_MORTE_COL 0
 #define CASE_MORTE_LIG 'X'
 
 class Grille;
+class IHM;
+class Flotte;
 
 enum orientation
 {
@@ -36,6 +39,10 @@ class Navire
     std::vector<std::pair<Coordonnees, bool> > getCoordonnes() const;
     void        setCoordonnees(const std::vector<std::pair<Coordonnees, bool> >);
     void        setOrientation(const int&);
+    void        genererCoordonnees(Coordonnees, int);
+    void        gererCreation(int, Coordonnees proue, IHM*, Flotte*);
+    void        gererCreationAleatoire(int, Flotte*);
+    Coordonnees genererInfosAleatoires(int);
     std::string getNom() const;
     int         getOrientation() const;
     bool        ajouterDegat(Coordonnees);
