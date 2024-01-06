@@ -23,55 +23,53 @@ string IHM::saisirJoueur()
     return nomJoueur;
 }
 
-bool IHM::estCoupValide(Coordonnees coordonnee, Grille* grille)
+bool IHM::estCoupValide(Coordonnees coordonnee)
 {
     return !(coordonnee.ligne < 'A' || coordonnee.colonne < 1 ||
              coordonnee.ligne > (NB_LIGNE + 'A' - 1) || coordonnee.colonne > NB_COLONNE);
 }
 
-Coordonnees IHM::saisirCoup(Grille* grille)
+Coordonnees IHM::saisirCoup()
 {
     string saisie;
     getline(cin, saisie);
     Coordonnees coordonnee;
-    if(saisie.size() == 3)
+    if(saisie.size() == TAILLE_SAISIE_1)
     {
-        coordonnee.ligne   = char(saisie[0]);
+        coordonnee.ligne   = char(toupper(char(saisie[0])));
         coordonnee.colonne = int(char(saisie[2]) - '0');
     }
-    else if(saisie.size() == 4)
+    else if(saisie.size() == TAILLE_SAISIE_2)
     {
-        coordonnee.ligne   = char(saisie[0]);
+        coordonnee.ligne   = char(toupper(char(saisie[0])));
         coordonnee.colonne = int(char(saisie[2]) - '0');
         coordonnee.colonne = coordonnee.colonne * 10 + int(char(saisie[3]) - '0');
     }
     else
     {
         cout << "Saisie invalide, veuillez réessayer :\n";
-        return saisirCoup(grille);
+        return saisirCoup();
     }
 
-    if(coordonnee.ligne < 'A' || coordonnee.colonne < 1 || coordonnee.ligne > 'A' + NB_LIGNE - 1 ||
-       coordonnee.colonne > NB_LIGNE)
+    if(estCoupValide(coordonnee))
     {
-        cout << "Cette case est hors de la grille !" << endl
-             << "Les cases vont de A:1 à " << char('A' - 1 + NB_LIGNE) << ':' << NB_COLONNE << endl;
-        cout << "Saisie invalide, veuillez réessayer :\n";
-        return saisirCoup(grille);
+        return coordonnee;
     }
 
-    return coordonnee;
+    cout << "Cette case est hors de la grille !" << endl << "Les cases vont de A:1 à J:10" << endl;
+    cout << "Saisie invalide, veuillez réessayer :\n";
+    return saisirCoup();
 }
 
-Coordonnees IHM::saisirProue(Grille* grille, string nom)
+Coordonnees IHM::saisirProue(string nom)
 {
     cout << "Saisissez la case de proue de votre " << nom << " (ex : A:1) :\n";
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    Coordonnees proue = saisirCoup(grille);
+    Coordonnees proue = saisirCoup();
     return proue;
 }
 
-int IHM::saisirOrientation(Grille* grille, string nom, int nbCases)
+int IHM::saisirOrientation(string nom, int nbCases)
 {
     char orientation;
     cout << "Saisissez l'orientation de votre " << nom << " (" << nbCases << " cases)\n"
@@ -93,18 +91,18 @@ void IHM::saisirDisposition(Grille* grille, Flotte* flotte)
 {
     vector<Navire*> navires;
     vector<string>  nomBateaux     = { "Porte-Avion",
-                                  "Croiseur",
-                                  "Contre-torpilleur",
-                                  "Sous-marin",
-                                  "Torpilleur" };
+                                       "Croiseur",
+                                       "Contre-torpilleur",
+                                       "Sous-marin",
+                                       "Torpilleur" };
     vector<int>     valeursBateaux = { 5, 4, 3, 3, 2 };
 
     for(int i = 0; i < (int)nomBateaux.size(); i++)
     {
         string                           nom         = nomBateaux[i];
         int                              valeur      = valeursBateaux[i];
-        int                              orientation = saisirOrientation(grille, nom, valeur);
-        Coordonnees                      proue       = saisirProue(grille, nom);
+        int                              orientation = saisirOrientation(nom, valeur);
+        Coordonnees                      proue       = saisirProue(nom);
         vector<pair<Coordonnees, bool> > coordonnees;
         Navire                           navire(nom, orientation, coordonnees);
 
@@ -127,7 +125,7 @@ void IHM::saisirDisposition(Grille* grille, Flotte* flotte)
 
             navire.setCoordonnees(coordonnees);
 
-            if(navire.estNavireValide(grille, navires))
+            if(navire.estNavireValide(navires))
             {
                 navireInvalide = false;
                 cout << endl;
@@ -137,8 +135,8 @@ void IHM::saisirDisposition(Grille* grille, Flotte* flotte)
             else
             {
                 cout << "Navire invalide, veuillez le replacer." << endl;
-                orientation = saisirOrientation(grille, nom, valeur);
-                proue       = saisirProue(grille, nom);
+                orientation = saisirOrientation(nom, valeur);
+                proue       = saisirProue(nom);
             }
         }
     }

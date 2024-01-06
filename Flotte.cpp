@@ -43,10 +43,10 @@ void Flotte::genererAleatoirement(Grille* grille)
     srand(time(NULL));
     vector<Navire*> navires;
     vector<string>  nomBateaux     = { "Porte-Avion",
-                                  "Croiseur",
-                                  "Contre-torpilleur",
-                                  "Sous-marin",
-                                  "Torpilleur" };
+                                       "Croiseur",
+                                       "Contre-torpilleur",
+                                       "Sous-marin",
+                                       "Torpilleur" };
     vector<int>     valeursBateaux = { 5, 4, 3, 3, 2 };
 
     for(size_t i = 0; i < nomBateaux.size(); ++i)
@@ -101,7 +101,7 @@ void Flotte::genererAleatoirement(Grille* grille)
             std::cout << std::endl;
 #endif
 
-            if(navire.estNavireValide(grille, navires))
+            if(navire.estNavireValide(navires))
             {
                 navireInvalide = false;
                 navires.push_back(new Navire(navire)); // Copie le navire dans le vecteur

@@ -56,7 +56,7 @@ bool Navire::ajouterDegat(Coordonnees coordonnee)
     return false;
 }
 
-bool Navire::estNavireValide(Grille* grille, const vector<Navire*>& navires)
+bool Navire::estNavireValide(const vector<Navire*>& navires)
 {
     if(this->coordonnees.empty())
     {
@@ -65,14 +65,14 @@ bool Navire::estNavireValide(Grille* grille, const vector<Navire*>& navires)
 
     if(this->orientation == HORIZONTAL)
     {
-        if(!(this->coordonnees.back().first.colonne <= grille->getNbColonnes()))
+        if(!(this->coordonnees.back().first.colonne <= 10))
         {
             return false;
         }
     }
     else
     {
-        if(!(this->coordonnees.back().first.ligne <= ('A' + grille->getNbLignes())))
+        if(!(this->coordonnees.back().first.ligne <= 'J'))
         {
             return false;
         }
