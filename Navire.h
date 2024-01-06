@@ -40,7 +40,7 @@ class Navire
     int         getOrientation() const;
     bool        ajouterDegat(Coordonnees);
     bool        estMort() const;
-    bool        estNavireValide(Grille*, const std::vector<Navire*>&);
+    bool        estNavireValide(const std::vector<Navire*>&);
 };
 
 #endif
