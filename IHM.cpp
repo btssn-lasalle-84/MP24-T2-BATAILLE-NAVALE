@@ -94,7 +94,7 @@ int IHM::saisirOrientation(string nom, int nbCases)
     return orientation - '0';
 }
 
-void IHM::saisirDisposition(Grille* grille, Flotte* flotte)
+void IHM::saisirDisposition(Flotte* flotte)
 {
     vector<string> nomsBateaux    = { "Porte-Avion",
                                       "Croiseur",
@@ -126,26 +126,40 @@ void IHM::afficherGrilleVierge()
     }
 }
 
-void IHM::afficherGrille(Joueur* joueur)
+void IHM::afficherFlotte(Joueur* joueur)
 {
-    vector<vector<string> > matrice(joueur->getGrille()->getNbLignes(),
-                                    vector<string>(joueur->getGrille()->getNbColonnes(), ""));
+    vector<vector<string> > matrice(NB_LIGNE, vector<string>(NB_COLONNE, ""));
 
     genererFondGrille(matrice);
     ajouterNaviresGrille(joueur, matrice);
 
     cout << endl << "Grille de : " << joueur->getPseudo() << endl << endl;
 
-    afficherContenuGrille(joueur, matrice);
+    afficherGrilleFlotte(joueur, matrice);
 }
 
-void IHM::afficherContenuGrille(Joueur* joueur, vector<vector<string> >& matrice)
+void IHM::afficherGrilleFlotte(Joueur* joueur, vector<vector<string> >& matrice)
 {
     cout << DEFAUT << "X 1 2 3 4 5 6 7 8 9 10" << endl;
-    for(size_t i = 0; i < matrice.size(); ++i)
+    for(size_t i = 0; i < NB_LIGNE; ++i)
     {
         cout << DEFAUT << char(i + 'A') << ' ';
         afficherLigneGrille(matrice[i]);
+        cout << DEFAUT << endl;
+    }
+
+    cout << DEFAUT << endl
+         << "Navires restants : " << joueur->getFlotte()->getFlotte().size() << endl
+         << endl;
+}
+
+void IHM::afficherGrille(Joueur* joueur)
+{
+    cout << DEFAUT << "X 1 2 3 4 5 6 7 8 9 10" << endl;
+    for(size_t i = 0; i < NB_LIGNE; ++i)
+    {
+        cout << DEFAUT << char(i + 'A') << ' ';
+        afficherLigneGrille(joueur->getGrille()->getGrille()[i]);
         cout << DEFAUT << endl;
     }
 
