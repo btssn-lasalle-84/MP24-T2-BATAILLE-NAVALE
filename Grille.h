@@ -2,6 +2,7 @@
 #define GRILLE_H
 
 #include <vector>
+#include <string>
 
 #define DEBUG_GRILLE
 

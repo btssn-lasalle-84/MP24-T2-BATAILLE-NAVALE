@@ -7,7 +7,7 @@
 
 using namespace std;
 
-Grille::Grille(Joueur* joueur) : joueur(joueur), grille(grille)
+Grille::Grille(Joueur* joueur) : grille(), joueur(joueur)
 {
     for(int i = 0; i < NB_LIGNE; ++i)
     {
@@ -38,7 +38,7 @@ Grille::~Grille()
 }
 
 Grille::Grille(const Grille& grilleCopiee) :
-    joueur(grilleCopiee.joueur), grille(grilleCopiee.grille)
+    grille(grilleCopiee.grille), joueur(grilleCopiee.joueur)
 {
 }
 
