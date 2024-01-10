@@ -42,15 +42,14 @@ void Navire::setCoordonnees(vector<pair<Coordonnees, bool> > coordonneesNavire)
 
 bool Navire::ajouterDegat(Coordonnees coordonnee)
 {
-    degats += 1;
     for(pair<Coordonnees, bool> coordonneeNavire: coordonnees)
     {
         if(coordonnee.ligne == coordonneeNavire.first.ligne &&
            coordonnee.colonne == coordonneeNavire.first.colonne)
         {
             coordonneeNavire.second = false;
+            degats += 1;
             return true;
-            ;
         }
     }
     return false;
