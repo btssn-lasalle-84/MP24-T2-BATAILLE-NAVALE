@@ -81,7 +81,7 @@ void Navire::gererCreation(int valeur, Coordonnees proue, IHM* interface, Flotte
         {
             navireInvalide = false;
             cout << endl;
-            flotte->ajouterNavire(new Navire(*this)); // Copie le navire dans le vecteur
+            flotte->ajouterNavire(new Navire(*this));
             cout << "Navire ajouté" << endl;
             interface->afficherGrille(flotte->getJoueur());
         }

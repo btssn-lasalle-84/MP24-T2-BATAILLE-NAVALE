@@ -1,5 +1,6 @@
 TARGET = batailleNavale.out # Nom de l'exécutable
 OBJETS = main.o BatailleNavale.o Joueur.o Grille.o Flotte.o IHM.o Navire.o
+DEBUG = -DDEBUG_BATAILLENAVALE
 CXX = g++ # Compilateur
 LD = g++ -o
 CXXFLAGS = -Wall # Options de compilation
@@ -8,6 +9,7 @@ CLANG_FLAGS = --quiet -header-filter='.*' -checks=-*,boost-*,bugprone-*,performa
 RM = rm -f
 
 all: $(TARGET) # Règle par défaut : construire l'exécutable
+
 
 $(TARGET): $(OBJETS) # Règle pour construire l'exécutable à partir des fichiers objets
 	$(LD) $@ $^

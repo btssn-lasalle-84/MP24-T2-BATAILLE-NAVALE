@@ -21,6 +21,7 @@ class BatailleNavale
     IHM* getInterface() const;
     void demarrerPartie();
     void afficherGrilles();
+    void deroulementPartie();
     void initialiserJoueurs();
     void initialiserFlottes();
 };

@@ -52,6 +52,8 @@ class IHM
     Coordonnees formaterSaisie(std::string);
     int         saisirOrientation(std::string, int);
     bool        estCoupValide(Coordonnees);
+    void        afficherGrille(Joueur*);
+    void        gestionCoup(bool);
     void        afficherFlotte(Joueur*);
     void        afficherGrilleFlotte(Joueur*, std::vector<std::vector<std::string> >&);
     void        genererFondGrille(std::vector<std::vector<std::string> >&);
@@ -64,6 +66,9 @@ class IHM
     void        afficherGrilleVierge();
     void        afficherVersionLogiciel();
     static void clearTerminal();
+    void        jeuJoueur();
+    void        jeuMachine();
+    Coordonnees genererCoordonneesAleatoires();
 };
 
 #endif
