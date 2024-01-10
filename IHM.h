@@ -8,16 +8,20 @@
 #include "Coordonnees.h"
 #include "Navire.h"
 #include "Joueur.h"
+#define VERSION 1.1
 
-#define VERSION         1.1
-#define ROSE            "\033[1;38;5;200m"
-#define BLEU            "\033[48;5;33m  "
-#define CYAN            "\033[48;5;75m  "
-#define ROUGE           "\033[48;5;196m  "
-#define GRIS            "\033[48;5;236m  "
-#define BLEU_REGLE      "\033[38;5;153m"
-#define VERT            "\033[1;38;5;46m"
-#define DEFAUT          "\033[0;5;0m"
+#ifndef COULEUR
+#define COULEUR
+#define ROSE       "\033[1;38;5;200m"
+#define BLEU       "\033[48;5;33m  "
+#define CYAN       "\033[48;5;75m  "
+#define ROUGE      "\033[48;5;196m  "
+#define GRIS       "\033[48;5;236m  "
+#define BLEU_REGLE "\033[38;5;153m"
+#define VERT       "\033[1;38;5;46m"
+#define DEFAUT     "\033[0;5;0m"
+#endif
+
 #define NB_LIGNE        10
 #define NB_COLONNE      10
 #define TAILLE_SAISIE_1 3
@@ -42,7 +46,7 @@ class IHM
     ~IHM();
 
     std::string saisirJoueur();
-    void        saisirDisposition(Grille*, Flotte* flotte);
+    void        saisirDisposition(Flotte* flotte);
     Coordonnees saisirCoup();
     Coordonnees saisirProue(std::string);
     Coordonnees formaterSaisie(std::string);
@@ -50,11 +54,13 @@ class IHM
     bool        estCoupValide(Coordonnees);
     void        afficherGrille(Joueur*);
     void        gestionCoup(bool);
+    void        afficherFlotte(Joueur*);
+    void        afficherGrilleFlotte(Joueur*, std::vector<std::vector<std::string> >&);
     void        genererFondGrille(std::vector<std::vector<std::string> >&);
     void        ajouterNaviresGrille(Joueur*, std::vector<std::vector<std::string> >&);
     void        afficherLigneGrille(std::vector<std::string>&);
     void        associerInterfaceBataille(BatailleNavale*);
-    void        afficherContenuGrille(Joueur*, std::vector<std::vector<std::string> >&);
+    void        afficherGrille(Joueur*);
     static void afficherAsciiArt();
     void        afficherRegles();
     void        afficherGrilleVierge();

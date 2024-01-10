@@ -5,12 +5,27 @@
 #include <iostream>
 #endif
 
-Grille::Grille(Joueur* joueur) : nbLignes(NB_LIGNE), nbColonnes(NB_COLONNE), joueur(joueur)
+using namespace std;
+
+Grille::Grille(Joueur* joueur) : grille(), joueur(joueur)
 {
+    for(int i = 0; i < NB_LIGNE; ++i)
+    {
+        for(int j = 0; j < NB_COLONNE; ++j)
+        {
+            if((j + i) % 2 == 0)
+            {
+                grille[i][j] = BLEU;
+            }
+            else if((j + i) % 2 == 1)
+            {
+                grille[i][j] = CYAN;
+            }
+        }
+    }
 #ifndef DEBUG_GRILLE
     std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "] this = " << this << " "
-              << "nbLignes = " << nbLignes << " - nbColonnes = " << nbColonnes
-              << " - joueur = " << joueur;
+              << " joueur = " << joueur;
     std::cout << std::endl;
 #endif
 }
@@ -22,17 +37,12 @@ Grille::~Grille()
 #endif
 }
 
-Grille::Grille(const Grille& g, Joueur* grilleJoueur) :
-    nbLignes(g.nbLignes), nbColonnes(g.nbColonnes), joueur(grilleJoueur)
+Grille::Grille(const Grille& grilleCopiee) :
+    grille(grilleCopiee.grille), joueur(grilleCopiee.joueur)
 {
 }
 
-int Grille::getNbColonnes() const
+std::vector<std::vector<std::string> > Grille::getGrille() const
 {
-    return this->nbColonnes;
-}
-
-int Grille::getNbLignes() const
-{
-    return this->nbLignes;
+    return grille;
 }

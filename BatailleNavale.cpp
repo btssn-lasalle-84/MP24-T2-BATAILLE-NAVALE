@@ -70,7 +70,7 @@ void BatailleNavale::initialiserJoueurs()
 
 void BatailleNavale::initialiserFlottes()
 {
-    joueur1->getFlotte()->genererAleatoirement(joueur1->getGrille());
+    interface->saisirDisposition(joueur1->getFlotte());
     interface->afficherGrille(joueur1);
 
     joueur2->getFlotte()->genererAleatoirement(joueur2->getGrille());
