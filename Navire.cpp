@@ -42,15 +42,14 @@ void Navire::setCoordonnees(vector<pair<Coordonnees, bool> > coordonneesNavire)
 
 bool Navire::ajouterDegat(Coordonnees coordonnee)
 {
-    degats += 1;
     for(pair<Coordonnees, bool> coordonneeNavire: coordonnees)
     {
         if(coordonnee.ligne == coordonneeNavire.first.ligne &&
            coordonnee.colonne == coordonneeNavire.first.colonne)
         {
             coordonneeNavire.second = false;
+            degats += 1;
             return true;
-            ;
         }
     }
     return false;
@@ -82,7 +81,7 @@ void Navire::gererCreation(int valeur, Coordonnees proue, IHM* interface, Flotte
         {
             navireInvalide = false;
             cout << endl;
-            flotte->ajouterNavire(new Navire(*this)); // Copie le navire dans le vecteur
+            flotte->ajouterNavire(new Navire(*this));
             cout << "Navire ajouté" << endl;
             interface->afficherGrille(flotte->getJoueur());
         }

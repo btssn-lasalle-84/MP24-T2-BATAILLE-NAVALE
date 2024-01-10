@@ -97,10 +97,10 @@ int IHM::saisirOrientation(string nom, int nbCases)
 void IHM::saisirDisposition(Grille* grille, Flotte* flotte)
 {
     vector<string> nomsBateaux    = { "Porte-Avion",
-                                      "Croiseur",
-                                      "Contre-torpilleur",
-                                      "Sous-marin",
-                                      "Torpilleur" };
+                                   "Croiseur",
+                                   "Contre-torpilleur",
+                                   "Sous-marin",
+                                   "Torpilleur" };
     vector<int>    valeursBateaux = { 5, 4, 3, 3, 2 };
 
     flotte->genererNavires(nomsBateaux, valeursBateaux, this);
@@ -137,6 +137,18 @@ void IHM::afficherGrille(Joueur* joueur)
     cout << endl << "Grille de : " << joueur->getPseudo() << endl << endl;
 
     afficherContenuGrille(joueur, matrice);
+}
+
+void IHM::gestionCoup(bool touche)
+{
+    if(touche)
+    {
+        cout << "Touché !" << endl;
+    }
+    else
+    {
+        cout << "Plouf !" << endl;
+    }
 }
 
 void IHM::afficherContenuGrille(Joueur* joueur, vector<vector<string> >& matrice)
@@ -249,4 +261,25 @@ void IHM::afficherRegles()
             "envoyer votre boulet de canon.";
     cout << endl;
     cout << VERT << "Début du placement de la flotte ! " << DEFAUT << endl;
+}
+
+void IHM::jeuJoueur()
+{
+    cout << "Quel coup jouer ?" << endl;
+}
+
+void IHM::jeuMachine()
+{
+    cout << "La machine à jouer" << endl;
+}
+
+Coordonnees IHM::genererCoordonneesAleatoires()
+{
+    Coordonnees coo;
+    srand(time(NULL));
+
+    coo.colonne = rand() % (NB_COLONNE) + 1;
+    coo.ligne   = rand() % (NB_LIGNE + 1) + 'A';
+
+    return coo;
 }

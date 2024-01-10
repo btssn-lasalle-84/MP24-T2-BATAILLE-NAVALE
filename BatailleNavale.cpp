@@ -40,11 +40,6 @@ BatailleNavale::~BatailleNavale()
 #endif
 }
 
-IHM* BatailleNavale::getInterface() const
-{
-    return interface;
-}
-
 void BatailleNavale::demarrerPartie()
 {
 #ifndef DEBUG_BATAILLENAVALE
@@ -55,6 +50,7 @@ void BatailleNavale::demarrerPartie()
     interface->afficherRegles();
     this->initialiserJoueurs();
     this->initialiserFlottes();
+    this->deroulementPartie();
 }
 
 void BatailleNavale::initialiserJoueurs()
@@ -74,11 +70,26 @@ void BatailleNavale::initialiserJoueurs()
 
 void BatailleNavale::initialiserFlottes()
 {
-    interface->saisirDisposition(joueur1->getGrille(), joueur1->getFlotte());
+    joueur1->getFlotte()->genererAleatoirement(joueur1->getGrille());
     interface->afficherGrille(joueur1);
 
     joueur2->getFlotte()->genererAleatoirement(joueur2->getGrille());
+#ifndef DEBUG_BATAILLENAVALE
     interface->afficherGrille(joueur2);
+#endif
+}
+
+void BatailleNavale::deroulementPartie()
+{
+    bool partieFini = false;
+    while(!partieFini)
+    {
+        interface->jeuJoueur();
+        interface->gestionCoup(joueur2->getFlotte()->tirer(interface->saisirCoup()));
+        interface->jeuMachine();
+        interface->gestionCoup(
+          joueur1->getFlotte()->tirer(interface->genererCoordonneesAleatoires()));
+    }
 }
 
 void BatailleNavale::afficherGrilles()
