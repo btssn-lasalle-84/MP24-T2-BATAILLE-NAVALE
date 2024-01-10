@@ -4,15 +4,18 @@
 #include "IHM.h"
 #include "Grille.h"
 
-#ifndef DEBUG_BATAILLENAVALE
+#ifdef DEBUG_BATAILLENAVALE
 #include <iostream>
+#define DEBUG_GRILLE
+#define DEBUG_FLOTTE
+#define DEBUG_JOUEUR
 #endif
 
 using namespace std;
 
 BatailleNavale::BatailleNavale() : joueur1(nullptr), joueur2(nullptr), interface(new IHM(this))
 {
-#ifndef DEBUG_BATAILLENAVALE
+#ifdef DEBUG_BATAILLENAVALE
     std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "] this = " << this << " "
               << "joueur1 = " << joueur1 << " - joueur2 = " << joueur2
               << " - interface = " << interface;
@@ -35,7 +38,7 @@ BatailleNavale::~BatailleNavale()
     delete joueur1;
     delete joueur2;
     delete interface;
-#ifndef DEBUG_BATAILLENAVALE
+#ifdef DEBUG_BATAILLENAVALE
     std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "]" << std::endl;
 #endif
 }
@@ -47,7 +50,7 @@ IHM* BatailleNavale::getInterface() const
 
 void BatailleNavale::demarrerPartie()
 {
-#ifndef DEBUG_BATAILLENAVALE
+#ifdef DEBUG_BATAILLENAVALE
     std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "]" << std::endl;
 #endif
     interface->afficherAsciiArt();
@@ -65,7 +68,7 @@ void BatailleNavale::initialiserJoueurs()
     joueur1->setPseudo(interface->saisirJoueur());
     joueur1->associerJoueurBatailleNavale(this);
     joueur2->associerJoueurBatailleNavale(this);
-#ifndef DEBUG_BATAILLENAVALE
+#ifdef DEBUG_BATAILLENAVALE
     std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "] "
               << "joueur1 = " << joueur1 << " - joueur2 = " << joueur2;
     std::cout << std::endl;
