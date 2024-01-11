@@ -53,7 +53,6 @@ void BatailleNavale::demarrerPartie()
     interface->afficherRegles();
     this->initialiserJoueurs();
     this->initialiserFlottes();
-    this->deroulementPartie();
 }
 
 void BatailleNavale::initialiserJoueurs()

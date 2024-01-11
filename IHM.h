@@ -52,7 +52,6 @@ class IHM
     Coordonnees formaterSaisie(std::string);
     int         saisirOrientation(std::string, int);
     bool        estCoupValide(Coordonnees);
-    void        afficherGrille(Joueur*);
     void        gestionCoup(bool);
     void        afficherFlotte(Joueur*);
     void        afficherGrilleFlotte(Joueur*, std::vector<std::vector<std::string> >&);

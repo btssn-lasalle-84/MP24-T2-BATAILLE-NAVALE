@@ -83,7 +83,7 @@ void Navire::gererCreation(int valeur, Coordonnees proue, IHM* interface, Flotte
             cout << endl;
             flotte->ajouterNavire(new Navire(*this));
             cout << "Navire ajouté" << endl;
-            interface->afficherGrille(flotte->getJoueur());
+            interface->afficherFlotte(flotte->getJoueur());
         }
         else
         {
