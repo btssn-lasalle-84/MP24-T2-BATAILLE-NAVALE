@@ -7,7 +7,8 @@
 
 using namespace std;
 
-Grille::Grille(Joueur* joueur) : grille(), joueur(joueur)
+Grille::Grille(Joueur* joueur) :
+    grille(vector<vector<string> >(NB_LIGNE, vector<string>(NB_COLONNE, ""))), joueur(joueur)
 {
     for(int i = 0; i < NB_LIGNE; ++i)
     {
@@ -17,7 +18,7 @@ Grille::Grille(Joueur* joueur) : grille(), joueur(joueur)
             {
                 grille[i][j] = BLEU;
             }
-            else if((j + i) % 2 == 1)
+            else
             {
                 grille[i][j] = CYAN;
             }
