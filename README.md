@@ -5,9 +5,9 @@
 ## Informations
 
 - Nom du logiciel : Bataille Navale
-- Date de début : 22 Novembre 2023
-- Numéro de version du logiciel : 1.0
-- Date de cette version du logiciel : 20 Décembre 2023
+- Date de début : 20 Décembre Novembre 2023
+- Numéro de version du logiciel : 1.1
+- Date de cette version du logiciel : 14 Janvier 2024
 
 ## Présentation + Objectifs
 
@@ -23,42 +23,40 @@ $ ./batailleNavale.out
 ```
 
 ## Ce que le logiciel fait dans cette version
-### Version 1.0
+### Version 1.1
 
 Dans cette version, le programme est capable de : 
 
-[X]  Saisir le nom d'un joueur
+- [x]  Saisir le nom d'un joueur
 
-[X]  Créer une flotte pour le joueur
+- [x]  Créer une flotte pour le joueur
 
-[X]  Placer les bateaux de la machine aléatoirement
+- [x]  Placer les bateaux de la machine aléatoirement
 
-[X]  Afficher les deux grilles en jeu avec les bateaux positionnés
+- [x]  Afficher les deux grilles en jeu avec les bateaux positionnés
 
-[X]  Saisir un coup sur la grille
+- [x]  Saisir un coup sur la grille
 
-![Texte alternatif](image/Gif_Presentation.gif)
+![Texte alternatif](image/Gif_Bataille_Navale.gif)
 
 ## TODO
 
 ### Pour la version 2.0 
 
-[ ]  Gérer les dégâts causés aux bateaux
+- [x]  Gérer les dégâts causés aux bateaux
 
-[ ]  Gérer les essais réalisés par le joueur (loupés, touchés et coulés)
+- [x]  Gérer les essais réalisés par le joueur (loupés, touchés et coulés)
 
-[ ]  Afficher le déroulement d’une partie (grille, essais du joueur, ...)
+- [x]  Afficher le déroulement d’une partie (grille, essais du joueur, ...)
 
-[ ]  Jouer une partie
+- [x]  Jouer une partie
 
 
 ## Défauts constatés non corrigés
 
 ## Itérations
 
-![Texte alternatif](image/Jira1.png)
-![Texte alternatif](image/Jira2.png)
-![Texte alternatif](image/Jira3.png)
+![Texte alternatif](image/Jira4.png)
 
 ## Diagramme de classes
 
