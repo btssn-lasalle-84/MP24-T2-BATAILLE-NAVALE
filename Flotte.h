@@ -30,8 +30,8 @@ class Flotte
     void                 ajouterNavire(Navire*);
     void                 genererNavires(std::vector<std::string>, std::vector<int>, IHM*);
     void                 genererNaviresAleatoirement(std::vector<std::string>, std::vector<int>);
-    bool                 tirer(Coordonnees coordonnee);
-    void                 genererAleatoirement(Grille* grille);
+    int                  tirer(Coordonnees coordonnee);
+    void                 genererAleatoirement();
 };
 
 #endif
