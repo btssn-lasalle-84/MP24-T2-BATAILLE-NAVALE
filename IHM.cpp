@@ -1,10 +1,12 @@
 #include "IHM.h"
 #include "Flotte.h"
 #include "Bateaux.h"
+#include "Grille.h"
 #include <iostream>
 #include <map>
 #include <iomanip>
 #include <limits>
+#include <unistd.h>
 
 using namespace std;
 
@@ -28,6 +30,11 @@ bool IHM::estCoupValide(Coordonnees coordonnee)
 {
     return !(coordonnee.ligne < 'A' || coordonnee.colonne < 1 ||
              coordonnee.ligne > (NB_LIGNE + 'A' - 1) || coordonnee.colonne > NB_COLONNE);
+}
+
+void IHM::inviterASaisir()
+{
+    cout << "Saisissez la case à laquelle vous voulez frapper :" << endl;
 }
 
 Coordonnees IHM::saisirCoup()
@@ -103,6 +110,9 @@ void IHM::saisirDisposition(Flotte* flotte)
     flotte->genererNavires(nomsBateaux, valeursBateaux, this);
 
     cout << "Tous les bateaux sont définis" << endl;
+    cout << "La partie va démarrer sous peu" << endl;
+    sleep(3);
+    clearTerminal();
 }
 
 void IHM::associerInterfaceBataille(BatailleNavale* batailleInterface)
@@ -112,87 +122,72 @@ void IHM::associerInterfaceBataille(BatailleNavale* batailleInterface)
 
 void IHM::afficherGrilleVierge()
 {
-    vector<vector<string> > matrice(NB_LIGNE, vector<string>(NB_COLONNE, ""));
-    genererFondGrille(matrice);
+    Grille grille;
     cout << DEFAUT << "X 1 2 3 4 5 6 7 8 9 10" << endl;
-    for(size_t i = 0; i < matrice.size(); ++i)
+    for(size_t i = 0; i < grille.getGrille().size(); ++i)
     {
         cout << DEFAUT << char(i + 'A') << ' ';
-        afficherLigneGrille(matrice[i]);
+        afficherLigneGrille(grille.getGrille()[i]);
         cout << DEFAUT << endl;
     }
 }
 
-void IHM::afficherFlotte(Joueur* joueur)
+bool IHM::gestionCoup(Joueur* joueurTire, Coordonnees coordonnee, Joueur* joueurRecoit)
 {
-    vector<vector<string> > matrice(NB_LIGNE, vector<string>(NB_COLONNE, ""));
-
-    genererFondGrille(matrice);
-    ajouterNaviresGrille(joueur, matrice);
-
-    cout << endl << "Grille de : " << joueur->getPseudo() << endl << endl;
-
-    afficherGrilleFlotte(joueur, matrice);
+    int scenario = joueurRecoit->getFlotte()->tirer(coordonnee);
+    joueurRecoit->getGrillePrivee()->appliquerFlotteSurGrille();
+    if(scenario == 0)
+    {
+        cout << joueurTire->getPseudo() << " a raté son tir sur " << joueurRecoit->getPseudo()
+             << endl;
+        joueurTire->getGrillePublique()->ajouterCoup(coordonnee, ABYSSE);
+    }
+    if(scenario == 1)
+    {
+        cout << joueurTire->getPseudo() << " a touché un navire de " << joueurRecoit->getPseudo()
+             << endl;
+        joueurTire->getGrillePublique()->ajouterCoup(coordonnee, ROUGE);
+    }
+    if(scenario == 2)
+    {
+        cout << joueurTire->getPseudo() << " a coulé un navire de " << joueurRecoit->getPseudo()
+             << endl;
+        joueurTire->getGrillePublique()->ajouterCoup(coordonnee, ROUGE);
+    }
+    return (bool)scenario; //(0 = false, !0 = true)
 }
 
-void IHM::gestionCoup(bool touche)
-{
-    if(touche)
-    {
-        cout << "Touché !" << endl;
-    }
-    else
-    {
-        cout << "Plouf !" << endl;
-    }
-}
-void IHM::afficherGrilleFlotte(Joueur* joueur, vector<vector<string> >& matrice)
-
-{
-    cout << DEFAUT << "X 1 2 3 4 5 6 7 8 9 10" << endl;
-    for(size_t i = 0; i < NB_LIGNE; ++i)
-    {
-        cout << DEFAUT << char(i + 'A') << ' ';
-        afficherLigneGrille(matrice[i]);
-        cout << DEFAUT << endl;
-    }
-
-    cout << DEFAUT << endl
-         << "Navires restants : " << joueur->getFlotte()->getFlotte().size() << endl
-         << endl;
-}
-
-void IHM::afficherGrille(Joueur* joueur)
+void IHM::afficherGrille(Grille* grille)
 {
     cout << DEFAUT << "X 1 2 3 4 5 6 7 8 9 10" << endl;
     for(size_t i = 0; i < NB_LIGNE; ++i)
     {
         cout << DEFAUT << char(i + 'A') << ' ';
-        afficherLigneGrille(joueur->getGrille()->getGrille()[i]);
+        afficherLigneGrille(grille->getGrille()[i]);
         cout << DEFAUT << endl;
     }
+}
 
+void IHM::afficherNaviresRestants(Joueur* joueur)
+{
     cout << DEFAUT << endl
          << "Navires restants : " << joueur->getFlotte()->getFlotte().size() << endl
          << endl;
 }
 
-void IHM::ajouterNaviresGrille(Joueur* joueur, vector<vector<string> >& matrice)
+void IHM::afficherSeparateur()
 {
-    for(Navire* navire: joueur->getFlotte()->getFlotte())
-    {
-        for(pair<Coordonnees, bool> coordonnee: navire->getCoordonnes())
-        {
-            if(coordonnee.second)
-            {
-                matrice[coordonnee.first.ligne - 'A'][coordonnee.first.colonne - 1] = GRIS;
-            }
-            else
-            {
-                matrice[coordonnee.first.ligne - 'A'][coordonnee.first.colonne - 1] = ROUGE;
-            }
-        }
-    }
+    cout << "----------------------" << endl;
+}
+
+void IHM::afficherJeu(Joueur* joueur1, Joueur* joueur2)
+{
+    clearTerminal();
+    afficherGrille(joueur1->getGrillePublique());
+    afficherNaviresRestants(joueur2);
+    afficherSeparateur();
+    afficherNaviresRestants(joueur1);
+    afficherGrille(joueur1->getGrillePrivee());
 }
 
 void IHM::afficherLigneGrille(vector<string>& ligne)
@@ -206,6 +201,11 @@ void IHM::afficherLigneGrille(vector<string>& ligne)
 void IHM::clearTerminal()
 {
     system("clear");
+}
+
+void IHM::dormir(int temps)
+{
+    sleep(temps);
 }
 
 void IHM::afficherAsciiArt()
@@ -232,6 +232,12 @@ void IHM::afficherVersionLogiciel()
     cout << ROSE << "v" << VERSION << endl << endl;
 }
 
+void IHM::afficherMessageFin(Joueur* joueur)
+{
+    cout << joueur->getPseudo() << "a gagné !!!!" << endl;
+    sleep(10);
+}
+
 void IHM::afficherRegles()
 {
     cout << setfill(' ') << setw(75);
@@ -254,25 +260,4 @@ void IHM::afficherRegles()
             "envoyer votre boulet de canon.";
     cout << endl;
     cout << VERT << "Début du placement de la flotte ! " << DEFAUT << endl;
-}
-
-void IHM::jeuJoueur()
-{
-    cout << "Quel coup jouer ?" << endl;
-}
-
-void IHM::jeuMachine()
-{
-    cout << "La machine à jouer" << endl;
-}
-
-Coordonnees IHM::genererCoordonneesAleatoires()
-{
-    Coordonnees coo;
-    srand(time(NULL));
-
-    coo.colonne = rand() % (NB_COLONNE) + 1;
-    coo.ligne   = rand() % (NB_LIGNE + 1) + 'A';
-
-    return coo;
 }

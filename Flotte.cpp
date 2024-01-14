@@ -39,7 +39,7 @@ Flotte::~Flotte()
 #endif
 }
 
-void Flotte::genererAleatoirement(Grille* grille)
+void Flotte::genererAleatoirement()
 {
     vector<string> nomsBateaux    = LISTE_NOMS_BATEAUX;
     vector<int>    valeursBateaux = LISTE_CASES_BATEAUX;
@@ -60,7 +60,7 @@ void Flotte::genererNaviresAleatoirement(vector<string> nomsBateaux, vector<int>
     }
 }
 
-bool Flotte::tirer(Coordonnees coordonnee)
+int Flotte::tirer(Coordonnees coordonnee)
 {
     for(Navire* navire: navires)
     {
@@ -71,12 +71,16 @@ bool Flotte::tirer(Coordonnees coordonnee)
                navire->getCoordonnes()[i].second == true)
             {
                 navire->ajouterDegat(coordonnee);
-                return true;
+                if(navire->estMort())
+                {
+                    return 2;
+                }
+                return 1;
             }
         }
     }
 
-    return false;
+    return 0;
 }
 
 Joueur* Flotte::getJoueur() const

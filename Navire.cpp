@@ -55,6 +55,22 @@ bool Navire::ajouterDegat(Coordonnees coordonnee)
     return false;
 }
 
+bool Navire::estMort()
+{
+    if(degats == coordonnees.size())
+    {
+        return true;
+        etat = false;
+    }
+
+    return false;
+}
+
+int Navire::getEtat() const
+{
+    return (int)etat;
+}
+
 void Navire::genererCoordonnees(Coordonnees proue, int nbCases)
 {
     for(int i = 0; i < nbCases; ++i)
@@ -75,6 +91,7 @@ void Navire::gererCreation(int valeur, Coordonnees proue, IHM* interface, Flotte
     while(navireInvalide)
     {
         this->setOrientation(orientation);
+        coordonnees.clear();
         this->genererCoordonnees(proue, valeur);
 
         if(this->estNavireValide(flotte->getFlotte()))
@@ -83,7 +100,8 @@ void Navire::gererCreation(int valeur, Coordonnees proue, IHM* interface, Flotte
             cout << endl;
             flotte->ajouterNavire(new Navire(*this));
             cout << "Navire ajouté" << endl;
-            interface->afficherFlotte(flotte->getJoueur());
+            flotte->getJoueur()->getGrillePrivee()->appliquerFlotteSurGrille();
+            interface->afficherGrille(flotte->getJoueur()->getGrillePrivee());
         }
         else
         {
