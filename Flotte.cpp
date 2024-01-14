@@ -2,6 +2,7 @@
 #include "Joueur.h"
 #include "Navire.h"
 #include "Grille.h"
+#include "Bateaux.h"
 
 #include <string>
 #include <cstdlib>
@@ -40,12 +41,8 @@ Flotte::~Flotte()
 
 void Flotte::genererAleatoirement(Grille* grille)
 {
-    vector<string> nomsBateaux    = { "Porte-Avion",
-                                      "Croiseur",
-                                      "Contre-torpilleur",
-                                      "Sous-marin",
-                                      "Torpilleur" };
-    vector<int>    valeursBateaux = { 5, 4, 3, 3, 2 };
+    vector<string> nomsBateaux    = LISTE_NOMS_BATEAUX;
+    vector<int>    valeursBateaux = LISTE_CASES_BATEAUX;
 
     this->genererNaviresAleatoirement(nomsBateaux, valeursBateaux);
 }
@@ -105,8 +102,6 @@ void Flotte::genererNavires(std::vector<std::string> nomsBateaux,
 
         navire.gererCreation(valeursBateaux[i], proue, interface, this);
     }
-
-    cout << "Tous les bateaux sont définis" << endl;
 }
 
 vector<Navire*> Flotte::getFlotte() const

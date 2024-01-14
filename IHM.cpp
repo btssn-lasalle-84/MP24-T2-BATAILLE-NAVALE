@@ -1,5 +1,6 @@
 #include "IHM.h"
 #include "Flotte.h"
+#include "Bateaux.h"
 #include <iostream>
 #include <map>
 #include <iomanip>
@@ -96,12 +97,8 @@ int IHM::saisirOrientation(string nom, int nbCases)
 
 void IHM::saisirDisposition(Flotte* flotte)
 {
-    vector<string> nomsBateaux    = { "Porte-Avion",
-                                   "Croiseur",
-                                   "Contre-torpilleur",
-                                   "Sous-marin",
-                                   "Torpilleur" };
-    vector<int>    valeursBateaux = { 5, 4, 3, 3, 2 };
+    vector<string> nomsBateaux    = LISTE_NOMS_BATEAUX;
+    vector<int>    valeursBateaux = LISTE_CASES_BATEAUX;
 
     flotte->genererNavires(nomsBateaux, valeursBateaux, this);
 
@@ -137,7 +134,6 @@ void IHM::afficherFlotte(Joueur* joueur)
 
     afficherGrilleFlotte(joueur, matrice);
 }
-
 
 void IHM::gestionCoup(bool touche)
 {
@@ -179,24 +175,6 @@ void IHM::afficherGrille(Joueur* joueur)
     cout << DEFAUT << endl
          << "Navires restants : " << joueur->getFlotte()->getFlotte().size() << endl
          << endl;
-}
-
-void IHM::genererFondGrille(vector<vector<string> >& matrice)
-{
-    for(int i = 0; i < NB_LIGNE; ++i)
-    {
-        for(int j = 0; j < NB_COLONNE; ++j)
-        {
-            if((j + i) % 2 == 0)
-            {
-                matrice[i][j] = BLEU;
-            }
-            else if((j + i) % 2 == 1)
-            {
-                matrice[i][j] = CYAN;
-            }
-        }
-    }
 }
 
 void IHM::ajouterNaviresGrille(Joueur* joueur, vector<vector<string> >& matrice)

@@ -31,7 +31,7 @@ class Flotte
     void                 genererNavires(std::vector<std::string>, std::vector<int>, IHM*);
     void                 genererNaviresAleatoirement(std::vector<std::string>, std::vector<int>);
     bool                 tirer(Coordonnees coordonnee);
-    void                 genererAleatoirement(Grille*);
+    void                 genererAleatoirement(Grille* grille);
 };
 
 #endif
