@@ -21,7 +21,7 @@ $ make
 $ ./batailleNavale.out
 ```
 
-![Texte alternatif](image/Gif_Bataille_Navale.gif)
+![Texte alternatif](images/batailleNavale-1.1.gif.gif)
 
 ## Changelog
 
