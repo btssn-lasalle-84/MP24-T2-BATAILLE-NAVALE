@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 
-#define DEBUG_GRILLE
+//#define DEBUG_GRILLE
 
 #ifndef COULEUR
 #define COULEUR

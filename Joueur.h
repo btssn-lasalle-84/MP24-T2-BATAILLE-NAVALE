@@ -3,7 +3,7 @@
 
 #include <string>
 
-#define DEBUG_JOUEUR
+//#define DEBUG_JOUEUR
 
 class Grille;
 class BatailleNavale;
