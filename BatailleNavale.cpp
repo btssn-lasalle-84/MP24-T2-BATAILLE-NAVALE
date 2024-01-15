@@ -6,6 +6,9 @@
 
 #ifdef DEBUG_BATAILLENAVALE
 #include <iostream>
+#define DEBUG_GRILLE
+#define DEBUG_FLOTTE
+#define DEBUG_JOUEUR
 #endif
 
 using namespace std;
@@ -46,6 +49,8 @@ void BatailleNavale::demarrerPartie()
     std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "]" << std::endl;
 #endif
     interface->afficherAsciiArt();
+    interface->afficherVersionLogiciel();
+    interface->afficherRegles();
     this->initialiserJoueurs();
     this->initialiserFlottes();
 }
@@ -67,11 +72,26 @@ void BatailleNavale::initialiserJoueurs()
 
 void BatailleNavale::initialiserFlottes()
 {
-    interface->saisirDisposition(joueur1->getGrille(), joueur1->getFlotte());
+    interface->saisirDisposition(joueur1->getFlotte());
     interface->afficherGrille(joueur1);
 
     joueur2->getFlotte()->genererAleatoirement(joueur2->getGrille());
+#ifndef DEBUG_BATAILLENAVALE
     interface->afficherGrille(joueur2);
+#endif
+}
+
+void BatailleNavale::deroulementPartie()
+{
+    bool partieFini = false;
+    while(!partieFini)
+    {
+        interface->jeuJoueur();
+        interface->gestionCoup(joueur2->getFlotte()->tirer(interface->saisirCoup()));
+        interface->jeuMachine();
+        interface->gestionCoup(
+          joueur1->getFlotte()->tirer(interface->genererCoordonneesAleatoires()));
+    }
 }
 
 void BatailleNavale::afficherGrilles()

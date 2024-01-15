@@ -63,6 +63,11 @@ Flotte* Joueur::getFlotte() const
     return flotte;
 }
 
+BatailleNavale* Joueur::getBatailleNavale() const
+{
+    return bataille;
+}
+
 void Joueur::associerJoueurBatailleNavale(BatailleNavale* batailleNavaleJoueur)
 {
     bataille = batailleNavaleJoueur;

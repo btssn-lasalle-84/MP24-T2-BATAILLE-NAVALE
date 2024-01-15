@@ -2,15 +2,33 @@
 #define IHM_H
 
 #include <vector>
+
+#include <iostream>
+#include "Flotte.h"
+#include "Grille.h"
+#include "BatailleNavale.h"
+#include "Coordonnees.h"
+#include "Navire.h"
+#include "Joueur.h"
+#define VERSION 1.1
 #include <string>
 
-#define BLEU       "\033[1;34;46m  "
-#define CYAN       "\033[1;36;44m  "
-#define ROUGE      "\033[1;41;33m  "
-#define GRIS       "\033[1;40;39m  "
-#define DEFAUT     "\033[0;39;49m"
-#define NB_LIGNE   10
-#define NB_COLONNE 10
+#ifndef COULEUR
+#define COULEUR
+#define ROSE       "\033[1;38;5;200m"
+#define BLEU       "\033[48;5;33m  "
+#define CYAN       "\033[48;5;75m  "
+#define ROUGE      "\033[48;5;196m  "
+#define GRIS       "\033[48;5;236m  "
+#define BLEU_REGLE "\033[38;5;153m"
+#define VERT       "\033[1;38;5;46m"
+#define DEFAUT     "\033[0;5;0m"
+#endif
+
+#define NB_LIGNE        10
+#define NB_COLONNE      10
+#define TAILLE_SAISIE_1 3
+#define TAILLE_SAISIE_2 4
 
 class BatailleNavale;
 class Flotte;
@@ -31,16 +49,28 @@ class IHM
     ~IHM();
 
     std::string saisirJoueur();
-    void        saisirDisposition(Grille*, Flotte* flotte);
-    Coordonnees saisirCoup(Grille*);
-    Coordonnees saisirProue(Grille*, std::string);
-    int         saisirOrientation(Grille*, std::string, int);
-    bool        estCoupValide(Coordonnees, Grille*);
-    void        afficherGrille(Joueur*);
-    void        afficherNavire(Grille*, Flotte*);
+    void        saisirDisposition(Flotte* flotte);
+    Coordonnees saisirCoup();
+    Coordonnees saisirProue(std::string);
+    Coordonnees formaterSaisie(std::string);
+    int         saisirOrientation(std::string, int);
+    bool        estCoupValide(Coordonnees);
+    void        gestionCoup(bool);
+    void        afficherFlotte(Joueur*);
+    void        afficherGrilleFlotte(Joueur*, std::vector<std::vector<std::string> >&);
+    void        genererFondGrille(std::vector<std::vector<std::string> >&);
+    void        ajouterNaviresGrille(Joueur*, std::vector<std::vector<std::string> >&);
+    void        afficherLigneGrille(std::vector<std::string>&);
     void        associerInterfaceBataille(BatailleNavale*);
-    void        afficherGrilleBateau(Grille*, std::vector<Navire*>);
+    void        afficherGrille(Joueur*);
     static void afficherAsciiArt();
+    void        afficherRegles();
+    void        afficherGrilleVierge();
+    void        afficherVersionLogiciel();
+    static void clearTerminal();
+    void        jeuJoueur();
+    void        jeuMachine();
+    Coordonnees genererCoordonneesAleatoires();
 };
 
 #endif

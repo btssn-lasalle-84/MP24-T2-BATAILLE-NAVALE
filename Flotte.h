@@ -3,12 +3,14 @@
 
 #include <vector>
 #include "Coordonnees.h"
+#include "IHM.h"
 
 //#define DEBUG_FLOTTE
 
 class Joueur;
 class Navire;
 class Grille;
+class IHM;
 
 class Flotte
 {
@@ -24,6 +26,10 @@ class Flotte
 
     std::vector<Navire*> getFlotte() const;
     void                 setFlotte(const std::vector<Navire*>);
+    Joueur*              getJoueur() const;
+    void                 ajouterNavire(Navire*);
+    void                 genererNavires(std::vector<std::string>, std::vector<int>, IHM*);
+    void                 genererNaviresAleatoirement(std::vector<std::string>, std::vector<int>);
     bool                 tirer(Coordonnees coordonnee);
     void                 genererAleatoirement(Grille*);
 };

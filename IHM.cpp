@@ -28,55 +28,60 @@ string IHM::saisirJoueur()
     return nomJoueur;
 }
 
-bool IHM::estCoupValide(Coordonnees coordonnee, Grille* grille)
+bool IHM::estCoupValide(Coordonnees coordonnee)
 {
     return !(coordonnee.ligne < 'A' || coordonnee.colonne < 1 ||
              coordonnee.ligne > (NB_LIGNE + 'A' - 1) || coordonnee.colonne > NB_COLONNE);
 }
 
-Coordonnees IHM::saisirCoup(Grille* grille)
+Coordonnees IHM::saisirCoup()
 {
     string saisie;
     getline(cin, saisie);
-    Coordonnees coordonnee;
-    if(saisie.size() == 3)
+    Coordonnees coordonnee = formaterSaisie(saisie);
+
+    if(estCoupValide(coordonnee))
     {
-        coordonnee.ligne   = char(saisie[0]);
+        return coordonnee;
+    }
+
+    cout << "Cette case est hors de la grille !" << endl << "Les cases vont de A:1 à J:10" << endl;
+    cout << "Saisie invalide, veuillez réessayer :\n";
+    return saisirCoup();
+}
+
+Coordonnees IHM::formaterSaisie(string saisie)
+{
+    Coordonnees coordonnee;
+    if(saisie.size() == TAILLE_SAISIE_1)
+    {
+        coordonnee.ligne   = char(toupper(char(saisie[0])));
         coordonnee.colonne = int(char(saisie[2]) - '0');
     }
-    else if(saisie.size() == 4)
+    else if(saisie.size() == TAILLE_SAISIE_2)
     {
-        coordonnee.ligne   = char(saisie[0]);
+        coordonnee.ligne   = char(toupper(char(saisie[0])));
         coordonnee.colonne = int(char(saisie[2]) - '0');
         coordonnee.colonne = coordonnee.colonne * 10 + int(char(saisie[3]) - '0');
     }
     else
     {
         cout << "Saisie invalide, veuillez réessayer :\n";
-        return saisirCoup(grille);
-    }
-
-    if(coordonnee.ligne < 'A' || coordonnee.colonne < 1 || coordonnee.ligne > 'A' + NB_LIGNE - 1 ||
-       coordonnee.colonne > NB_LIGNE)
-    {
-        cout << "Cette case est hors de la grille !" << endl
-             << "Les cases vont de A:1 à " << char('A' - 1 + NB_LIGNE) << ':' << NB_COLONNE << endl;
-        cout << "Saisie invalide, veuillez réessayer :\n";
-        return saisirCoup(grille);
+        return saisirCoup();
     }
 
     return coordonnee;
 }
 
-Coordonnees IHM::saisirProue(Grille* grille, string nom)
+Coordonnees IHM::saisirProue(string nom)
 {
     cout << "Saisissez la case de proue de votre " << nom << " (ex : A:1) :\n";
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    Coordonnees proue = saisirCoup(grille);
+    Coordonnees proue = saisirCoup();
     return proue;
 }
 
-int IHM::saisirOrientation(Grille* grille, string nom, int nbCases)
+int IHM::saisirOrientation(string nom, int nbCases)
 {
     char orientation;
     cout << "Saisissez l'orientation de votre " << nom << " (" << nbCases << " cases)\n"
@@ -94,7 +99,7 @@ int IHM::saisirOrientation(Grille* grille, string nom, int nbCases)
     return orientation - '0';
 }
 
-void IHM::saisirDisposition(Grille* grille, Flotte* flotte)
+void IHM::saisirDisposition(Flotte* flotte)
 {
     vector<Navire*> navires;
     vector<string>  nomBateaux     = { "Porte-Avion",
@@ -104,53 +109,9 @@ void IHM::saisirDisposition(Grille* grille, Flotte* flotte)
                                   "Torpilleur" };
     vector<int>     valeursBateaux = { 5, 4, 3, 3, 2 };
 
-    for(int i = 0; i < (int)nomBateaux.size(); i++)
-    {
-        string                           nom         = nomBateaux[i];
-        int                              valeur      = valeursBateaux[i];
-        int                              orientation = saisirOrientation(grille, nom, valeur);
-        Coordonnees                      proue       = saisirProue(grille, nom);
-        vector<pair<Coordonnees, bool> > coordonnees;
-        Navire                           navire(nom, orientation, coordonnees);
-
-        coordonnees.clear();
-
-        bool navireInvalide = true;
-        while(navireInvalide)
-        {
-            navire.setOrientation(orientation);
-            coordonnees.clear();
-
-            for(int j = 0; j < valeur; ++j)
-            {
-                pair<Coordonnees, bool> coordonnee;
-                coordonnee.first.colonne = proue.colonne + (j * (1 - orientation));
-                coordonnee.first.ligne   = proue.ligne + (j * orientation);
-                coordonnee.second        = true;
-                coordonnees.push_back(coordonnee);
-            }
-
-            navire.setCoordonnees(coordonnees);
-
-            if(navire.estNavireValide(grille, navires))
-            {
-                navireInvalide = false;
-                cout << endl;
-                navires.push_back(new Navire(navire)); // Copie le navire dans le vecteur
-                cout << "Navire ajouté" << endl;
-            }
-            else
-            {
-                cout << "Navire invalide, veuillez le replacer." << endl;
-                orientation = saisirOrientation(grille, nom, valeur);
-                proue       = saisirProue(grille, nom);
-            }
-        }
-    }
+    flotte->genererNavires(nomsBateaux, valeursBateaux, this);
 
     cout << "Tous les bateaux sont définis" << endl;
-
-    flotte->setFlotte(navires);
 }
 
 void IHM::associerInterfaceBataille(BatailleNavale* batailleInterface)
@@ -158,14 +119,79 @@ void IHM::associerInterfaceBataille(BatailleNavale* batailleInterface)
     bataille = batailleInterface;
 }
 
+void IHM::afficherGrilleVierge()
+{
+    vector<vector<string> > matrice(NB_LIGNE, vector<string>(NB_COLONNE, ""));
+    genererFondGrille(matrice);
+    cout << DEFAUT << "X 1 2 3 4 5 6 7 8 9 10" << endl;
+    for(size_t i = 0; i < matrice.size(); ++i)
+    {
+        cout << DEFAUT << char(i + 'A') << ' ';
+        afficherLigneGrille(matrice[i]);
+        cout << DEFAUT << endl;
+    }
+}
+
+void IHM::afficherFlotte(Joueur* joueur)
+{
+    vector<vector<string> > matrice(NB_LIGNE, vector<string>(NB_COLONNE, ""));
+
+    genererFondGrille(matrice);
+    ajouterNaviresGrille(joueur, matrice);
+
+    cout << endl << "Grille de : " << joueur->getPseudo() << endl << endl;
+
+    afficherGrilleFlotte(joueur, matrice);
+}
+
+
+void IHM::gestionCoup(bool touche)
+{
+    if(touche)
+    {
+        cout << "Touché !" << endl;
+    }
+    else
+    {
+        cout << "Plouf !" << endl;
+    }
+}
+void IHM::afficherGrilleFlotte(Joueur* joueur, vector<vector<string> >& matrice)
+
+{
+    cout << DEFAUT << "X 1 2 3 4 5 6 7 8 9 10" << endl;
+    for(size_t i = 0; i < NB_LIGNE; ++i)
+    {
+        cout << DEFAUT << char(i + 'A') << ' ';
+        afficherLigneGrille(matrice[i]);
+        cout << DEFAUT << endl;
+    }
+
+    cout << DEFAUT << endl
+         << "Navires restants : " << joueur->getFlotte()->getFlotte().size() << endl
+         << endl;
+}
+
 void IHM::afficherGrille(Joueur* joueur)
 {
-    vector<vector<string> > matrice(joueur->getGrille()->getNbLignes(),
-                                    vector<string>(joueur->getGrille()->getNbColonnes(), ""));
-
-    for(int i = 0; i < joueur->getGrille()->getNbLignes(); ++i)
+    cout << DEFAUT << "X 1 2 3 4 5 6 7 8 9 10" << endl;
+    for(size_t i = 0; i < NB_LIGNE; ++i)
     {
-        for(int j = 0; j < joueur->getGrille()->getNbColonnes(); ++j)
+        cout << DEFAUT << char(i + 'A') << ' ';
+        afficherLigneGrille(joueur->getGrille()->getGrille()[i]);
+        cout << DEFAUT << endl;
+    }
+
+    cout << DEFAUT << endl
+         << "Navires restants : " << joueur->getFlotte()->getFlotte().size() << endl
+         << endl;
+}
+
+void IHM::genererFondGrille(vector<vector<string> >& matrice)
+{
+    for(int i = 0; i < NB_LIGNE; ++i)
+    {
+        for(int j = 0; j < NB_COLONNE; ++j)
         {
             if((j + i) % 2 == 0)
             {
@@ -177,7 +203,10 @@ void IHM::afficherGrille(Joueur* joueur)
             }
         }
     }
+}
 
+void IHM::ajouterNaviresGrille(Joueur* joueur, vector<vector<string> >& matrice)
+{
     for(Navire* navire: joueur->getFlotte()->getFlotte())
     {
         for(pair<Coordonnees, bool> coordonnee: navire->getCoordonnes())
@@ -192,31 +221,86 @@ void IHM::afficherGrille(Joueur* joueur)
             }
         }
     }
+}
 
-    cout << endl << "Grille de : " << joueur->getPseudo() << endl << endl;
-
-    cout << DEFAUT << "X 1 2 3 4 5 6 7 8 9 10" << endl;
-    for(size_t i = 0; i < matrice.size(); ++i)
+void IHM::afficherLigneGrille(vector<string>& ligne)
+{
+    for(string i: ligne)
     {
-        cout << DEFAUT << char(i + 'A') << ' ';
-        for(string j: matrice[i])
-        {
-            cout << j;
-        }
-        cout << DEFAUT << endl;
+        cout << i;
     }
+}
 
-    cout << DEFAUT << endl
-         << "Navires restants : " << joueur->getFlotte()->getFlotte().size() << endl
-         << endl;
+void IHM::clearTerminal()
+{
+    system("clear");
 }
 
 void IHM::afficherAsciiArt()
 {
+    clearTerminal();
+    cout << setfill(' ') << setw(53) << " ";
     cout << " ____        _        _ _ _        _   _                  _      " << endl;
+    cout << setfill(' ') << setw(53) << " ";
     cout << "|  _ \\      | |      (_) | |      | \\ | |                | |     " << endl;
+    cout << setfill(' ') << setw(53) << " ";
     cout << "| |_) | __ _| |_ __ _ _| | | ___  |  \\| | __ ___   ____ _| | ___ " << endl;
+    cout << setfill(' ') << setw(53) << " ";
     cout << "|  _ < / _` | __/ _` | | | |/ _ \\ | . ` |/ _` \\ \\ / / _` | |/ _ \\" << endl;
+    cout << setfill(' ') << setw(53) << " ";
     cout << "| |_) | (_| | || (_| | | | |  __/ | |\\  | (_| |\\ V / (_| | |  __/" << endl;
+    cout << setfill(' ') << setw(53) << " ";
     cout << "|____/ \\__,_|\\__\\__,_|_|_|_|\\___| |_| \\_|\\__,_| \\_/ \\__,_|_|\\___|" << endl;
+    cout << endl;
+}
+
+void IHM::afficherVersionLogiciel()
+{
+    cout << setfill(' ') << setw(95);
+    cout << ROSE << "v" << VERSION << endl << endl;
+}
+
+void IHM::afficherRegles()
+{
+    cout << setfill(' ') << setw(75);
+    cout << BLEU_REGLE << "Bienvenue dans le jeu Bataille Navale !" << DEFAUT << endl;
+    cout << setfill(' ') << setw(45) << " ";
+    cout << "Le but est de couler les bateaux adverses avant que les vôtres ne soient détruits."
+         << endl;
+    cout << setfill(' ') << setw(20) << " ";
+    cout << "Pour cela vous devez dans un premier temps placer votre flotte en selectionnant "
+            "l'orientation de chaque navire ainsi que la coordonnée de sa proue"
+         << endl;
+    cout << setfill(' ') << setw(66) << " ";
+    cout << "Voici une représentation de la grille :" << endl;
+    cout << endl;
+    afficherGrilleVierge();
+    cout << setfill(' ') << setw(45) << " ";
+    cout << "Après avoir placé vos bateaux, la machine placera automatiquement les siens." << endl;
+    cout << setfill(' ') << setw(35) << " ";
+    cout << "Vous pourrez donc commencer à jouer en tapant la coordonnée à laquelle vous voulez "
+            "envoyer votre boulet de canon.";
+    cout << endl;
+    cout << VERT << "Début du placement de la flotte ! " << DEFAUT << endl;
+}
+
+void IHM::jeuJoueur()
+{
+    cout << "Quel coup jouer ?" << endl;
+}
+
+void IHM::jeuMachine()
+{
+    cout << "La machine à jouer" << endl;
+}
+
+Coordonnees IHM::genererCoordonneesAleatoires()
+{
+    Coordonnees coo;
+    srand(time(NULL));
+
+    coo.colonne = rand() % (NB_COLONNE) + 1;
+    coo.ligne   = rand() % (NB_LIGNE + 1) + 'A';
+
+    return coo;
 }
