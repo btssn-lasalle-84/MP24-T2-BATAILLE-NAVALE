@@ -61,57 +61,16 @@ void Flotte::genererNaviresAleatoirement(vector<string> nomsBateaux, vector<int>
         navire.gererCreationAleatoire(valeursBateaux[i], this);
     }
 
-        bool navireInvalide = true;
-        while(navireInvalide)
-        {
-            int orientation = rand() % 2;
-            navire.setOrientation(orientation);
-            coordonnees.clear();
-
-            if(orientation == HORIZONTAL)
-            {
-                proue.colonne = rand() % (grille->getNbColonnes() - nbCases + 1) + 1;
-                proue.ligne   = rand() % (grille->getNbLignes()) + 'A';
-            }
-            else
-            {
-                proue.colonne = rand() % (grille->getNbColonnes()) + 1;
-                proue.ligne   = rand() % (grille->getNbLignes() - nbCases + 1) + 'A';
-            }
-
-            for(unsigned int j = 0; j < nbCases; ++j)
-            {
-                pair<Coordonnees, bool> coordonnee;
-                coordonnee.first.colonne = proue.colonne + (j * (1 - orientation));
-                coordonnee.first.ligne   = proue.ligne + (j * orientation);
-                coordonnee.second        = true;
-                coordonnees.push_back(coordonnee);
-            }
-
-            navire.setCoordonnees(coordonnees);
-
 #ifdef DEBUG_FLOTTE
-            std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "] "
-                      << "orientation = " << orientation << " - proue = " << proue.ligne << ":"
-                      << proue.colonne;
-            std::cout << std::endl;
-            for(int j = 0; j < (int)coordonnees.size(); ++j)
-            {
-                std::cout << coordonnees[j].first.ligne << ":" << coordonnees[j].first.colonne
-                          << " ";
-            }
-            std::cout << std::endl;
-#endif
-
-            if(navire.estNavireValide(grille, navires))
-            {
-                navireInvalide = false;
-                navires.push_back(new Navire(navire)); // Copie le navire dans le vecteur
-            }
-        }
+    std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "] "
+              << "orientation = " << orientation << " - proue = " << proue.ligne << ":"
+              << proue.colonne;
+    std::cout << std::endl;
+    for(int j = 0; j < (int)coordonnees.size(); ++j)
+    {
+        std::cout << coordonnees[j].first.ligne << ":" << coordonnees[j].first.colonne << " ";
     }
-
-#ifdef DEBUG_FLOTTE
+    std::cout << std::endl;
     std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "] "
               << "nb navires = " << navires.size() << std::endl;
 
