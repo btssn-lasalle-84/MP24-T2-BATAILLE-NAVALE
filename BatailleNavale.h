@@ -18,6 +18,7 @@ class BatailleNavale
     ~BatailleNavale();
     IHM*    getInterface() const;
     void    demarrerPartie();
+    void    finirPartie(Joueur*);
     Joueur* jouer();
     void    initialiserJoueurs();
     void    initialiserFlottes();

@@ -92,12 +92,7 @@ void Joueur::associerJoueurBatailleNavale(BatailleNavale* batailleNavaleJoueur)
 
 bool Joueur::aPerdu()
 {
-    int morts = 0;
-    for(Navire* navire: flotte->getFlotte())
-    {
-        morts += (int)navire->getEtat();
-    }
-    return (morts == (int)flotte->getFlotte().size());
+    return !(bool)this->getFlotte()->calculerNaviresRestants();
 }
 
 Coordonnees Joueur::genererCoordonneeAleatoire()

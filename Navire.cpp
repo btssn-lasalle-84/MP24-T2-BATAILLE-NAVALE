@@ -55,15 +55,15 @@ bool Navire::ajouterDegat(Coordonnees coordonnee)
     return false;
 }
 
-bool Navire::estMort()
+bool Navire::estVivant()
 {
     if(degats == coordonnees.size())
     {
-        return true;
+        return false;
         etat = false;
     }
 
-    return false;
+    return true;
 }
 
 int Navire::getEtat() const

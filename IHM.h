@@ -11,10 +11,11 @@
 #include "Couleurs.h"
 #define VERSION 2.0
 
-#define NB_LIGNE        10
-#define NB_COLONNE      10
-#define TAILLE_SAISIE_1 3
-#define TAILLE_SAISIE_2 4
+#define NB_LIGNE           10
+#define NB_COLONNE         10
+#define TAILLE_SAISIE_1    3
+#define TAILLE_SAISIE_2    4
+#define LIGNES_A_CONSERVER 32
 
 class BatailleNavale;
 class Flotte;
@@ -53,7 +54,7 @@ class IHM
     void        afficherRegles();
     void        afficherGrilleVierge();
     void        afficherVersionLogiciel();
-    void        afficherMessageFin(Joueur*);
+    void        afficherVainqueur(Joueur*);
     static void clearTerminal();
     void        dormir(int);
 };

@@ -154,6 +154,7 @@ bool IHM::gestionCoup(Joueur* joueurTire, Coordonnees coordonnee, Joueur* joueur
              << endl;
         joueurTire->getGrillePublique()->ajouterCoup(coordonnee, ROUGE);
     }
+
     return (bool)scenario; //(0 = false, !0 = true)
 }
 
@@ -171,7 +172,7 @@ void IHM::afficherGrille(Grille* grille)
 void IHM::afficherNaviresRestants(Joueur* joueur)
 {
     cout << DEFAUT << endl
-         << "Navires restants : " << joueur->getFlotte()->getFlotte().size() << endl
+         << "Navires restants : " << joueur->getFlotte()->calculerNaviresRestants() << endl
          << endl;
 }
 
@@ -232,7 +233,7 @@ void IHM::afficherVersionLogiciel()
     cout << ROSE << "v" << VERSION << endl << endl;
 }
 
-void IHM::afficherMessageFin(Joueur* joueur)
+void IHM::afficherVainqueur(Joueur* joueur)
 {
     cout << joueur->getPseudo() << "a gagné !!!!" << endl;
     sleep(10);

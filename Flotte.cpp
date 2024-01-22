@@ -47,6 +47,16 @@ void Flotte::genererAleatoirement()
     this->genererNaviresAleatoirement(nomsBateaux, valeursBateaux);
 }
 
+int Flotte::calculerNaviresRestants()
+{
+    int compte = 0;
+    for(Navire* navire: navires)
+    {
+        compte += navire->estVivant();
+    }
+    return compte;
+}
+
 void Flotte::genererNaviresAleatoirement(vector<string> nomsBateaux, vector<int> valeursBateaux)
 {
     for(int i = 0; i < (int)nomsBateaux.size(); ++i)
@@ -71,7 +81,7 @@ int Flotte::tirer(Coordonnees coordonnee)
                navire->getCoordonnes()[i].second == true)
             {
                 navire->ajouterDegat(coordonnee);
-                if(navire->estMort())
+                if(!navire->estVivant())
                 {
                     return 2;
                 }

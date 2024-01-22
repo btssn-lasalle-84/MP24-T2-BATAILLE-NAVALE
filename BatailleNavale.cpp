@@ -93,7 +93,16 @@ Joueur* BatailleNavale::jouer()
         interface->afficherJeu(joueur1, joueur2);
         interface->inviterASaisir();
         interface->gestionCoup(joueur1, interface->saisirCoup(), joueur2);
+        if(joueur2->aPerdu())
+            return joueur1;
         interface->gestionCoup(joueur2, joueur2->genererCoordonneeAleatoire(), joueur1);
+        if(joueur1->aPerdu())
+            return joueur2;
         interface->dormir(3);
     }
+}
+
+void BatailleNavale::finirPartie(Joueur* vainqueur)
+{
+    interface->afficherVainqueur(vainqueur);
 }

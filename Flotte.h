@@ -32,6 +32,7 @@ class Flotte
     void                 genererNaviresAleatoirement(std::vector<std::string>, std::vector<int>);
     int                  tirer(Coordonnees coordonnee);
     void                 genererAleatoirement();
+    int                  calculerNaviresRestants();
 };
 
 #endif
