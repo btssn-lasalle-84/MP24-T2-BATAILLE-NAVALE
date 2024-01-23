@@ -102,11 +102,11 @@ int IHM::saisirOrientation(string nom, int nbCases)
 void IHM::saisirDisposition(Flotte* flotte)
 {
     vector<Navire*> navires;
-    vector<string>  nomBateaux     = { "Porte-Avion",
-                                  "Croiseur",
-                                  "Contre-torpilleur",
-                                  "Sous-marin",
-                                  "Torpilleur" };
+    vector<string>  nomsBateaux    = { "Porte-Avion",
+                                       "Croiseur",
+                                       "Contre-torpilleur",
+                                       "Sous-marin",
+                                       "Torpilleur" };
     vector<int>     valeursBateaux = { 5, 4, 3, 3, 2 };
 
     flotte->genererNavires(nomsBateaux, valeursBateaux, this);
@@ -143,7 +143,6 @@ void IHM::afficherFlotte(Joueur* joueur)
 
     afficherGrilleFlotte(joueur, matrice);
 }
-
 
 void IHM::gestionCoup(bool touche)
 {
