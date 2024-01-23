@@ -1,7 +1,7 @@
 #include "Grille.h"
 #include "Joueur.h"
 
-#ifndef DEBUG_GRILLE
+#ifdef DEBUG_GRILLE
 #include <iostream>
 #endif
 
@@ -24,7 +24,7 @@ Grille::Grille(Joueur* joueur) :
             }
         }
     }
-#ifndef DEBUG_GRILLE
+#ifdef DEBUG_GRILLE
     std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "] this = " << this << " "
               << " joueur = " << joueur;
     std::cout << std::endl;
@@ -33,7 +33,7 @@ Grille::Grille(Joueur* joueur) :
 
 Grille::~Grille()
 {
-#ifndef DEBUG_GRILLE
+#ifdef DEBUG_GRILLE
     std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "]" << std::endl;
 #endif
 }
