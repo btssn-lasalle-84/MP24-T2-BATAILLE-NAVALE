@@ -1,6 +1,8 @@
 #ifndef IHM_H
 #define IHM_H
+
 #include <vector>
+
 #include <iostream>
 #include "Flotte.h"
 #include "Grille.h"
@@ -9,6 +11,7 @@
 #include "Navire.h"
 #include "Joueur.h"
 #define VERSION 1.1
+#include <string>
 
 #ifndef COULEUR
 #define COULEUR

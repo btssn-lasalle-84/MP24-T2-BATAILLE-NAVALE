@@ -1,7 +1,7 @@
 #include "Navire.h"
 #include "Flotte.h"
 
-#ifdef DEBUG_JOUEUR
+#ifdef DEBUG_NAVIRE
 #include <iostream>
 #endif
 
