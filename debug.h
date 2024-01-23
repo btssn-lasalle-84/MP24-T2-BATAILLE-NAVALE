@@ -1,0 +1,12 @@
+#ifdef DEBUG_BATAILLE_NAVALE
+
+#define DEBUG_BATAILLENAVALE
+#define DEBUG_FLOTTE
+#define DEBUG_GRILLE
+#define DEBUG_IHM
+#define DEBUG_JOUEUR
+#define DEBUG_NAVIRE
+
+#include <iostream>
+
+#endif // DEBUG_BATAILLE_NAVALE

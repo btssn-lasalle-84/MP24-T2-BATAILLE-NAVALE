@@ -2,19 +2,19 @@
 #include "Grille.h"
 #include "BatailleNavale.h"
 #include "Flotte.h"
-
-#ifdef DEBUG_JOUEUR
-#include <iostream>
-#endif
+#include "Bateaux.h"
+#include "debug.h"
 
 using namespace std;
 
 Joueur::Joueur() :
-    pseudo(" "), grille(new Grille(this)), bataille(nullptr), flotte(new Flotte(this))
+    pseudo(" "), grillePrivee(new Grille(this)), grillePublique(new Grille(this)),
+    bataille(nullptr), flotte(new Flotte(this))
 {
 #ifdef DEBUG_JOUEUR
     std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "] this = " << this << " "
-              << "pseudo = " << pseudo << " - grille = " << grille << " - bataille = " << bataille
+              << "pseudo = " << pseudo << " - grillePrivee = " << grillePrivee
+              << " - grillePublique = " << grillePublique << " - bataille = " << bataille
               << " - flotte = " << flotte;
     std::cout << std::endl;
 #endif
@@ -22,7 +22,8 @@ Joueur::Joueur() :
 
 Joueur::~Joueur()
 {
-    delete grille;
+    delete grillePrivee;
+    delete grillePublique;
     delete flotte;
 #ifdef DEBUG_JOUEUR
     std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "]" << std::endl;
@@ -30,16 +31,19 @@ Joueur::~Joueur()
 }
 
 Joueur::Joueur(string          pseudoJoueur,
-               Grille*         grilleJoueur,
+               Grille*         grillePriveeJoueur,
+               Grille*         grillePubliqueJoueur,
                BatailleNavale* batailleJoueur,
                Flotte*         flotteJoueur) :
     pseudo(pseudoJoueur),
-    grille(grilleJoueur), bataille(batailleJoueur), flotte(flotteJoueur)
+    grillePrivee(grillePriveeJoueur), grillePublique(grillePubliqueJoueur),
+    bataille(batailleJoueur), flotte(flotteJoueur)
 {
 }
 
 Joueur::Joueur(const Joueur& j) :
-    pseudo(j.pseudo), grille(j.grille), bataille(j.bataille), flotte(j.flotte)
+    pseudo(j.pseudo), grillePrivee(j.grillePrivee), grillePublique(j.grillePublique),
+    bataille(j.bataille), flotte(j.flotte)
 {
 }
 
@@ -53,9 +57,14 @@ void Joueur::setPseudo(const std::string nouveauPseudo)
     this->pseudo = nouveauPseudo;
 }
 
-Grille* Joueur::getGrille() const
+Grille* Joueur::getGrillePublique() const
 {
-    return grille;
+    return grillePublique;
+}
+
+Grille* Joueur::getGrillePrivee() const
+{
+    return grillePrivee;
 }
 
 Flotte* Joueur::getFlotte() const
@@ -73,8 +82,25 @@ void Joueur::associerJoueurBatailleNavale(BatailleNavale* batailleNavaleJoueur)
     bataille = batailleNavaleJoueur;
 #ifdef DEBUG_JOUEUR
     std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "] this = " << this << " "
-              << "pseudo = " << pseudo << " - grille = " << grille << " - bataille = " << bataille
+              << "pseudo = " << pseudo << " - grillePrivee = " << grillePrivee
+              << " - grillePublique = " << grillePublique << " - bataille = " << bataille
               << " - flotte = " << flotte;
     std::cout << std::endl;
 #endif
+}
+
+bool Joueur::aPerdu()
+{
+    return !(bool)this->getFlotte()->calculerNaviresRestants();
+}
+
+Coordonnees Joueur::genererCoordonneeAleatoire()
+{
+    Coordonnees coo;
+    srand(time(NULL));
+
+    coo.colonne = rand() % (NB_COLONNE) + 1;
+    coo.ligne   = rand() % (NB_LIGNE + 1) + 'A';
+
+    return coo;
 }

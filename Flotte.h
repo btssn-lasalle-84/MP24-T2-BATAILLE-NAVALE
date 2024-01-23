@@ -5,8 +5,6 @@
 #include "Coordonnees.h"
 #include "IHM.h"
 
-//#define DEBUG_FLOTTE
-
 class Joueur;
 class Navire;
 class Grille;
@@ -30,8 +28,9 @@ class Flotte
     void                 ajouterNavire(Navire*);
     void                 genererNavires(std::vector<std::string>, std::vector<int>, IHM*);
     void                 genererNaviresAleatoirement(std::vector<std::string>, std::vector<int>);
-    bool                 tirer(Coordonnees coordonnee);
-    void                 genererAleatoirement(Grille*);
+    int                  tirer(Coordonnees coordonnee);
+    void                 genererAleatoirement();
+    int                  calculerNaviresRestants();
 };
 
-#endif
+#endif // FLOTTE_H

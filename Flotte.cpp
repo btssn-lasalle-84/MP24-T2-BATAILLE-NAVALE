@@ -2,14 +2,11 @@
 #include "Joueur.h"
 #include "Navire.h"
 #include "Grille.h"
-
+#include "Bateaux.h"
+#include "debug.h"
 #include <string>
 #include <cstdlib>
 #include <ctime>
-
-#ifdef DEBUG_FLOTTE
-#include <iostream>
-#endif
 
 using namespace std;
 
@@ -38,16 +35,22 @@ Flotte::~Flotte()
 #endif
 }
 
-void Flotte::genererAleatoirement(Grille* grille)
+void Flotte::genererAleatoirement()
 {
-    vector<string> nomsBateaux    = { "Porte-Avion",
-                                      "Croiseur",
-                                      "Contre-torpilleur",
-                                      "Sous-marin",
-                                      "Torpilleur" };
-    vector<int>    valeursBateaux = { 5, 4, 3, 3, 2 };
+    vector<string> nomsBateaux    = LISTE_NOMS_BATEAUX;
+    vector<int>    valeursBateaux = LISTE_CASES_BATEAUX;
 
     this->genererNaviresAleatoirement(nomsBateaux, valeursBateaux);
+}
+
+int Flotte::calculerNaviresRestants()
+{
+    int compte = 0;
+    for(Navire* navire: navires)
+    {
+        compte += navire->estVivant();
+    }
+    return compte;
 }
 
 void Flotte::genererNaviresAleatoirement(vector<string> nomsBateaux, vector<int> valeursBateaux)
@@ -58,28 +61,12 @@ void Flotte::genererNaviresAleatoirement(vector<string> nomsBateaux, vector<int>
         string                           nom         = nomsBateaux[i];
         vector<pair<Coordonnees, bool> > coordonnees;
         Navire                           navire(nom, orientation, coordonnees);
+
         navire.gererCreationAleatoire(valeursBateaux[i], this);
     }
-
-#ifdef DEBUG_FLOTTE
-    std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "] "
-              << "orientation = " << orientation << " - proue = " << proue.ligne << ":"
-              << proue.colonne;
-    std::cout << std::endl;
-    for(int j = 0; j < (int)coordonnees.size(); ++j)
-    {
-        std::cout << coordonnees[j].first.ligne << ":" << coordonnees[j].first.colonne << " ";
-    }
-    std::cout << std::endl;
-    std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "] "
-              << "nb navires = " << navires.size() << std::endl;
-
-#endif
-
-    this->setFlotte(navires);
 }
 
-bool Flotte::tirer(Coordonnees coordonnee)
+int Flotte::tirer(Coordonnees coordonnee)
 {
     for(Navire* navire: navires)
     {
@@ -90,12 +77,16 @@ bool Flotte::tirer(Coordonnees coordonnee)
                navire->getCoordonnes()[i].second == true)
             {
                 navire->ajouterDegat(coordonnee);
-                return true;
+                if(!navire->estVivant())
+                {
+                    return 2;
+                }
+                return 1;
             }
         }
     }
 
-    return false;
+    return 0;
 }
 
 Joueur* Flotte::getJoueur() const
@@ -121,8 +112,6 @@ void Flotte::genererNavires(std::vector<std::string> nomsBateaux,
 
         navire.gererCreation(valeursBateaux[i], proue, interface, this);
     }
-
-    cout << "Tous les bateaux sont définis" << endl;
 }
 
 vector<Navire*> Flotte::getFlotte() const
