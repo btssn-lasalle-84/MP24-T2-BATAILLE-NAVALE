@@ -6,5 +6,6 @@ int main()
 
     batailleNavale.demarrerPartie();
     batailleNavale.finirPartie(batailleNavale.jouer());
+
     return 0;
 }

@@ -3,13 +3,7 @@
 #include "Flotte.h"
 #include "IHM.h"
 #include "Grille.h"
-
-#ifdef DEBUG_BATAILLENAVALE
-#include <iostream>
-#define DEBUG_GRILLE
-#define DEBUG_FLOTTE
-#define DEBUG_JOUEUR
-#endif
+#include "debug.h"
 
 using namespace std;
 
@@ -92,10 +86,10 @@ Joueur* BatailleNavale::jouer()
     {
         interface->afficherJeu(joueur1, joueur2);
         interface->inviterASaisir();
-        interface->gestionCoup(joueur1, interface->saisirCoup(), joueur2);
+        interface->gererCoup(joueur1, interface->saisirCoup(), joueur2);
         if(joueur2->aPerdu())
             return joueur1;
-        interface->gestionCoup(joueur2, joueur2->genererCoordonneeAleatoire(), joueur1);
+        interface->gererCoup(joueur2, joueur2->genererCoordonneeAleatoire(), joueur1);
         if(joueur1->aPerdu())
             return joueur2;
         interface->dormir(3);

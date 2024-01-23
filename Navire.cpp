@@ -1,15 +1,11 @@
 #include "Navire.h"
 #include "Flotte.h"
-
-#ifdef DEBUG_JOUEUR
-#include <iostream>
-#endif
+#include "debug.h"
 
 using namespace std;
 
 Navire::Navire() : nom(" "), orientation(), coordonnees(), degats(), etat()
 {
-    cout << "Interdit !!!\n";
 }
 
 Navire::Navire(string                                 nomNavire,
@@ -59,10 +55,11 @@ bool Navire::estVivant()
 {
     if(degats == coordonnees.size())
     {
-        return false;
         etat = false;
+        return false;
     }
 
+    etat = true;
     return true;
 }
 

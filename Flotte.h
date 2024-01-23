@@ -5,8 +5,6 @@
 #include "Coordonnees.h"
 #include "IHM.h"
 
-#define DEBUG_FLOTTE
-
 class Joueur;
 class Navire;
 class Grille;

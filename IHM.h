@@ -1,5 +1,6 @@
 #ifndef IHM_H
 #define IHM_H
+
 #include <vector>
 #include <iostream>
 #include "Flotte.h"
@@ -9,6 +10,7 @@
 #include "Navire.h"
 #include "Joueur.h"
 #include "Couleurs.h"
+
 #define VERSION 2.0
 
 #define NB_LIGNE           10
@@ -43,7 +45,7 @@ class IHM
     Coordonnees formaterSaisie(std::string);
     int         saisirOrientation(std::string, int);
     bool        estCoupValide(Coordonnees);
-    bool        gestionCoup(Joueur*, Coordonnees, Joueur*);
+    bool        gererCoup(Joueur*, Coordonnees, Joueur*);
     void        afficherLigneGrille(std::vector<std::string>&);
     void        associerInterfaceBataille(BatailleNavale*);
     void        afficherGrille(Grille*);
@@ -55,8 +57,8 @@ class IHM
     void        afficherGrilleVierge();
     void        afficherVersionLogiciel();
     void        afficherVainqueur(Joueur*);
-    static void clearTerminal();
+    static void effacerTerminal();
     void        dormir(int);
 };
 
-#endif
+#endif // IHM_H

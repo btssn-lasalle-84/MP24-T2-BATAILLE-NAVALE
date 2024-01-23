@@ -2,6 +2,7 @@
 #include "Flotte.h"
 #include "Bateaux.h"
 #include "Grille.h"
+#include "debug.h"
 #include <iostream>
 #include <map>
 #include <iomanip>
@@ -112,7 +113,7 @@ void IHM::saisirDisposition(Flotte* flotte)
     cout << "Tous les bateaux sont définis" << endl;
     cout << "La partie va démarrer sous peu" << endl;
     sleep(3);
-    clearTerminal();
+    effacerTerminal();
 }
 
 void IHM::associerInterfaceBataille(BatailleNavale* batailleInterface)
@@ -132,7 +133,7 @@ void IHM::afficherGrilleVierge()
     }
 }
 
-bool IHM::gestionCoup(Joueur* joueurTire, Coordonnees coordonnee, Joueur* joueurRecoit)
+bool IHM::gererCoup(Joueur* joueurTire, Coordonnees coordonnee, Joueur* joueurRecoit)
 {
     int scenario = joueurRecoit->getFlotte()->tirer(coordonnee);
     joueurRecoit->getGrillePrivee()->appliquerFlotteSurGrille();
@@ -183,7 +184,7 @@ void IHM::afficherSeparateur()
 
 void IHM::afficherJeu(Joueur* joueur1, Joueur* joueur2)
 {
-    clearTerminal();
+    effacerTerminal();
     afficherGrille(joueur1->getGrillePublique());
     afficherNaviresRestants(joueur2);
     afficherSeparateur();
@@ -199,7 +200,7 @@ void IHM::afficherLigneGrille(vector<string>& ligne)
     }
 }
 
-void IHM::clearTerminal()
+void IHM::effacerTerminal()
 {
     system("clear");
 }
@@ -211,7 +212,7 @@ void IHM::dormir(int temps)
 
 void IHM::afficherAsciiArt()
 {
-    clearTerminal();
+    effacerTerminal();
     cout << setfill(' ') << setw(53) << " ";
     cout << " ____        _        _ _ _        _   _                  _      " << endl;
     cout << setfill(' ') << setw(53) << " ";
@@ -260,5 +261,5 @@ void IHM::afficherRegles()
     cout << "Vous pourrez donc commencer à jouer en tapant la coordonnée à laquelle vous voulez "
             "envoyer votre boulet de canon.";
     cout << endl;
-    cout << VERT << "Début du placement de la flotte ! " << DEFAUT << endl;
+    cout << VERT << "Début du placement de la flotte ! " << DEFAUT << endl << endl;
 }

@@ -1,10 +1,9 @@
 TARGET = batailleNavale.out # Nom de l'exécutable
 OBJETS = main.o BatailleNavale.o Joueur.o Grille.o Flotte.o IHM.o Navire.o
-DEBUG = -DDEBUG_BATAILLENAVALE
 CXX = g++ # Compilateur
 LD = g++ -o
-CXXFLAGS = -Wall # Options de compilation
-CXXFLAGSMAIN = $(CXXFLAGS)
+CXXFLAGSMAIN = -Wall # Options de compilation
+CXXFLAGS = $(CXXFLAGSMAIN)
 CLANG_TIDY = clang-tidy
 CLANG_FLAGS = --quiet -header-filter='.*' -checks=-*,boost-*,bugprone-*,performance-*,readability-*,portability-*,modernize-use-nullptr,clang-analyzer-*,cppcoreguidelines-* --format-style=none -- -std=c++11
 RM = rm -f
@@ -36,5 +35,5 @@ check: install_clang_tidy # Cible check : vérifier la présence de clang-tidy e
 		$(CLANG_TIDY) *.cpp $(CLANG_FLAGS) || \
 		(echo "Erreur: clang-tidy n'est pas installé."; exit 1)
 
-debug: CXXFLAGSMAIN += -DDEBUG_BATAILLENAVALE
+debug: CXXFLAGS += -DDEBUG_BATAILLE_NAVALE
 debug: all

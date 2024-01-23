@@ -4,8 +4,6 @@
 #include <string>
 #include "Coordonnees.h"
 
-#define DEBUG_JOUEUR
-
 class Grille;
 class BatailleNavale;
 class Flotte;
@@ -35,4 +33,5 @@ class Joueur
     bool            aPerdu();
     Coordonnees     genererCoordonneeAleatoire();
 };
-#endif
+
+#endif // JOUEUR_H

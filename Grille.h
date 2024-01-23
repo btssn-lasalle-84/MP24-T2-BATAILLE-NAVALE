@@ -4,8 +4,6 @@
 #include <vector>
 #include <string>
 
-#define DEBUG_GRILLE
-
 #include "Couleurs.h"
 #include "Coordonnees.h"
 
@@ -33,4 +31,4 @@ class Grille
     void                                   ajouterCoup(Coordonnees, std::string);
 };
 
-#endif
+#endif // GRILLE_H

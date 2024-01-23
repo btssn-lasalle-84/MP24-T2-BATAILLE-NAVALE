@@ -11,4 +11,4 @@
         5, 4, 3, 3, 2                                                                              \
     }
 
-#endif
+#endif // BATEAUX_H

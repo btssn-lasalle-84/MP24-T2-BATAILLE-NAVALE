@@ -3,20 +3,16 @@
 #include "Navire.h"
 #include "Grille.h"
 #include "Bateaux.h"
-
+#include "debug.h"
 #include <string>
 #include <cstdlib>
 #include <ctime>
-
-#ifndef DEBUG_FLOTTE
-#include <iostream>
-#endif
 
 using namespace std;
 
 Flotte::Flotte(Joueur* joueur) : navires(), joueur(joueur)
 {
-#ifndef DEBUG_FLOTTE
+#ifdef DEBUG_FLOTTE
     std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "] this = " << this << " "
               << "nb navires = " << navires.size() << " - joueur = " << joueur;
     std::cout << std::endl;
@@ -34,7 +30,7 @@ Flotte::Flotte(const Flotte& f) : navires(f.navires), joueur(f.joueur)
 
 Flotte::~Flotte()
 {
-#ifndef DEBUG_FLOTTE
+#ifdef DEBUG_FLOTTE
     std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "]" << std::endl;
 #endif
 }

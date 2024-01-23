@@ -1,5 +1,6 @@
 #ifndef NAVIRE_H
 #define NAVIRE_H
+
 #include <algorithm>
 #include <iostream>
 #include <vector>
@@ -51,4 +52,4 @@ class Navire
     bool        estNavireValide(const std::vector<Navire*>&);
 };
 
-#endif
+#endif // NAVIRE_H

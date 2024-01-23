@@ -1,10 +1,7 @@
 #include "Grille.h"
 #include "Joueur.h"
 #include "Flotte.h"
-
-#ifndef DEBUG_GRILLE
-#include <iostream>
-#endif
+#include "debug.h"
 
 using namespace std;
 
@@ -25,7 +22,7 @@ Grille::Grille(Joueur* joueur) :
             }
         }
     }
-#ifndef DEBUG_GRILLE
+#ifdef DEBUG_GRILLE
     std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "] this = " << this << " "
               << " joueur = " << joueur;
     std::cout << std::endl;
@@ -49,7 +46,7 @@ Grille::Grille() :
             }
         }
     }
-#ifndef DEBUG_GRILLE
+#ifdef DEBUG_GRILLE
     std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "] this = " << this << " "
               << " joueur = " << joueur;
     std::cout << std::endl;
@@ -58,7 +55,7 @@ Grille::Grille() :
 
 Grille::~Grille()
 {
-#ifndef DEBUG_GRILLE
+#ifdef DEBUG_GRILLE
     std::cout << "[" << __PRETTY_FUNCTION__ << ":" << __LINE__ << "]" << std::endl;
 #endif
 }
