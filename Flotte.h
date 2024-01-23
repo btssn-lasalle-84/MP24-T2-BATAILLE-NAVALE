@@ -33,4 +33,4 @@ class Flotte
     int                  calculerNaviresRestants();
 };
 
-#endif
+#endif // FLOTTE_H

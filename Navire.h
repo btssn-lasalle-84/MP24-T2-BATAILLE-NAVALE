@@ -9,6 +9,7 @@
 #include "Flotte.h"
 #include "IHM.h"
 
+#define DEBUG_NAVIRE
 #define CASE_MORTE_COL 0
 #define CASE_MORTE_LIG 'X'
 
