@@ -2,8 +2,7 @@
 #define JOUEUR_H
 
 #include <string>
-
-//#define DEBUG_JOUEUR
+#include "Coordonnees.h"
 
 class Grille;
 class BatailleNavale;
@@ -13,21 +12,26 @@ class Joueur
 {
   private:
     std::string     pseudo;
-    Grille*         grille;
+    Grille*         grillePrivee;
+    Grille*         grillePublique;
     BatailleNavale* bataille;
     Flotte*         flotte;
 
   public:
     Joueur();
-    Joueur(std::string, Grille*, BatailleNavale*, Flotte*);
+    Joueur(std::string, Grille*, Grille*, BatailleNavale*, Flotte*);
     ~Joueur();
     Joueur(const Joueur& j);
 
     std::string     getPseudo() const;
-    Grille*         getGrille() const;
+    Grille*         getGrillePrivee() const;
+    Grille*         getGrillePublique() const;
     Flotte*         getFlotte() const;
     BatailleNavale* getBatailleNavale() const;
     void            setPseudo(const std::string nouveauPseudo);
     void            associerJoueurBatailleNavale(BatailleNavale*);
+    bool            aPerdu();
+    Coordonnees     genererCoordonneeAleatoire();
 };
-#endif
+
+#endif // JOUEUR_H

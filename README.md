@@ -6,8 +6,8 @@
 
 - Nom du logiciel : Bataille Navale
 - Date de début : 20 Décembre Novembre 2023
-- Numéro de version du logiciel : 1.1
-- Date de cette version du logiciel : 14 Janvier 2024
+- Numéro de version du logiciel : 2.0
+- Date de cette version du logiciel : Janvier 2024
 
 ## Présentation
 
@@ -21,9 +21,16 @@ $ make
 $ ./batailleNavale.out
 ```
 
-![Texte alternatif](images/batailleNavale-1.1.gif)
+![Texte alternatif](images/batailleNavale-2.0.gif)
 
 ## Changelog
+
+### Version 2.0
+
+- [x]  Gérer les dégâts causés aux bateaux
+- [x]  Gérer les essais réalisés par le joueur (loupés, touchés et coulés)
+- [x]  Afficher le déroulement d’une partie (grille, essais du joueur, ...)
+- [x]  Jouer une partie
 
 ### Version 1.1
 
@@ -37,24 +44,18 @@ Dans cette version, le programme est capable de :
 
 ## TODO
 
-### Version 2.0
-
-- [x]  Gérer les dégâts causés aux bateaux
-- [x]  Gérer les essais réalisés par le joueur (loupés, touchés et coulés)
-- [x]  Afficher le déroulement d’une partie (grille, essais du joueur, ...)
-- [x]  Jouer une partie
 
 ## Défauts constatés non corrigés
 
 ## Itérations
 
-![Jira1.png](images/Jira1.png)
-![Jira2.png](images/Jira2.png)
-![Jira3.png](images/Jira3.png)
+![Jira1.png](images/iteration-1.png)
+![Jira2.png](images/iteration-1.1.png)
+![Jira3.png](images/iteration-2.png)
 
 ## Diagramme de classes
 
-![diagramme-classes-1.1.png](images/diagramme-classes-1.1.png)
+![diagramme-classes-2.0.png](images/diagramme-classes-2.0.png)
 
 ## Équipe de développement
 
@@ -62,4 +63,4 @@ Dans cette version, le programme est capable de :
 - Gabain AVRIL : gabain.avril@gmail.com
 
 ---
-&copy; 2023 LaSalle Avignon
+&copy; 2023-2024 LaSalle Avignon

@@ -1,15 +1,11 @@
 #include "Navire.h"
 #include "Flotte.h"
-
-#ifdef DEBUG_NAVIRE
-#include <iostream>
-#endif
+#include "debug.h"
 
 using namespace std;
 
 Navire::Navire() : nom(" "), orientation(), coordonnees(), degats(), etat()
 {
-    cout << "Interdit !!!\n";
 }
 
 Navire::Navire(string                                 nomNavire,
@@ -55,6 +51,23 @@ bool Navire::ajouterDegat(Coordonnees coordonnee)
     return false;
 }
 
+bool Navire::estVivant()
+{
+    if(degats == coordonnees.size())
+    {
+        etat = false;
+        return false;
+    }
+
+    etat = true;
+    return true;
+}
+
+int Navire::getEtat() const
+{
+    return (int)etat;
+}
+
 void Navire::genererCoordonnees(Coordonnees proue, int nbCases)
 {
     for(int i = 0; i < nbCases; ++i)
@@ -75,6 +88,7 @@ void Navire::gererCreation(int valeur, Coordonnees proue, IHM* interface, Flotte
     while(navireInvalide)
     {
         this->setOrientation(orientation);
+        coordonnees.clear();
         this->genererCoordonnees(proue, valeur);
 
         if(this->estNavireValide(flotte->getFlotte()))
@@ -83,7 +97,8 @@ void Navire::gererCreation(int valeur, Coordonnees proue, IHM* interface, Flotte
             cout << endl;
             flotte->ajouterNavire(new Navire(*this));
             cout << "Navire ajouté" << endl;
-            interface->afficherFlotte(flotte->getJoueur());
+            flotte->getJoueur()->getGrillePrivee()->appliquerFlotteSurGrille();
+            interface->afficherGrille(flotte->getJoueur()->getGrillePrivee());
         }
         else
         {

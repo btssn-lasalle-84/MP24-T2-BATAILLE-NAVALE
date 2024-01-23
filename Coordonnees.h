@@ -7,4 +7,4 @@ struct Coordonnees
     int  colonne;
 };
 
-#endif
+#endif // COORDONNEES_H

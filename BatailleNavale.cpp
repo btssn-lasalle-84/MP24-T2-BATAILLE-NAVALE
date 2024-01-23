@@ -3,13 +3,7 @@
 #include "Flotte.h"
 #include "IHM.h"
 #include "Grille.h"
-
-#ifdef DEBUG_BATAILLENAVALE
-#include <iostream>
-#define DEBUG_GRILLE
-#define DEBUG_FLOTTE
-#define DEBUG_JOUEUR
-#endif
+#include "debug.h"
 
 using namespace std;
 
@@ -43,6 +37,11 @@ BatailleNavale::~BatailleNavale()
 #endif
 }
 
+IHM* BatailleNavale::getInterface() const
+{
+    return interface;
+}
+
 void BatailleNavale::demarrerPartie()
 {
 #ifdef DEBUG_BATAILLENAVALE
@@ -73,29 +72,31 @@ void BatailleNavale::initialiserJoueurs()
 void BatailleNavale::initialiserFlottes()
 {
     interface->saisirDisposition(joueur1->getFlotte());
-    interface->afficherGrille(joueur1);
+    interface->afficherGrille(joueur1->getGrillePrivee());
 
-    joueur2->getFlotte()->genererAleatoirement(joueur2->getGrille());
+    joueur2->getFlotte()->genererAleatoirement();
 #ifndef DEBUG_BATAILLENAVALE
-    interface->afficherGrille(joueur2);
+    interface->afficherGrille(joueur2->getGrillePrivee());
 #endif
 }
 
-void BatailleNavale::deroulementPartie()
+Joueur* BatailleNavale::jouer()
 {
-    bool partieFini = false;
-    while(!partieFini)
+    while(true)
     {
-        interface->jeuJoueur();
-        interface->gestionCoup(joueur2->getFlotte()->tirer(interface->saisirCoup()));
-        interface->jeuMachine();
-        interface->gestionCoup(
-          joueur1->getFlotte()->tirer(interface->genererCoordonneesAleatoires()));
+        interface->afficherJeu(joueur1, joueur2);
+        interface->inviterASaisir();
+        interface->gererCoup(joueur1, interface->saisirCoup(), joueur2);
+        if(joueur2->aPerdu())
+            return joueur1;
+        interface->gererCoup(joueur2, joueur2->genererCoordonneeAleatoire(), joueur1);
+        if(joueur1->aPerdu())
+            return joueur2;
+        interface->dormir(3);
     }
 }
 
-void BatailleNavale::afficherGrilles()
+void BatailleNavale::finirPartie(Joueur* vainqueur)
 {
-    interface->afficherGrille(joueur1);
-    interface->afficherGrille(joueur2);
+    interface->afficherVainqueur(vainqueur);
 }
